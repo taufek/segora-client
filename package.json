@@ -1,7 +1,10 @@
 {
   "name": "segoraclient",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.8.8",
+    "gzippo": "^0.2.0"
+  },
   "devDependencies": {
     "express": "^4.8.8",
     "grunt": "^0.4.1",
