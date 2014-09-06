@@ -194,6 +194,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
+          debugInfo: true,
           generatedImagesDir: '<%= yeoman.dist %>/images/generated'
         }
       },
@@ -379,7 +380,10 @@ module.exports = function (grunt) {
         'compass:dist',
         'imagemin',
         'svgmin'
-      ]
+      ],
+      options: {
+          logConcurrentOutput: true
+      }
     },
 
     // Test settings
@@ -424,7 +428,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
-    'concurrent:dist',
+    // 'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngmin',
