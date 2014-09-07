@@ -29,7 +29,7 @@ angular
       })
       .when('/users', {
         templateUrl: 'views/users.html',
-        controller: 'usersListCtrl'
+        controller: 'UsersListCtrl'
       })
       .otherwise({
         redirectTo: '/'
