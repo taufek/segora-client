@@ -9,7 +9,7 @@
 	<tbody>
 		<tr ng-repeat="user in users">
 			<td>
-				{{user.full_name}}
+				<a href="#/users/{{user._id}}">{{user.full_name}}</a>
 			</td>
 		</tr>
 	</tbody>

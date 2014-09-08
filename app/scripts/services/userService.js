@@ -20,9 +20,14 @@ angular.module('segoraClientApp')
       },
       list: function(fn) {
         var users = User.query(function(){
-          console.log(users);
-          return fn(users);
+          // console.log(users);
+          fn(users);
         });
+      },
+      getById: function(id, fn) {
+        User.get({userId:id}, function(user) {
+          fn(user);
+       });
       }
     };
   });
