@@ -9,7 +9,8 @@ angular.module('segoraClientApp')
 
     var User = $resource(
       'http://segora-services.herokuapp.com/collections/user/:userId', 
-      {userId:'@id'}
+      {userId:'@id'},
+      {'update': {method : 'PUT', isArray: true}}
     );
    
 
