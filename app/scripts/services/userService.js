@@ -10,7 +10,10 @@ angular.module('segoraClientApp')
     var User = $resource(
       'http://segora-services.herokuapp.com/collections/user/:userId', 
       {userId:'@id'},
-      {'update': {method : 'PUT', isArray: true}}
+      {
+        'save': {method : 'POST', isArray: true},
+        'update': {method : 'PUT', isArray: true}
+      }
     );
    
 
@@ -29,6 +32,9 @@ angular.module('segoraClientApp')
         User.get({userId:id}, function(user) {
           fn(user);
        });
+      },
+      createNew: function(fn){
+        fn(new User());
       }
     };
   });

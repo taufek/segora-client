@@ -8,14 +8,29 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserDetailCtrl', function ($scope, $route, userService) {
+  .controller('UserDetailCtrl', function ($scope, $route, $location, userService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    $scope.editMode = false;
+    var userId = $route.current.params.userId;
+
+    if(userId == 'new'){
+      $scope.editMode = true;
+      userService.createNew(function(user){
+        $scope.user = user;
+      })
+    }
+    else{
+      $scope.editMode = false;   
+
+      userService.getById(userId, function(user){
+      $scope.user = user; 
+    });   
+    }
+
 
     $scope.edit = function(){
       $scope.editMode = true;
@@ -23,18 +38,26 @@ angular.module('segoraClientApp')
 
     $scope.done = function(){
       $scope.editMode = false;
-    };
+    };   
 
-    var userId = $route.current.params.userId;
-
-    userService.getById(userId, function(user){
-    	$scope.user = user; 
-    });
+    
 
     $scope.save = function(){
       console.log($scope.user);
-      $scope.user._id = undefined;
-      $scope.user.$update({'userId':userId, 'test': true});
+      if($scope.user._id){
+        $scope.user._id = undefined;
+        $scope.user.$update({'userId':userId, 'test': true});
+      }
+      else{
+        $scope.user.$save();
+      }
+
+      $location.path('/users');
+    };
+
+    $scope.remove = function(){
+      console.log($scope.user);
+      $scope.user.$remove({'userId':userId});
     };
 
   });
