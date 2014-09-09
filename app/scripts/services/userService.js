@@ -12,7 +12,7 @@ angular.module('segoraClientApp')
       {userId:'@id'},
       {
         'save': {method : 'POST', isArray: true},
-        'update': {method : 'PUT', isArray: true}
+        'update': {method : 'PUT'}
       }
     );
    
@@ -35,6 +35,15 @@ angular.module('segoraClientApp')
       },
       createNew: function(fn){
         fn(new User());
+      },
+      save: function(userData, fn){
+        var user = new User();
+        user.full_name = userData.full_name;
+        user.user_name = userData.user_name;
+        user.$save({}, function(){
+          console.log('OK');
+          fn();
+        })
       }
     };
   });
