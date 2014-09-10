@@ -44,19 +44,19 @@ angular.module('segoraClientApp')
       if($scope.user._id){
         $scope.user._id = undefined;
         $scope.user.$update({'userId':userId, 'test': true}, function(){
-          $location.path('/users');
+          $location.path('/user');
         });
       }
       else{
         UserService.save($scope.user, function(){
-          $location.path('/users'); 
+          $location.path('/user'); 
         });        
       }      
     };
 
     $scope.remove = function(){
       $scope.user.$remove({'userId':userId}, function(){
-        $location.path('/users');
+        $location.path('/user');
       });
     };
 

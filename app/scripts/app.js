@@ -45,10 +45,14 @@ angular
             var addressId = $route.current.params.addressId;
             var objects = {};
 
-            // UserService.getById(userId, function(user){
-            //   var objects.user;
-            //   deferred.resolve(objects);
-            // });
+            // console.log(userId);
+
+            UserService.getById(userId, function(user){
+              objects.user = user;
+              objects.addressId = addressId;
+              objects.address = null;
+              deferred.resolve(objects);
+            });
 
             return deferred.promise;
           }
