@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: UserdetailCtrl', function () {
+describe('Controller: UserAddressDetailCtrl', function () {
 
   // load the controller's module
   beforeEach(module('segoraClientApp'));
 
-  var UserdetailCtrl,
+  var UserAddressDetailCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    UserdetailCtrl = $controller('UserdetailCtrl', {
+    UserAddressDetailCtrl = $controller('UserAddressDetailCtrl', {
       $scope: scope
     });
   }));

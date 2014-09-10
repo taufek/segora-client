@@ -34,6 +34,23 @@ angular
       .when('/users/:userId', {
         templateUrl: 'views/user-detail.html',
         controller: 'UserDetailCtrl'
+      })      
+      .when('/users/:userId/address/:addressId', {
+        templateUrl: 'views/user-address.html',
+        controller: 'UserAddressDetailCtrl',
+        resolve: {
+          data: function($q, $route) {
+            var deferred = $q.defer();
+            var userId = $route.current.params.userId;
+            var addressId = $route.current.params.addressId;
+            var objects = {};
+
+            deferred.resolve(objects);
+
+            return deferred.promise;
+          }
+            
+        }
       })
       .otherwise({
         redirectTo: '/'

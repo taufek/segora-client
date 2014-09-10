@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, userService) {
+  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, UserService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -19,16 +19,16 @@ angular.module('segoraClientApp')
 
     if(userId == 'new'){
       $scope.editMode = true;
-      userService.createNew(function(user){
+      UserService.createNew(function(user){
         $scope.user = user;
       })
     }
     else{
       $scope.editMode = false;   
 
-      userService.getById(userId, function(user){
-      $scope.user = user; 
-    });   
+      UserService.getById(userId, function(user){
+        $scope.user = user; 
+      });   
     }
 
 
@@ -48,7 +48,7 @@ angular.module('segoraClientApp')
         });
       }
       else{
-        userService.save($scope.user, function(){
+        UserService.save($scope.user, function(){
           $location.path('/users'); 
         });        
       }      

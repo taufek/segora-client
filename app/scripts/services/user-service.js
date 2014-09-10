@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('segoraClientApp')
-  .factory('userService', function ($resource) {
+  .factory('UserService', function ($resource) {
     // Service logic
     // ...
 
