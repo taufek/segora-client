@@ -37,13 +37,13 @@ angular.module('segoraClientApp')
         fn(new User());
       },
       save: function(userData, fn){
-        var user = new User();
-        user.full_name = userData.full_name;
-        user.user_name = userData.user_name;
-        user.$save({}, function(){
-          console.log('OK');
-          fn();
-        })
+        var user = angular.copy(userData);
+        user.$save()
+          .then(function(o, res){
+            fn();
+          });
+          // .catch(function(req) { console.log("error saving obj"); })
+          // .finally(function()  { console.log("always called") });
       }
     };
   });

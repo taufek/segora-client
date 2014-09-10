@@ -38,12 +38,9 @@ angular.module('segoraClientApp')
 
     $scope.done = function(){
       $scope.editMode = false;
-    };   
-
-    
+    };      
 
     $scope.save = function(){
-      console.log($scope.user);
       if($scope.user._id){
         $scope.user._id = undefined;
         $scope.user.$update({'userId':userId, 'test': true}, function(){
@@ -51,31 +48,13 @@ angular.module('segoraClientApp')
         });
       }
       else{
-        console.log($scope.user);
-
-        var userToSave = angular.copy($scope.user);
-
-        var promise = userToSave.$save();
-        console.log(promise);
-        promise.then(function(o, res)  { $location.path('/users'); })
-        .catch(function(req) { console.log("error saving obj"); })
-        .finally(function()  { console.log("always called") });
-        // userService.save($scope.user, function(){
-        //   $location.path('/users');
-        // });
-        // var promise = $scope.user.$save({}, function(){
-        //   console.log('saved');
-        // },
-        // function(){
-        //   console.log('error save');
-        // });
-        // promise
-        
+        userService.save($scope.user, function(){
+          $location.path('/users'); 
+        });        
       }      
     };
 
     $scope.remove = function(){
-      console.log($scope.user);
       $scope.user.$remove({'userId':userId}, function(){
         $location.path('/users');
       });
