@@ -27,25 +27,28 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when('/users', {
+      .when('/user', {
         templateUrl: 'views/users.html',
         controller: 'UsersListCtrl'
       })
-      .when('/users/:userId', {
+      .when('/user/:userId', {
         templateUrl: 'views/user-detail.html',
         controller: 'UserDetailCtrl'
       })      
-      .when('/users/:userId/address/:addressId', {
+      .when('/user/:userId/address/:addressId', {
         templateUrl: 'views/user-address.html',
         controller: 'UserAddressDetailCtrl',
         resolve: {
-          data: function($q, $route) {
+          data: function($q, $route, UserService) {
             var deferred = $q.defer();
             var userId = $route.current.params.userId;
             var addressId = $route.current.params.addressId;
             var objects = {};
 
-            deferred.resolve(objects);
+            // UserService.getById(userId, function(user){
+            //   var objects.user;
+            //   deferred.resolve(objects);
+            // });
 
             return deferred.promise;
           }
