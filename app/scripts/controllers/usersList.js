@@ -1,17 +1,14 @@
 'use strict';
 
 angular.module('segoraClientApp')
-  .controller('UsersListCtrl', function ($scope, UserService) {
+  .controller('UsersListCtrl', function ($scope, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    UserService.list(function(users){
-
-    	$scope.users = users;
-    });
+    $scope.users = data.users;
 
     
   });

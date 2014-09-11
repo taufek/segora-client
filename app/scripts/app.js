@@ -29,11 +29,49 @@ angular
       })
       .when('/user', {
         templateUrl: 'views/users.html',
-        controller: 'UsersListCtrl'
-      })
+        controller: 'UsersListCtrl',
+        resolve: {
+          data: 
+            ['$q', '$route', 'UserService',
+            function($q, $route, UserService) {
+            var deferred = $q.defer();
+            var objects = {};
+
+            UserService.list(function(users){
+              objects.users = users;
+              deferred.resolve(objects);
+              
+            });
+
+            return deferred.promise;
+          }]            
+        }
+      })  
       .when('/user/:userId', {
         templateUrl: 'views/user-detail.html',
-        controller: 'UserDetailCtrl'
+        controller: 'UserDetailCtrl',
+        resolve: {
+          data: 
+            ['$q', '$route', 'UserService', 'AddressService',
+            function($q, $route, UserService, AddressService) {
+            var deferred = $q.defer();
+            var userId = $route.current.params.userId;
+            var objects = {};
+
+            // console.log(userId);
+
+            UserService.getById(userId, function(user){
+              objects.user = user;
+              AddressService.getByUserId(userId, function(address){
+                objects.address = address;
+                objects.addressId = address ? address._id : null;
+                deferred.resolve(objects);
+              });
+            });
+
+            return deferred.promise;
+          }]            
+        }
       })      
       .when('/user/:userId/address/:addressId', {
         templateUrl: 'views/user-address.html',
@@ -54,6 +92,33 @@ angular
               objects.addressId = addressId;
               objects.address = null;
               deferred.resolve(objects);
+            });
+
+            return deferred.promise;
+          }]            
+        }
+      })      
+      .when('/user/:userId/payment', {
+        templateUrl: 'views/user-payments.html',
+        controller: 'UserPaymentsCtrl',
+        resolve: {
+          data: 
+            ['$q', '$route', 'UserService', 'PaymentService',
+            function($q, $route, UserService, PaymentService) {
+            var deferred = $q.defer();
+            var userId = $route.current.params.userId;
+            var objects = {};
+
+            // console.log(userId);
+
+            UserService.getById(userId, function(user){
+              objects.user = user;
+
+              PaymentService.getById(userId, function(payments){
+                objects.payments = payments;
+                deferred.resolve(objects);
+              });
+
             });
 
             return deferred.promise;

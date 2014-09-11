@@ -8,10 +8,13 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserPaymentsCtrl', function ($scope) {
+  .controller('UserPaymentsCtrl', function ($scope, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    $scope.payments = data.payments;
+    $scope.user = data.user;
   });

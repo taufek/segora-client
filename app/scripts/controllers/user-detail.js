@@ -8,19 +8,20 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, UserService, AddressService) {
+  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, UserService, AddressService, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    var userId = $route.current.params.userId;
+    var userId = data.userId;
+    $scope.user = data.user;
+    $scope.address = data.address;
 
     $scope.showAddressButton = false;
 
     AddressService.getByUserId(userId, function(address){
-      $scope.address = address;
       $scope.showAddressButton = true;
     });
 
