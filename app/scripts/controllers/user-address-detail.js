@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserAddressDetailCtrl', function ($scope, data) {
+  .controller('UserAddressDetailCtrl', function ($scope, $location, AddressService, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -21,18 +21,17 @@ angular.module('segoraClientApp')
 
     if($scope.addressId == 'null'){
       $scope.editMode = true;
-      // UserService.createNew(function(user){
-      //   $scope.user = user;
-      // })
+      AddressService.createNew($scope.user._id, function(address){
+        $scope.address = address;
+      });
     }
     else{
       $scope.editMode = false;   
 
-      // UserService.getById(userId, function(user){
-      //   $scope.user = user; 
-      // });   
+      AddressService.getById(addressId, function(address){
+        $scope.address = address; 
+      });   
     }
-
 
     $scope.edit = function(){
       $scope.editMode = true;
@@ -44,15 +43,15 @@ angular.module('segoraClientApp')
 
     $scope.save = function(){
       if($scope.address._id){
-        $scope.user._id = undefined;
-        $scope.user.$update({'userId':userId, 'test': true}, function(){
+        $scope.address._id = undefined;
+        $scope.address.$update({'addressId':addressId, 'test': true}, function(){
           $location.path('/user');
         });
       }
       else{
-        // UserService.save($scope.user, function(){
-        //   $location.path('/users'); 
-        // });        
+        AddressService.save($scope.address, function(){
+          $location.path('/users'); 
+        });        
       }      
     };
 
