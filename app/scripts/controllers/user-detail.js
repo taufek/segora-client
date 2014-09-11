@@ -19,12 +19,6 @@ angular.module('segoraClientApp')
     $scope.user = data.user;
     $scope.address = data.address;
 
-    $scope.showAddressButton = false;
-
-    AddressService.getByUserId(userId, function(address){
-      $scope.showAddressButton = true;
-    });
-
     if(userId == 'new'){
       $scope.editMode = true;
       UserService.createNew(function(user){
