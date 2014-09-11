@@ -33,8 +33,6 @@ angular.module('segoraClientApp')
       });   
     }
 
-    window.scope = $scope;
-
     $scope.getAddressId = function(){
       if($scope.address !== null && $scope.address){
         return $scope.address._id;

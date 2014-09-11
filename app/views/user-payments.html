@@ -1,9 +1,14 @@
 <h4>Payments</h4>
 
+<div style="margin-bottom:10px">
+    <a href="#/user/{{user._id}}/payment/new" class="btn btn-primary">New</a>
+</div>
+
 <table class="table" ng-show="payments.length">
 	<tbody>
 		<tr ng-repeat="payment in payments">
-			<td>{{payment.year payment.month}}</td>
+			<td><a href="#/user/{{user._id}}/payment/{{payment._id}}">{{payment._id}}</a></td>
+			<td>{{payment.month}}</td>
 		</tr>
 	</tbody>
 </table>

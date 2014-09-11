@@ -24,7 +24,7 @@ angular.module('segoraClientApp')
 	        Payment.get({paymentId:id}, function(payment) {
 	          fn(payment);
 	       	});
-    	},      
+    	},        
     	getByUserId : function(userId, fn) {
 	        Payment.getByUserId({userId:userId}, function(payments) {
 	          fn(payments);

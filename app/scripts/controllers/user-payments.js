@@ -15,6 +15,6 @@ angular.module('segoraClientApp')
       'Karma'
     ];
 
-    $scope.payments = data.payments;
     $scope.user = data.user;
+    $scope.payments = data.payments;
   });

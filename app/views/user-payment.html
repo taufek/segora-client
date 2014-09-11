@@ -1,0 +1,88 @@
+<h4>Payment</h4>
+
+<div ng-show="!editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="edit()">Edit</button>
+        <button class="btn btn-danger" ng-click="remove()">Remove</button>
+    </div>
+
+	<div class="form-group component">
+        <label>Year</label>
+        <div>{{payment.year}}</div>
+    </div>
+    <div class="form-group component">
+        <label>Month</label>
+        <div>{{payment.month}}</div>
+    </div>
+    <div class="form-group component">
+        <label>Amount</label>
+        <div>{{payment.amount}}</div>
+    </div>
+</div>
+
+<div ng-show="editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="save()">Save</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+    </div>
+
+	<form role="form" name="addressForm">
+
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input class="form-control" id="year" name="year"
+                   ng-model="payment.year" placeholder="Enter a year"
+                   required
+                   ng-minlength="4"
+                   ng-maxlength="4">
+            <span class="error text-danger" ng-show="addressForm.year.$error.required">
+                Required!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.year.$error.minlength">
+                Too short!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.year.$error.maxlength">
+                Too long!
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="street">Month</label>
+            <input class="form-control" id="month" name="month"
+                   ng-model="payment.month" placeholder="Enter a month"
+                   required
+                   ng-minlength="1"
+                   ng-maxlength="2">
+            <span class="error text-danger" ng-show="addressForm.month.$error.required">
+                Required!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.month.$error.minlength">
+                Too short!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.month.$error.maxlength">
+                Too long!
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="street">Amount</label>
+            <input class="form-control" id="amount" name="amount"
+                   ng-model="payment.amount" placeholder="Enter an amount"
+                   required
+                   ng-minlength="1"
+                   ng-maxlength="3">
+            <span class="error text-danger" ng-show="addressForm.amount.$error.required">
+                Required!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.amount.$error.minlength">
+                Too short!
+            </span>
+            <span class="error text-danger" ng-show="addressForm.amount.$error.maxlength">
+                Too long!
+            </span>
+        </div>
+
+    </form>
+</div>

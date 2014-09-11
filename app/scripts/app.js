@@ -114,10 +114,49 @@ angular
             UserService.getById(userId, function(user){
               objects.user = user;
 
-              PaymentService.getById(userId, function(payments){
+              PaymentService.getByUserId(userId, function(payments){
                 objects.payments = payments;
                 deferred.resolve(objects);
               });
+
+            });
+
+            return deferred.promise;
+          }]            
+        }
+      })   
+      .when('/user/:userId/payment/:paymentId', {
+        templateUrl: 'views/user-payment.html',
+        controller: 'UserPaymentDetailCtrl',
+        resolve: {
+          data: 
+            ['$q', '$route', 'UserService', 'PaymentService',
+            function($q, $route, UserService, PaymentService) {
+            var deferred = $q.defer();
+            var userId = $route.current.params.userId;
+            var paymentId = $route.current.params.paymentId;
+            var objects = {};
+            objects.paymentId = paymentId;
+            objects.userId = userId;
+
+            // console.log(userId);
+
+            UserService.getById(userId, function(user){
+              objects.user = user;
+
+              if(paymentId === 'new'){
+                PaymentService.createNew(userId, function(payment){
+                  objects.payment = payment;
+                  deferred.resolve(objects);
+                });
+              }
+              else{
+                PaymentService.getById(paymentId, function(payment){
+                  objects.payment = payment;
+                  deferred.resolve(objects);
+                });                
+              }
+
 
             });
 
