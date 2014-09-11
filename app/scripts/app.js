@@ -39,7 +39,9 @@ angular
         templateUrl: 'views/user-address.html',
         controller: 'UserAddressDetailCtrl',
         resolve: {
-          data: function($q, $route, UserService) {
+          data: 
+            ['$q', '$route', 'UserService',
+            function($q, $route, UserService) {
             var deferred = $q.defer();
             var userId = $route.current.params.userId;
             var addressId = $route.current.params.addressId;
@@ -55,8 +57,7 @@ angular
             });
 
             return deferred.promise;
-          }
-            
+          }]            
         }
       })
       .otherwise({
