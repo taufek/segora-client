@@ -28,7 +28,7 @@ angular.module('segoraClientApp')
     else{
       $scope.editMode = false;   
 
-      AddressService.getById(addressId, function(address){
+      AddressService.getById($scope.addressId, function(address){
         $scope.address = address; 
       });   
     }
@@ -56,7 +56,7 @@ angular.module('segoraClientApp')
     };
 
     $scope.remove = function(){
-      $scope.address.$remove({'addressId':addressId}, function(){
+      $scope.address.$remove({'addressId':$scope.addressId}, function(){
         $location.path('/address');
       });
     };

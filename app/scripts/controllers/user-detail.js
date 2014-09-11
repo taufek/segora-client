@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, UserService) {
+  .controller('UserDetailCtrl', function ($scope, $route, $location, $http, UserService, AddressService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -16,6 +16,13 @@ angular.module('segoraClientApp')
     ];
 
     var userId = $route.current.params.userId;
+
+    $scope.showAddressButton = false;
+
+    AddressService.getByUserId(userId, function(address){
+      $scope.address = address;
+      $scope.showAddressButton = true;
+    });
 
     if(userId == 'new'){
       $scope.editMode = true;
@@ -31,6 +38,14 @@ angular.module('segoraClientApp')
       });   
     }
 
+    window.scope = $scope;
+
+    $scope.getAddressId = function(){
+      if($scope.address !== null && $scope.address){
+        return $scope.address._id;
+      }
+      return 'null';
+    }
 
     $scope.edit = function(){
       $scope.editMode = true;

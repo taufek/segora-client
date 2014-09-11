@@ -14,7 +14,8 @@ angular.module('segoraClientApp')
       {addressId:'@_id'},
       {
         'save': {method : 'POST', isArray: true},
-        'update': {method : 'PUT'}
+        'update': {method : 'PUT'},
+        'getByUserId': {method : 'GET', isArray:true}
       }
     );
 
@@ -22,6 +23,11 @@ angular.module('segoraClientApp')
     	getById : function(id, fn) {
 	        Address.get({addressId:id}, function(address) {
 	          fn(address);
+	       	});
+    	},      
+    	getByUserId : function(userId, fn) {
+	        Address.getByUserId({userId:userId}, function(addresses) {
+	          fn(addresses[0]);
 	       	});
     	},      
 	    createNew : function(userId, fn){
