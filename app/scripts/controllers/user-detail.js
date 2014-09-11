@@ -15,22 +15,16 @@ angular.module('segoraClientApp')
       'Karma'
     ];
 
-    var userId = data.userId;
+    $scope.userId = data.userId;
     $scope.user = data.user;
     $scope.address = data.address;
+    $scope.addressId = data.addressId;
 
-    if(userId == 'new'){
+    if($scope.userId == 'new'){
       $scope.editMode = true;
-      UserService.createNew(function(user){
-        $scope.user = user;
-      })
     }
     else{
-      $scope.editMode = false;   
-
-      UserService.getById(userId, function(user){
-        $scope.user = user; 
-      });   
+      $scope.editMode = false; 
     }
 
     $scope.getAddressId = function(){
@@ -51,7 +45,7 @@ angular.module('segoraClientApp')
     $scope.save = function(){
       if($scope.user._id){
         $scope.user._id = undefined;
-        $scope.user.$update({'userId':userId, 'test': true}, function(){
+        $scope.user.$update({'userId':$scope.userId, 'test': true}, function(){
           $location.path('/user');
         });
       }
@@ -63,7 +57,7 @@ angular.module('segoraClientApp')
     };
 
     $scope.remove = function(){
-      $scope.user.$remove({'userId':userId}, function(){
+      $scope.user.$remove({'userId':$scope.userId}, function(){
         $location.path('/user');
       });
     };

@@ -57,17 +57,28 @@ angular
             var deferred = $q.defer();
             var userId = $route.current.params.userId;
             var objects = {};
+            objects.userId = userId;
 
             // console.log(userId);
 
-            UserService.getById(userId, function(user){
-              objects.user = user;
-              AddressService.getByUserId(userId, function(address){
-                objects.address = address;
-                objects.addressId = address ? address._id : null;
+            if(userId === 'new'){
+              UserService.createNew(function(user){
+                objects.user = user;
+                objects.address = null;
+                objects.addressId = null;
                 deferred.resolve(objects);
               });
-            });
+            }
+            else{
+              UserService.getById(userId, function(user){
+                objects.user = user;
+                AddressService.getByUserId(userId, function(address){
+                  objects.address = address;
+                  objects.addressId = address ? address._id : null;
+                  deferred.resolve(objects);
+                });
+              });
+            }
 
             return deferred.promise;
           }]            
