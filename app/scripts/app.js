@@ -184,7 +184,7 @@ angular
                             var year = $route.current.params.year;
                             var objects = {};
                             objects.userId = userId;
-                            objects.currentYear = year;
+                            objects.selectedYear = year;
 
                             var currentYear = new Date().getFullYear();
 
@@ -267,11 +267,48 @@ angular
                                     code : "dec",
                                     checked : false
                                 }
-                            ]
+                            ];
+
+
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
-                                deferred.resolve(objects);
+
+                                PaymentService.getByUserIdAndYear(userId, objects.selectedYear, function(payments){
+                                    objects.payments = payments;
+
+
+
+                                    if(objects.payments && objects.payments.length > 0){
+
+                                        // var count = objects.payments.length * objects.months.length;
+                                        // var index = 0;
+
+                                        objects.months.forEach(function(month){
+                                            objects.payments.forEach(function(payment){
+                                                month.checked = false;
+                                                month.disabled = false;
+                                                if(!month.checked && payment.month == month.number){
+                                                    
+                                                    console.log(payment.month +" "+ month.number);
+                                                    month.checked = true;
+                                                    month.disabled = true;
+                                                    console.log(month);
+                                                }          
+                                                // index++;
+                                                // if(count == index){
+                                                //     console.log('render');
+                                                // }                                      
+                                            });
+                                        });
+                                    }
+
+                                    console.log('render');
+                                    console.log(objects.months);
+                                    deferred.resolve(objects);
+
+                                    
+                                });
                             });
 
                             return deferred.promise;

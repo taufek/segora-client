@@ -18,11 +18,10 @@ angular.module('segoraClientApp')
     $scope.months = data.months;
     $scope.years = data.years;
     $scope.userId = data.userId;
-    $scope.currentYear = data.curr
-    $scope.currentYear = data.currentYear;
+    $scope.selectedYear = data.selectedYear;
+    $scope.payments = data.payments;
 
     $scope.changeYear = function(){
-    	console.log($scope.currentYear);
-    	$location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.currentYear);
+    	$location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
     }
   });

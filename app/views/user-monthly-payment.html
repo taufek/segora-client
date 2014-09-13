@@ -1,4 +1,4 @@
-<h4>Monthly Payments for <select ng-model="currentYear" 
+<h4>Monthly Payments for <select ng-model="selectedYear" 
     ng-options="year for year in years" ng-change="changeYear()"></select>
 </h4>
 
@@ -14,9 +14,9 @@
         <div class="input-group" ng-repeat="month in months">            
              <span class="input-group-addon">
             <input type="checkbox" id="{{month.code}}" name="{{month.code}}"
-                   ng-model="month.checked">
+                   ng-model="month.checked" ng-disabled="{{month.disabled}}">
             </span>
-            <label class="form-control" for="jan">{{month.name}}</label>
+            <label class="form-control" for="{{month.code}}">{{month.name}}</label>
         </div>
     </form>
 </div>

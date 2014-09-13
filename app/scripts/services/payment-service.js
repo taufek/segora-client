@@ -42,6 +42,14 @@ angular.module('segoraClientApp')
                     fn(payments);
                 });
             },
+            getByUserIdAndYear: function(userId, year, fn) {
+                Payment.getByUserId({
+                    userId: userId,
+                    year: year
+                }, function(payments) {
+                    fn(payments);
+                });
+            },
             createNew: function(userId, fn) {
                 var payment = new Payment();
                 payment.userId = userId;
