@@ -392,8 +392,20 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    },
+
+    jsbeautifier : {
+      js: {
+          src : ["app/scripts/**/*.js"]
+      },
+      // css: {
+      //     src : ["app/styles/*.css"]
+      // }
+    },
   });
+
+
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {

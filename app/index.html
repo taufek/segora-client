@@ -94,7 +94,26 @@
         <script src="scripts/services/address-service.js"></script>
         <script src="scripts/controllers/user-payments.js"></script>
         <script src="scripts/services/payment-service.js"></script>
+        <script src="scripts/services/status-service.js"></script>
         <script src="scripts/controllers/user-payment-detail.js"></script>
         <!-- endbuild -->
+
+        <!-- Processing Modal -->
+        <div class="modal fade" id="progressBarModal" tabindex="-1" role="dialog" aria-labelledby="progressBarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Processing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress" ng-class="active" ng-cloak>
+                            <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

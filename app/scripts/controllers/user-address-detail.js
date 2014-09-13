@@ -8,57 +8,60 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserAddressDetailCtrl', function ($scope, $location, AddressService, data) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    .controller('UserAddressDetailCtrl', function($scope, $location, AddressService, data) {
+        $scope.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
 
-    $scope.user = data.user;
-    $scope.address = data.address;
-    $scope.addressId = data.addressId;
+        $scope.user = data.user;
+        $scope.address = data.address;
+        $scope.addressId = data.addressId;
 
-    if($scope.addressId == 'null'){
-      $scope.editMode = true;
-      AddressService.createNew($scope.user._id, function(address){
-        $scope.address = address;
-      });
-    }
-    else{
-      $scope.editMode = false;   
+        if ($scope.addressId == 'null') {
+            $scope.editMode = true;
+            AddressService.createNew($scope.user._id, function(address) {
+                $scope.address = address;
+            });
+        } else {
+            $scope.editMode = false;
 
-      AddressService.getById($scope.addressId, function(address){
-        $scope.address = address; 
-      });   
-    }
+            AddressService.getById($scope.addressId, function(address) {
+                $scope.address = address;
+            });
+        }
 
-    $scope.edit = function(){
-      $scope.editMode = true;
-    };
+        $scope.edit = function() {
+            $scope.editMode = true;
+        };
 
-    $scope.done = function(){
-      $scope.editMode = false;
-    };      
+        $scope.done = function() {
+            $scope.editMode = false;
+        };
 
-    $scope.save = function(){
-      if($scope.address._id){
-        $scope.address._id = undefined;
-        $scope.address.$update({'addressId':addressId, 'test': true}, function(){
-          $location.path('/user');
-        });
-      }
-      else{
-        AddressService.save($scope.address, function(){
-          $location.path('/users'); 
-        });        
-      }      
-    };
+        $scope.save = function() {
+            if ($scope.address._id) {
+                $scope.address._id = undefined;
+                $scope.address.$update({
+                    'addressId': addressId,
+                    'test': true
+                }, function() {
+                    $location.path('/user');
+                });
+            } else {
+                AddressService.save($scope.address, function() {
+                    $location.path('/users');
+                });
+            }
+        };
 
-    $scope.remove = function(){
-      $scope.address.$remove({'addressId':$scope.addressId}, function(){
-        $location.path('/address');
-      });
-    };
+        $scope.remove = function() {
+            $scope.address.$remove({
+                'addressId': $scope.addressId
+            }, function() {
+                $location.path('/address');
+            });
+        };
 
-  });
+    });
