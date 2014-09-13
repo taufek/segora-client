@@ -118,7 +118,7 @@ angular
                             var userId = $route.current.params.userId;
                             var objects = {};
 
-                            // console.log(userId);
+                            objects.currentYear = new Date().getFullYear();
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
@@ -166,6 +166,112 @@ angular
                                 }
 
 
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
+            .when('/user/:userId/monthly_payment/:year', {
+                templateUrl: 'views/user-monthly-payment.html',
+                controller: 'UserMonthlyPaymentCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'UserService', 'PaymentService',
+                        function($q, $route, UserService, PaymentService) {
+                            var deferred = $q.defer();
+                            var userId = $route.current.params.userId;
+                            var year = $route.current.params.year;
+                            var objects = {};
+                            objects.userId = userId;
+                            objects.currentYear = year;
+
+                            var currentYear = new Date().getFullYear();
+
+                            objects.years = [
+                                (currentYear-1).toString(), 
+                                (currentYear).toString(), 
+                                (currentYear+1).toString()];
+
+                            objects.months =
+                            [
+                                {
+                                    name : "January", 
+                                    number : "1",
+                                    code : "jan",
+                                    checked : false
+                                },
+                                {
+                                    name : "February",
+                                    number : "2",
+                                    code : "feb",
+                                    checked : false
+                                },
+                                {
+                                    name : "March",
+                                    number : "3",
+                                    code : "mar",
+                                    checked : false
+                                },
+                                {
+                                    name : "April",
+                                    number : "4",
+                                    code : "apr",
+                                    checked : false
+                                },
+                                {
+                                    name : "May",
+                                    number : "5",
+                                    code : "may",
+                                    checked : false
+                                },
+                                {
+                                    name : "Jun",
+                                    number : "6",
+                                    code : "jun",
+                                    checked : false
+                                },
+                                {
+                                    name : "July",
+                                    number : "7",
+                                    code : "jul",
+                                    checked : false
+                                },
+                                {
+                                    name : "August",
+                                    number : "8",
+                                    code : "aug",
+                                    checked : false
+                                },
+                                {
+                                    name : "September",
+                                    number : "9",
+                                    code : "sep",
+                                    checked : false
+                                },
+                                {
+                                    name : "October",
+                                    number : "10",
+                                    code : "oct",
+                                    checked : false
+                                },
+                                {
+                                    name : "November",
+                                    number : "11",
+                                    code : "nov",
+                                    checked : false
+                                },
+                                {
+                                    name : "December",
+                                    number : "12",
+                                    code : "dec",
+                                    checked : false
+                                }
+                            ]
+
+                            UserService.getById(userId, function(user) {
+                                objects.user = user;
+                                deferred.resolve(objects);
                             });
 
                             return deferred.promise;

@@ -17,4 +17,5 @@ angular.module('segoraClientApp')
 
         $scope.user = data.user;
         $scope.payments = data.payments;
+        $scope.currentYear = data.currentYear;
     });
