@@ -308,15 +308,7 @@ angular
                                                 deferred.resolve(objects);
                                             }   
                                         }
-                                    });
-
-
-
-                                    
-
-                                    
-
-                                    
+                                    });   
                                 });
                             });
 

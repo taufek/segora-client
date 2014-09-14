@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, data) {
+  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, PaymentService, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -20,8 +20,38 @@ angular.module('segoraClientApp')
     $scope.userId = data.userId;
     $scope.selectedYear = data.selectedYear;
     $scope.payments = data.payments;
+    $scope.paymentsToProcess = [];
 
     $scope.changeYear = function(){
     	$location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
+    }
+
+    $scope.save = function(){
+
+      $scope.months.forEach(function(month){
+
+        if(month.checked && !month.disabled){
+          $scope.paymentsToProcess.push(month);
+        }
+      });
+
+      var count = $scope.paymentsToProcess.length;
+      var index = 0;
+
+      $scope.paymentsToProcess.forEach(function(month){
+        PaymentService.createNew($scope.userId, function(payment){    
+          payment.year = $scope.selectedYear;        
+          payment.month = month.number;
+          payment.amount = 80;
+          PaymentService.save(payment, function(){
+            index++;
+            if(count == index){
+              $location.path('/user/'+$scope.userId+'/payment');
+            }
+          });          
+        });
+
+      });
+
     }
   });
