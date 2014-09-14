@@ -276,36 +276,45 @@ angular
 
                                 PaymentService.getByUserIdAndYear(userId, objects.selectedYear, function(payments){
                                     objects.payments = payments;
+                                    var count = objects.payments.length * objects.months.length;
+                                    var index = 0;
 
-
-
-                                    if(objects.payments && objects.payments.length > 0){
-
-                                        // var count = objects.payments.length * objects.months.length;
-                                        // var index = 0;
-
-                                        objects.months.forEach(function(month){
-                                            objects.payments.forEach(function(payment){
-                                                month.checked = false;
-                                                month.disabled = false;
-                                                if(!month.checked && payment.month == month.number){
-                                                    
-                                                    console.log(payment.month +" "+ month.number);
-                                                    month.checked = true;
-                                                    month.disabled = true;
-                                                    console.log(month);
-                                                }          
-                                                // index++;
-                                                // if(count == index){
-                                                //     console.log('render');
-                                                // }                                      
-                                            });
-                                        });
+                                    if(count == 0){
+                                        count = objects.months.length;
                                     }
 
-                                    console.log('render');
-                                    console.log(objects.months);
-                                    deferred.resolve(objects);
+                                    objects.months.forEach(function(month){
+                                        month.checked = false;
+                                        month.disabled = false;
+
+                                        if(objects.payments && objects.payments.length > 0){                                            
+
+                                            objects.payments.forEach(function(payment){
+                                                if(!month.checked && payment.month == month.number){
+                                                    month.checked = true;
+                                                    month.disabled = true;
+                                                }                                  
+
+                                                index++;
+                                                if(count == index){
+                                                    deferred.resolve(objects);
+                                                }    
+
+                                            });      
+                                        }
+                                        else{
+                                            index++;
+                                            if(count == index){
+                                                deferred.resolve(objects);
+                                            }   
+                                        }
+                                    });
+
+
+
+                                    
+
+                                    
 
                                     
                                 });
