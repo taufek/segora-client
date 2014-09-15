@@ -8,9 +8,9 @@
  * Service in the segoraClientApp.
  */
 angular.module('segoraClientApp')
-    .service('PaymentService', function($resource) {
+    .service('PaymentService', function($resource, Settings) {
         var Payment = $resource(
-            'http://segora-services.herokuapp.com/collections/payment/:paymentId', {
+            Settings.backendHost+'/collections/payment/:paymentId', {
                 paymentId: '@_id'
             }, {
                 'save': {

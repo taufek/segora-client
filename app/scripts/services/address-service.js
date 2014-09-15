@@ -8,9 +8,9 @@
  * Service in the segoraClientApp.
  */
 angular.module('segoraClientApp')
-    .service('AddressService', function($resource) {
+    .service('AddressService', function($resource, Settings) {
         var Address = $resource(
-            'http://segora-services.herokuapp.com/collections/address/:addressId', {
+            Settings.backendHost+'/collections/address/:addressId', {
                 addressId: '@_id'
             }, {
                 'save': {

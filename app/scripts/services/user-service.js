@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('UserService', function($resource) {
+    .factory('UserService', function($resource, Settings) {
         // Service logic
         // ...
 
         var meaningOfLife = 42;
 
         var User = $resource(
-            'http://segora-services.herokuapp.com/collections/user/:userId', {
+            Settings.backendHost+'/collections/user/:userId', {
                 userId: '@id'
             }, {
                 'save': {
