@@ -7,6 +7,7 @@ angular.module('segoraClientApp')
                 $rootScope.alertType = "";
                 $rootScope.alertMessage = "";
                 $rootScope.active = "progress-success";
+
                 $('#progressBarModal').modal('hide');
                 // $('body').removeClass('modal-open');
                 // $('.modal-backdrop').remove();
@@ -16,6 +17,7 @@ angular.module('segoraClientApp')
                 $rootScope.alertMessage = "";
                 $rootScope.active = "progress-striped active progress-warning";
                 // $('body').addClass('modal-open');
+                $('#progressBarModal').modal('hide');
                 $('#progressBarModal').modal('show');
             },
             stop: function(message) {

@@ -19,7 +19,7 @@ angular
     ])
     .config(function($routeProvider) {
         $routeProvider
-            .when('/', {
+            .when('/home', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
@@ -322,7 +322,7 @@ angular
                 }
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/home'
             });
     });
 
@@ -337,6 +337,7 @@ angular.module("segoraClientApp")
     $rootScope.$on("$routeChangeSuccess", function(event, current, previous) {
         StatusService.default();
     });
+   
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
         StatusService.error("Failed to change routes :(");
     });
