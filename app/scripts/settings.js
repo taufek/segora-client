@@ -5,5 +5,5 @@ angular.module("segoraClientApp")
     appName: "SEGORA",
     // backendHost: "http://segora-services.herokuapp.com",
     backendHost: "http://localhost:3000",
-    rowCount: 15
+    rowCount: 10
 });

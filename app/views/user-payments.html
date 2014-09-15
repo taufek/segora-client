@@ -15,6 +15,11 @@
 	</tbody>
 </table>
 
+<ul class="pager" ng-show="payments.length">
+  <li><a ng-click="previous()" ng-show="showPrevious()">Previous</a></li>
+  <li><a ng-click="next()" ng-show="showNext()">Next</a></li>
+</ul>
+
 <div class="panel" ng-show="!payments.length">
 No data.
 </div>

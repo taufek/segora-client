@@ -112,18 +112,22 @@ angular
                 templateUrl: 'views/user-payments.html',
                 controller: 'UserPaymentsCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'UserService', 'PaymentService',
-                        function($q, $route, UserService, PaymentService) {
+                    data: ['$q', '$route', '$location', 'UserService', 'PaymentService', 'Settings',
+                        function($q, $route, $location, UserService, PaymentService, Settings) {
                             var deferred = $q.defer();
                             var userId = $route.current.params.userId;
                             var objects = {};
+                            var rowCount = Settings.rowCount;
+                            var page = $location.search().page ? $location.search().page : 1;
+                            objects.page = page;
+                            objects.rowCount = rowCount;    
 
                             objects.currentYear = new Date().getFullYear();
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
 
-                                PaymentService.getByUserId(userId, function(payments) {
+                                PaymentService.getByUserId(userId, rowCount, page, function(payments) {
                                     objects.payments = payments;
                                     deferred.resolve(objects);
                                 });

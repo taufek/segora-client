@@ -35,9 +35,13 @@ angular.module('segoraClientApp')
                     fn(payment);
                 });
             },
-            getByUserId: function(userId, fn) {
+            getByUserId: function(userId, limit, page, fn) {
+                var paramLimit = limit;
+                var paramPage = page;
                 Payment.getByUserId({
-                    userId: userId
+                    userId: userId,
+                    limit: paramLimit,
+                    skip: ((paramPage*paramLimit)-(paramLimit))
                 }, function(payments) {
                     fn(payments);
                 });
