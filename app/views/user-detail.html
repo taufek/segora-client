@@ -1,10 +1,11 @@
-
+<h4>User</h4>
 
 <div ng-show="!editMode">
 
     <div style="margin-bottom:10px">
         <button class="btn btn-primary" ng-click="edit()">Edit</button>
-        <button class="btn btn-danger" ng-click="remove()">Remove</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+        <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
         <a class="btn btn-default" href="#/user/{{user._id}}/address/{{getAddressId()}}">Address</a>
         <a class="btn btn-default" href="#/user/{{user._id}}/monthly_payment/{{currentYear}}">Payments</a>
     </div>

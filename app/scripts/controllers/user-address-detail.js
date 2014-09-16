@@ -36,8 +36,14 @@ angular.module('segoraClientApp')
             $scope.editMode = true;
         };
 
+        
         $scope.done = function() {
-            $scope.editMode = false;
+            if($scope.editMode){
+                $scope.editMode = false;
+            }
+            else{
+                $location.path('/user/'+$scope.user._id);
+            }
         };
 
         $scope.save = function() {
