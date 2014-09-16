@@ -51,7 +51,8 @@ angular.module('segoraClientApp')
           PaymentService.save(payment, function(){
             index++;
             if(count == index){
-              $location.path('/user/'+$scope.userId+'/payment');
+              $location.search('refresh', new Date().getTime());
+              $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
             }
           });          
         });
