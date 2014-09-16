@@ -47,7 +47,7 @@ angular.module('segoraClientApp')
                 var user = angular.copy(userData);
                 user.$save()
                     .then(function(o, res) {
-                        fn();
+                        fn(o);
                     });
                 // .catch(function(req) { console.log("error saving obj"); })
                 // .finally(function()  { console.log("always called") });

@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserDetailCtrl', function($scope, $route, $location, $http, UserService, AddressService, data) {
+    .controller('UserDetailCtrl', function($scope, $route, $location, $http, UserService, AddressService, StatusService, data) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -50,8 +50,11 @@ angular.module('segoraClientApp')
         $scope.save = function() {
             if ($scope.user._id) {
 
+                StatusService.start();
+
                 UserService.update($scope.user, function(o){
                     $scope.editMode = false;
+                    StatusService.stop();
                 });
 
                 // $scope.user.$update({

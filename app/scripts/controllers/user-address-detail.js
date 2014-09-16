@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserAddressDetailCtrl', function($scope, $location, AddressService, data) {
+    .controller('UserAddressDetailCtrl', function($scope, $location, AddressService, StatusService, data) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -48,15 +48,10 @@ angular.module('segoraClientApp')
 
         $scope.save = function() {
             if ($scope.address._id) {
-                // $scope.address._id = undefined;
-                // $scope.address.$update({
-                //     'addressId': addressId,
-                //     'test': true
-                // }, function() {
-                //     $location.path('/user/'+$scope.user._id);
-                // });
+                StatusService.start();
                 AddressService.update($scope.address, function(o) {
                     $scope.editMode = false;
+                    StatusService.stop();
                 });
             } else {
                 AddressService.save($scope.address, function(o) {
