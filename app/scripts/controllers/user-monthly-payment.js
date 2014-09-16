@@ -18,6 +18,7 @@ angular.module('segoraClientApp')
     $scope.months = data.months;
     $scope.years = data.years;
     $scope.userId = data.userId;
+    $scope.user = data.user;
     $scope.selectedYear = data.selectedYear;
     $scope.payments = data.payments;
     $scope.paymentsToProcess = [];
