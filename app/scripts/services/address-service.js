@@ -54,6 +54,17 @@ angular.module('segoraClientApp')
                         console.log(o);
                         fn(o);
                     });
+            },
+            update: function(addressData, fn) {
+                var address = angular.copy(addressData);
+                address._id = undefined;
+                address.$update({
+                    'addressId': addressData._id,
+                    'test': true
+                    })
+                    .then(function(o, res) {
+                        fn();
+                    });
             }
         }
 

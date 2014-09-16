@@ -49,16 +49,21 @@ angular.module('segoraClientApp')
 
         $scope.save = function() {
             if ($scope.user._id) {
-                $scope.user._id = undefined;
-                $scope.user.$update({
-                    'userId': $scope.userId,
-                    'test': true
-                }, function() {
-                    $location.path('/user');
+
+                UserService.update($scope.user, function(o){
+                    $scope.editMode = false;
                 });
+
+                // $scope.user.$update({
+                //     'userId': $scope.userId,
+                //     'test': true
+                // }, function() {
+                //     // $location.path('/user/'+$scope.userId);
+                //     $scope.editMode = false;
+                // });
             } else {
-                UserService.save($scope.user, function() {
-                    $location.path('/user');
+                UserService.save($scope.user, function(o) {
+                    $location.path('/user/'+o[0]._id);
                 });
             }
         };

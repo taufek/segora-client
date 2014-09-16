@@ -7,7 +7,7 @@
  * # UserTab
  */
 angular.module('segoraClientApp')
-  .directive('userTab', function (AddressService) {
+  .directive('userTab', ['AddressService', function (AddressService) {
     return {
       restrict: 'E',
       templateUrl: 'templates/user-tab.html',
@@ -43,4 +43,4 @@ angular.module('segoraClientApp')
         }
       }
     };
-  });
+  }]);

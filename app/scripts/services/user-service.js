@@ -51,6 +51,19 @@ angular.module('segoraClientApp')
                     });
                 // .catch(function(req) { console.log("error saving obj"); })
                 // .finally(function()  { console.log("always called") });
+            },
+            update: function(userData, fn) {
+                var user = angular.copy(userData);
+                user._id = undefined;
+                user.$update({
+                    'userId': userData._id,
+                    'test': true
+                    })
+                    .then(function(o, res) {
+                        fn();
+                    });
+                // .catch(function(req) { console.log("error saving obj"); })
+                // .finally(function()  { console.log("always called") });
             }
         };
     });

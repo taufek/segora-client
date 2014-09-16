@@ -48,16 +48,19 @@ angular.module('segoraClientApp')
 
         $scope.save = function() {
             if ($scope.address._id) {
-                $scope.address._id = undefined;
-                $scope.address.$update({
-                    'addressId': addressId,
-                    'test': true
-                }, function() {
-                    $location.path('/user');
+                // $scope.address._id = undefined;
+                // $scope.address.$update({
+                //     'addressId': addressId,
+                //     'test': true
+                // }, function() {
+                //     $location.path('/user/'+$scope.user._id);
+                // });
+                AddressService.update($scope.address, function(o) {
+                    $scope.editMode = false;
                 });
             } else {
-                AddressService.save($scope.address, function() {
-                    $location.path('/users');
+                AddressService.save($scope.address, function(o) {
+                    $location.path('/user/'+$scope.user._id+'/address/'+o[0]._id);
                 });
             }
         };
@@ -66,7 +69,7 @@ angular.module('segoraClientApp')
             $scope.address.$remove({
                 'addressId': $scope.addressId
             }, function() {
-                $location.path('/address');
+                $location.path('/user/'+$scope.user._id);
             });
         };
 
