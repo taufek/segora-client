@@ -26,6 +26,10 @@ angular.module('segoraClientApp')
     	$location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
     }
 
+    $scope.done = function(){
+      return $location.path('/user/'+$scope.userId);
+    }
+
     $scope.save = function(){
 
       $scope.months.forEach(function(month){

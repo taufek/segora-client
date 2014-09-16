@@ -19,6 +19,7 @@ angular.module('segoraClientApp')
         $scope.user = data.user;
         $scope.address = data.address;
         $scope.addressId = data.addressId;
+        $scope.currentYear = new Date().getFullYear();
 
         if ($scope.userId == 'new') {
             $scope.editMode = true;

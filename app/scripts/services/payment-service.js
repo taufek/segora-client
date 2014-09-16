@@ -49,7 +49,9 @@ angular.module('segoraClientApp')
             getByUserIdAndYear: function(userId, year, fn) {
                 Payment.getByUserId({
                     userId: userId,
-                    year: year
+                    year: year,
+                    limit: 12,
+                    skip: 0
                 }, function(payments) {
                     fn(payments);
                 });
