@@ -10,7 +10,7 @@ angular.module('segoraClientApp')
   .directive('userTab', ['AddressService', function (AddressService) {
     return {
       restrict: 'E',
-      templateUrl: 'templates/user-tab.html',
+      templateUrl: 'views/templates/user-tab.html',
       scope: {
       	user: '=',
       	activeTab: '@'
