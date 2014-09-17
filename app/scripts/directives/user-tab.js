@@ -7,7 +7,7 @@
  * # UserTab
  */
 angular.module('segoraClientApp')
-  .directive('userTab', ['AddressService', function (AddressService) {
+  .directive('userTab', ['$location', 'AddressService', function ($location, AddressService) {
     return {
       restrict: 'E',
       templateUrl: 'views/templates/user-tab.html',
@@ -33,13 +33,54 @@ angular.module('segoraClientApp')
 
         scope.getCurrentYear = function(){
           return scope.currentYear;
+        }      
+
+
+        scope.getUserLink = function(){
+
+          if(scope.user._id !== undefined){
+            return "#/user/"+scope.user._id;
+          }
+          else{
+            return '#' + $location.path();
+          }
+        }
+
+        scope.getAddressLink = function(){
+
+          if(scope.user._id !== undefined){
+            return "#/user/"+scope.user._id+"/address/"+scope.getAddressId();
+          }
+          else{
+            return '#' + $location.path();
+          }
+        }
+
+        scope.getPaymentLink = function(){
+          if(scope.user._id !== undefined){
+            return "#/user/"+scope.user._id+"/monthly_payment/"+scope.getCurrentYear();
+          }
+          else{
+            return '#' + $location.path();
+          }
         }
 
         scope.isActive = function(activeTab){
+          var disabled = "";
+          
+          if(scope.user._id == undefined){
+            disabled = "disabled";
+          }          
+
           if(scope.activeTab == activeTab){
-            return "active";
+            return "active " + disabled;
           }
-          return "";
+          return ""+disabled;
+        }
+
+        scope.isDisabled = function(){
+          
+
         }
       }
     };
