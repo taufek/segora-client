@@ -48,9 +48,9 @@ angular.module('segoraClientApp')
         };
 
         $scope.save = function() {
+            StatusService.start();
             if ($scope.user._id) {
 
-                StatusService.start();
 
                 UserService.update($scope.user, function(o){
                     $scope.editMode = false;
@@ -71,10 +71,12 @@ angular.module('segoraClientApp')
             }
         };
 
+
+
         $scope.remove = function() {
-            $scope.user.$remove({
-                'userId': $scope.userId
-            }, function() {
+
+            StatusService.start();
+            UserService.remove($scope.user, function(){
                 $location.path('/user');
             });
         };
