@@ -47,8 +47,8 @@ angular.module('segoraClientApp')
         };
 
         $scope.save = function() {
+            StatusService.start();
             if ($scope.address._id) {
-                StatusService.start();
                 AddressService.update($scope.address, function(o) {
                     $scope.editMode = false;
                     StatusService.stop();
@@ -61,10 +61,9 @@ angular.module('segoraClientApp')
         };
 
         $scope.remove = function() {
-            $scope.address.$remove({
-                'addressId': $scope.addressId
-            }, function() {
-                $location.path('/user/'+$scope.user._id);
+            StatusService.start();
+            AddressService.remove($scope.address, function(){
+                $location.path('/user/'+$scope.user._id+'/address/null');
             });
         };
 

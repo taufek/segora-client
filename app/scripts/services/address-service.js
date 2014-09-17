@@ -59,8 +59,17 @@ angular.module('segoraClientApp')
                 var address = angular.copy(addressData);
                 address._id = undefined;
                 address.$update({
-                    'addressId': addressData._id,
-                    'test': true
+                    'addressId': addressData._id
+                    })
+                    .then(function(o, res) {
+                        fn();
+                    });
+            },          
+            remove: function(addressData, fn) {
+                var address = angular.copy(addressData);
+                address._id = undefined;
+                address.$remove({
+                    'addressId': addressData._id
                     })
                     .then(function(o, res) {
                         fn();
