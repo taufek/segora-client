@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, PaymentService, data) {
+  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, PaymentService, StatusService, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -32,6 +32,7 @@ angular.module('segoraClientApp')
     }
 
     $scope.save = function(){
+      StatusService.start();
 
       $scope.months.forEach(function(month){
 
@@ -59,5 +60,13 @@ angular.module('segoraClientApp')
 
       });
 
+    }
+
+    $scope.remove = function(paymentId){
+      StatusService.start();  
+      PaymentService.remove(paymentId, function(){
+        $location.search('refresh', new Date().getTime());
+        $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
+      });
     }
   });

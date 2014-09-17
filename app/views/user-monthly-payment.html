@@ -14,11 +14,14 @@
 	<form role="form" name="addressForm">
 
         <div class="input-group" ng-repeat="month in months">            
-             <span class="input-group-addon">
-            <input type="checkbox" id="{{month.code}}" name="{{month.code}}"
-                   ng-model="month.checked" ng-disabled="{{month.disabled}}">
+            <span class="input-group-addon">
+                <input type="checkbox" id="{{month.code}}" name="{{month.code}}"
+                   ng-model="month.checked" ng-disabled="{{month.disabled}}">                
             </span>
-            <label class="form-control" for="{{month.code}}">{{month.name}}</label>
+            <div class="form-control">
+                <label  for="{{month.code}}">{{month.name}}</label>
+                <a ng-show="month.payment" href="" ng-click="remove(month.payment._id)"><span style="color:#F73640" class="glyphicon glyphicon-remove pull-right"></span></a>
+            </div>
         </div>
     </form>
 </div>

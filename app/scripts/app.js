@@ -290,6 +290,7 @@ angular
                                     objects.months.forEach(function(month){
                                         month.checked = false;
                                         month.disabled = false;
+                                        month.payment = null;
 
                                         if(objects.payments && objects.payments.length > 0){                                            
 
@@ -297,6 +298,7 @@ angular
                                                 if(!month.checked && payment.month == month.number){
                                                     month.checked = true;
                                                     month.disabled = true;
+                                                    month.payment = payment;
                                                 }                                  
 
                                                 index++;

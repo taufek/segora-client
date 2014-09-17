@@ -68,6 +68,26 @@ angular.module('segoraClientApp')
                         console.log(o);
                         fn(o);
                     });
+            },
+            update: function(paymentData, fn) {
+                var payment = angular.copy(paymentData);
+                payment._id = undefined;
+                payment.$update({
+                    'paymentId': paymentData._id
+                    })
+                    .then(function(o, res) {
+                        fn();
+                    });
+            },            
+            remove: function(paymentId, fn) {
+
+                this.getById(paymentId, function(payment){
+                    payment.$remove()
+                        .then(function(o, res) {
+                            fn();
+                        });                    
+                });
+
             }
         }
     });
