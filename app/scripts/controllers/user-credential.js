@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserCredentialDetailCtrl', function($scope, $location, CredentialService, StatusService, data) {
+    .controller('UserCredentialDetailCtrl', function($scope, $location, CredentialService, StatusService, FlashService, data) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -52,12 +52,14 @@ angular.module('segoraClientApp')
             StatusService.start();
 
             if(!$scope.credentialForm.$valid){
-                StatusService.stop("Not valid");
+                StatusService.stop("");
+                FlashService.setMessage('Not valid', 'danger', true);
                 return false;
             }
 
             if($scope.credential.password !== $scope.credential.confirmPassword){
-                StatusService.stop("Password does not match!");
+                StatusService.stop("");
+                FlashService.setMessage('Password does not match!', 'danger', true);
                 return false;
             }
 
@@ -66,10 +68,12 @@ angular.module('segoraClientApp')
                 CredentialService.update($scope.credential, function(o) {
                     $scope.editMode = false;
                     StatusService.stop();
+                    FlashService.setMessage('Updated.', 'success', true);
                 });
             } else {
                 CredentialService.save($scope.credential, function(o) {
                     $location.path('/user/'+$scope.user._id+'/credential/'+o[0]._id);
+                    FlashService.setMessage('Saved.', 'success');
                 });
             }
         };
