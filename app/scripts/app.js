@@ -108,6 +108,31 @@ angular
                     ]
                 }
             })
+            .when('/user/:userId/credential/:credentialId', {
+                templateUrl: 'views/user-credential.html',
+                controller: 'UserCredentialDetailCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'UserService',
+                        function($q, $route, UserService) {
+                            var deferred = $q.defer();
+                            var userId = $route.current.params.userId;
+                            var credentialId = $route.current.params.credentialId;
+                            var objects = {};
+
+                            // console.log(userId);
+
+                            UserService.getById(userId, function(user) {
+                                objects.user = user;
+                                objects.credentialId = credentialId;
+                                objects.credential = null;
+                                deferred.resolve(objects);
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
             .when('/user/:userId/payment', {
                 templateUrl: 'views/user-payments.html',
                 controller: 'UserPaymentsCtrl',

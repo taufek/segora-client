@@ -7,7 +7,8 @@
  * # UserTab
  */
 angular.module('segoraClientApp')
-  .directive('userTab', ['$location', 'AddressService', function ($location, AddressService) {
+  .directive('userTab', ['$location', 'AddressService', 'CredentialService', 
+    function ($location, AddressService, CredentialService) {
     return {
       restrict: 'E',
       templateUrl: 'views/templates/user-tab.html',
@@ -22,9 +23,21 @@ angular.module('segoraClientApp')
             scope.addressId = address ? address._id : null;
         });
 
+        CredentialService.getByUserId(scope.user._id, function(credential) {
+            scope.credential = credential;
+            scope.credentialId = credential ? credential._id : null;
+        });
+
         scope.getAddressId = function() {
             if (scope.address !== null && scope.address) {
                 return scope.address._id;
+            }
+            return 'null';
+        }
+
+        scope.getCredentialId = function() {
+            if (scope.credential !== null && scope.credential) {
+                return scope.credential._id;
             }
             return 'null';
         }
@@ -50,6 +63,16 @@ angular.module('segoraClientApp')
 
           if(scope.user._id !== undefined){
             return "#/user/"+scope.user._id+"/address/"+scope.getAddressId();
+          }
+          else{
+            return '#' + $location.path();
+          }
+        }
+
+        scope.getCredentialLink = function(){
+
+          if(scope.user._id !== undefined){
+            return "#/user/"+scope.user._id+"/credential/"+scope.getCredentialId();
           }
           else{
             return '#' + $location.path();
