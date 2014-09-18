@@ -51,10 +51,14 @@ angular.module('segoraClientApp')
         $scope.save = function() {
             StatusService.start();
 
-            if($scope.password !== $scope.confirmPassword){
-                StatusService.stop();
+            if(!$scope.credentialForm.$valid){
+                StatusService.stop("Not valid");
+                return false;
+            }
 
-                return;
+            if($scope.credential.password !== $scope.credential.confirmPassword){
+                StatusService.stop("Password does not match!");
+                return false;
             }
 
 
