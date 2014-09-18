@@ -82,6 +82,7 @@ angular.module('segoraClientApp')
             StatusService.start();
             CredentialService.remove($scope.credential, function(){
                 $location.path('/user/'+$scope.user._id+'/credential/null');
+                FlashService.setMessage('Removed.', 'success');
             });
         };
 

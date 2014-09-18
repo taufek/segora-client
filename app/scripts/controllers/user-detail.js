@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserDetailCtrl', function($scope, $route, $location, $http, UserService, AddressService, StatusService, data) {
+    .controller('UserDetailCtrl', function($scope, $route, $location, $http, UserService, AddressService, StatusService, FlashService, data) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -50,23 +50,15 @@ angular.module('segoraClientApp')
         $scope.save = function() {
             StatusService.start();
             if ($scope.user._id) {
-
-
                 UserService.update($scope.user, function(o){
                     $scope.editMode = false;
                     StatusService.stop();
+                    FlashService.setMessage('Updated.', 'success', true);
                 });
-
-                // $scope.user.$update({
-                //     'userId': $scope.userId,
-                //     'test': true
-                // }, function() {
-                //     // $location.path('/user/'+$scope.userId);
-                //     $scope.editMode = false;
-                // });
             } else {
                 UserService.save($scope.user, function(o) {
                     $location.path('/user/'+o[0]._id);
+                    FlashService.setMessage('Saved.', 'success');
                 });
             }
         };
@@ -78,6 +70,7 @@ angular.module('segoraClientApp')
             StatusService.start();
             UserService.remove($scope.user, function(){
                 $location.path('/user');
+                FlashService.setMessage('Removed.', 'success');
             });
         };
 
