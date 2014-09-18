@@ -29,11 +29,13 @@ angular.module('segoraClientApp')
 
             CredentialService.getById($scope.credentialId, function(credential) {
                 $scope.credential = credential;
+                $scope.credential.password="";
+                $scope.credential.confirmPassword="";
             });
         }
 
         $scope.edit = function() {
-            $scope.editMode = true;
+            $scope.editMode = true;               
         };
 
         
@@ -48,6 +50,14 @@ angular.module('segoraClientApp')
 
         $scope.save = function() {
             StatusService.start();
+
+            if($scope.password !== $scope.confirmPassword){
+                StatusService.stop();
+
+                return;
+            }
+
+
             if ($scope.credential._id) {
                 CredentialService.update($scope.credential, function(o) {
                     $scope.editMode = false;

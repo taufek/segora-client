@@ -8,7 +8,7 @@
  * Service in the segoraClientApp.
  */
 angular.module('segoraClientApp')
-    .service('CredentialService', function($resource, Settings) {
+    .service('CredentialService', function($resource, Settings, md5) {
         var Credential = $resource(
             Settings.backendHost+'/collections/credential/:credentialId', {
                 credentialId: '@_id'
@@ -49,6 +49,8 @@ angular.module('segoraClientApp')
             },
             save: function(credentialData, fn) {
                 var credential = angular.copy(credentialData);
+                delete credential.confirmPassword;
+                credential.password = md5.createHash(credential.password);
                 credential.$save()
                     .then(function(o, res) {
                         console.log(o);
@@ -57,7 +59,9 @@ angular.module('segoraClientApp')
             },
             update: function(credentialData, fn) {
                 var credential = angular.copy(credentialData);
-                credential._id = undefined;
+                delete credential._id;
+                delete credential.confirmPassword;
+                credential.password = md5.createHash(credential.password);
                 credential.$update({
                     'credentialId': credentialData._id
                     })
@@ -67,7 +71,7 @@ angular.module('segoraClientApp')
             },          
             remove: function(credentialData, fn) {
                 var credential = angular.copy(credentialData);
-                credential._id = undefined;
+                delete credential._id;
                 credential.$remove({
                     'credentialId': credentialData._id
                     })
