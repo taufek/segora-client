@@ -48,6 +48,11 @@ angular.module('segoraClientApp')
         };
 
         $scope.save = function() {
+            if(!$scope.userForm.$valid){
+                FlashService.setMessage('Not valid', 'danger', true);
+                return false;
+            }
+
             StatusService.start();
             if ($scope.user._id) {
                 UserService.update($scope.user, function(o){

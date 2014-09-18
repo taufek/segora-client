@@ -49,13 +49,13 @@ angular.module('segoraClientApp')
         };
 
         $scope.save = function() {
-            StatusService.start();
 
             if(!$scope.credentialForm.$valid){
-                StatusService.stop("");
                 FlashService.setMessage('Not valid', 'danger', true);
                 return false;
             }
+            
+            StatusService.start();
 
             if($scope.credential.password !== $scope.credential.confirmPassword){
                 StatusService.stop("");

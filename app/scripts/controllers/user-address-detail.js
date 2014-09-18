@@ -47,6 +47,10 @@ angular.module('segoraClientApp')
         };
 
         $scope.save = function() {
+            if(!$scope.addressForm.$valid){
+                FlashService.setMessage('Not valid', 'danger', true);
+                return false;
+            }
             StatusService.start();
             if ($scope.address._id) {
                 AddressService.update($scope.address, function(o) {
