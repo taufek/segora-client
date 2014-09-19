@@ -402,10 +402,19 @@ module.exports = function (grunt) {
       //     src : ["app/styles/*.css"]
       // }
     },
+
+    removelogging: {
+      dist: {
+        src: "dist/scripts/**/*.js" // Each file will be overwritten with the output!
+      }
+    }
+
+
   });
 
 
   grunt.loadNpmTasks('grunt-jsbeautifier');
+  grunt.loadNpmTasks("grunt-remove-logging");
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
@@ -450,7 +459,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'removelogging'
   ]);
 
   grunt.registerTask('default', [
