@@ -11,12 +11,6 @@ angular.module('segoraClientApp')
         },
         unset: function(key) {
             return sessionStorage.removeItem(key);
-        },
-        hasSession: function(key){
-            if(this.get('login')){
-                return true;
-            }
-            return false;
         }
     }
 });
