@@ -11,7 +11,7 @@ angular.module('segoraClientApp')
   });
 
   $rootScope.$on('displayMessage', function() {
-    console.log('displayMessage');
+    
     currentMessage = queue.shift() || "";
   });
 

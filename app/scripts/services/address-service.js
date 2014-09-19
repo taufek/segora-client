@@ -51,7 +51,7 @@ angular.module('segoraClientApp')
                 var address = angular.copy(addressData);
                 address.$save()
                     .then(function(o, res) {
-                        console.log(o);
+                        
                         fn(o);
                     });
             },

@@ -53,7 +53,7 @@ angular.module('segoraClientApp')
                 credential.password = md5.createHash(credential.password);
                 credential.$save()
                     .then(function(o, res) {
-                        console.log(o);
+                        
                         fn(o);
                     });
             },

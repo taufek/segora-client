@@ -29,7 +29,7 @@ angular.module('segoraClientApp')
             },
             list: function(fn) {
                 var users = User.query(function() {
-                    // console.log(users);
+                    // 
                     fn(users);
                 });
             },
@@ -49,8 +49,8 @@ angular.module('segoraClientApp')
                     .then(function(o, res) {
                         fn(o);
                     });
-                // .catch(function(req) { console.log("error saving obj"); })
-                // .finally(function()  { console.log("always called") });
+                // .catch(function(req) {  })
+                // .finally(function()  { 
             },
             update: function(userData, fn) {
                 var user = angular.copy(userData);

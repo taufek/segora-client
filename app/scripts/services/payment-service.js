@@ -65,7 +65,7 @@ angular.module('segoraClientApp')
                 var payment = angular.copy(paymentData);
                 payment.$save()
                     .then(function(o, res) {
-                        console.log(o);
+                        
                         fn(o);
                     });
             },

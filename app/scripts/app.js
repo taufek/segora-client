@@ -59,7 +59,7 @@ angular
                             var objects = {};
                             objects.userId = userId;
 
-                            // console.log(userId);
+                            // 
 
                             if (userId === 'new') {
                                 UserService.createNew(function(user) {
@@ -95,7 +95,7 @@ angular
                             var addressId = $route.current.params.addressId;
                             var objects = {};
 
-                            // console.log(userId);
+                            // 
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
@@ -120,7 +120,7 @@ angular
                             var credentialId = $route.current.params.credentialId;
                             var objects = {};
 
-                            // console.log(userId);
+                            // 
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
@@ -178,7 +178,7 @@ angular
                             objects.paymentId = paymentId;
                             objects.userId = userId;
 
-                            // console.log(userId);
+                            // 
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;

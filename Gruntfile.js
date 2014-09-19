@@ -405,7 +405,7 @@ module.exports = function (grunt) {
 
     removelogging: {
       dist: {
-        src: "dist/scripts/**/*.js" // Each file will be overwritten with the output!
+        src: "app/scripts/**/*.js" // Each file will be overwritten with the output!
       }
     }
 
@@ -459,8 +459,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin',
-    'removelogging'
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [
