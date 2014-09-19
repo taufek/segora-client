@@ -1,0 +1,10 @@
+<form role="form" name="loginForm" ng-sumbit="login()">
+	<div class="form-group">
+		<input name="username" ng-model="credential.username" placeholder="Enter your username"></input>
+	</div>
+	<div class="form-group">
+		<input type="password" name="password" ng-model="credential.password" placeholder="Enter your password"></input>
+	</div>
+
+    <button class="btn btn-lg btn-primary" type="submit" ng-click="login()">Sign in</button>
+</form>

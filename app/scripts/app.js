@@ -349,6 +349,10 @@ angular
                     ]
                 }
             })
+            .when('/login', {
+              templateUrl: 'views/login.html',
+              controller: 'LoginCtrl'
+            })
             .otherwise({
                 redirectTo: '/home'
             });
