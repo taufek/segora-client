@@ -1,0 +1,9 @@
+<div class="header">
+<ul class="nav nav-pills pull-right">
+  <li ng-show="isLogin()"><a ng-href="#/home">Home</a></li>
+  <li ng-show="isLogin()"><a ng-href="#/user">Users</a></li>
+  <li ng-hide="isLogin()"><a ng-href="#/login">Sign In</a></li>
+  <li ng-show="isLogin()"><a href="" ng-click="logout()">Sign Out</a></li>
+</ul>
+<h3 class="text-muted">SEGORA</h3>
+</div>
