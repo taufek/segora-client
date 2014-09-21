@@ -20,7 +20,11 @@
             </span>
             <div class="form-control">
                 <label  for="{{month.code}}">{{month.name}}</label>
-                <a ng-show="month.payment" href="" ng-click="remove(month.payment._id)"><span style="color:#F73640" class="glyphicon glyphicon-remove pull-right"></span></a>
+                <a ng-show="month.payment" href="" ng-click="remove(month.payment._id)">
+
+                    <span style="color:#555; margin-left:10px"><i>({{month.payment.referenceNumber}})</i></span>
+                    <span style="color:#F73640" class="glyphicon glyphicon-remove pull-right"></span>
+                </a>
             </div>
         </div>
     </form>
