@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, PaymentService, StatusService, FlashService, data) {
+  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, CounterService, PaymentService, StatusService, FlashService, data) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -22,6 +22,8 @@ angular.module('segoraClientApp')
     $scope.selectedYear = data.selectedYear;
     $scope.payments = data.payments;
     $scope.paymentsToProcess = [];
+
+    
 
     $scope.changeYear = function(){
     	$location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
@@ -46,21 +48,35 @@ angular.module('segoraClientApp')
 
       $scope.paymentsToProcess.forEach(function(month){
         PaymentService.createNew($scope.userId, function(payment){    
+
+
           payment.year = $scope.selectedYear;        
           payment.month = month.number;
           payment.amount = 80;
-          PaymentService.save(payment, function(){
-            index++;
-            if(count == index){
-              $location.search('refresh', new Date().getTime());
-              $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
-              FlashService.setMessage('Saved.', 'success');
-            }
-          });          
+
+          CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
+            payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
+            PaymentService.save(payment, function(){
+              index++;
+              if(count == index){
+                $location.search('refresh', new Date().getTime());
+                $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
+                FlashService.setMessage('Saved.', 'success');
+              }
+            });          
+          });
+
         });
 
       });
 
+    }
+
+    $scope.padding = function(value, padString, length) {
+        var str = value;
+        while (str.length < length)
+            str = padString + str;
+        return str;
     }
 
     $scope.remove = function(paymentId){
