@@ -80,7 +80,7 @@ angular.module('segoraClientApp')
         }
 
         scope.getPaymentLink = function(){
-          if(scope.user._id !== undefined){
+          if(scope.user._id !== undefined && scope.address !== undefined){
             return "#/user/"+scope.user._id+"/monthly_payment/"+scope.getCurrentYear();
           }
           else{
@@ -92,6 +92,10 @@ angular.module('segoraClientApp')
           var disabled = "";
           
           if(scope.user._id == undefined){
+            disabled = "disabled";
+          }
+
+          if(activeTab == 'payments' && scope.address == undefined){
             disabled = "disabled";
           }          
 
