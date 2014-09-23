@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('UserService', function($resource, Settings) {
+    .factory('UserService', function($resource, Settings, DigestHttp, $http) {
         // Service logic
         // ...
 
@@ -28,10 +28,31 @@ angular.module('segoraClientApp')
                 return meaningOfLife;
             },
             list: function(fn) {
-                var users = User.query(function() {
-                    // 
-                    fn(users);
-                });
+                // var users = User.query(function() {
+                //     // 
+                //     fn(users);
+                // },
+                // function(err){
+                //     console.log(err);
+
+
+                // });
+                var dh = new DigestHttp($http);
+
+                dh.setUserName('james');
+                dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');
+                dh.sendRequest('GET',
+                    Settings.backendHost,
+                    '/collections/user',
+                    null, 
+                    {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    function(data, status, headers, config) {
+                        console.log(data);
+                        fn(data);
+                    }
+                );
             },
             getById: function(id, fn) {
                 User.get({
