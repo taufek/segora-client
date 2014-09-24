@@ -25,7 +25,7 @@ angular.module('segoraClientApp')
             url: Settings.backendHost + '/authenticate'
         }).
         success(function(data, status, headers, config) {
-            UserSessionService.createSession();
+            UserSessionService.createSession($scope.credential.username, $scope.credential.password);
             $location.path('/');
         }).
         error(function(data, status, headers, config) {

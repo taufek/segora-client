@@ -30,7 +30,8 @@ angular.module("segoraClientApp")
 
         // register the interceptor as a service
         //$q, $injector, md5, DigestHttp
-        $provide.factory('digestInterceptor', function($q, $injector, md5, DigestHttp, Settings) {
+        $provide.factory('digestInterceptor', 
+            function($q, $injector, md5, DigestHttp, Settings, UserSessionService) {
             return {
                 // optional method
                 'request': function(config) {
@@ -86,22 +87,13 @@ angular.module("segoraClientApp")
 
                         var path = rejection.config.url.substring(Settings.backendHost.length, rejection.config.url.length);
                         var dh = new DigestHttp($injector.get('$http'), md5);
-                        dh.setUserName('james');
-                        dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');
+                        dh.setUserName(UserSessionService.getUsername());
+                        dh.setPassword(UserSessionService.getHash());
                         var promise =  dh.respondRequest(rejection.config.method,
                             Settings.backendHost,
                             path,
                             rejection.config.data,                                 
-                            rejection.headers,
-                            function(data) {
-                                console.log(data);
-                                $q.resolve(data);
-                                return data;
-                            },
-                            function(data){
-                                console.log(data);
-                                $q.reject(rejection);
-                            }
+                            rejection.headers
                         );
                         // console.log(promise);
                         return promise;
