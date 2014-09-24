@@ -89,7 +89,7 @@ angular.module("segoraClientApp")
                         var dh = new DigestHttp($injector.get('$http'), md5);
                         dh.setUserName(UserSessionService.getUsername());
                         dh.setPassword(UserSessionService.getHash());
-                        var promise =  dh.respondRequest(rejection.config.method,
+                        var promise =  dh.call(rejection.config.method,
                             Settings.backendHost,
                             path,
                             rejection.config.data,                                 

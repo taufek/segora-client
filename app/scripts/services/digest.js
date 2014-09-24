@@ -6,7 +6,6 @@ var DigestHttpClass = function($http, md5) {
     this.nc = '00000001';
     this.authorizationHeader = "Authorization";
     this.wwwAuthenticationHeader = 'WWW-Authenticate';
-    this.attempts = 0;
     this.successFn = null;
     this.errorFn = null;
     this.$http = $http;
@@ -20,13 +19,15 @@ var DigestHttpClass = function($http, md5) {
         this.password = password;
     };
 
-    this.respondRequest = function(method, host, uri, payload, headers) {        
-        this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));
-        return this.callWhenError(method, host, uri, payload, headers);
-    };
-
     this.call = function(method, host, uri, payload, headers) {
-        var that = this;
+        this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));        
+        var nonce = this.getAuthenticateHeaderParam("nonce");
+        var realm = this.getAuthenticateHeaderParam("realm");
+        var qop = this.getAuthenticateHeaderParam("qop");
+        var response = this.calculateResponse(method, uri, nonce, realm, qop);
+        var authorizationHeaderValue = this.generateAuthorizationHeader(response, uri);
+        headers[this.authorizationHeader] = authorizationHeaderValue;
+
         return this.$http({
             method: method,
             url: host + uri,
@@ -51,25 +52,6 @@ var DigestHttpClass = function($http, md5) {
         });
         return paramVal;
     }
-
-    this.callWhenError = function(method, host, uri, payload, headers) {
-        this.attempts++;
-        if (this.attempts <= 1) {
-            console.log('responding to unauthorized challenge.');
-            var nonce = this.getAuthenticateHeaderParam("nonce");
-            var realm = this.getAuthenticateHeaderParam("realm");
-            var qop = this.getAuthenticateHeaderParam("qop");
-            var response = this.calculateResponse(method, uri, nonce, realm, qop);
-            var authorizationHeaderValue = this.generateAuthorizationHeader(response, uri);
-            headers[this.authorizationHeader] = authorizationHeaderValue;
-            return this.call(method, host, uri, payload, headers);
-        } else {
-            console.log('calling errorFn');
-            if (this.errorFn) {
-                this.errorFn();
-            }
-        }
-    };
 
     this.generateAuthorizationHeader = function(response, uri) {
 
