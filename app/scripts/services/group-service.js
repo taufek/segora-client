@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('GroupService', function($resource, $http, Settings, DigestHttp, md5) {
-        // Service logic
-        // ...
-
+    .factory('GroupService', function($resource, $http, Settings) {
+       
         var Group = $resource(
             Settings.backendHost+'/collections/group/:groupId', {
                 groupId: '@id'

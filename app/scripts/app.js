@@ -357,8 +357,8 @@ angular
                 templateUrl: 'views/group.html',
                 controller: 'GroupCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'UserService',
-                        function($q, $route, UserService) {
+                    data: ['$q', '$route', 'GroupService',
+                        function($q, $route, GroupService) {
                             var deferred = $q.defer();
                             var objects = {};
 
@@ -367,6 +367,36 @@ angular
                                 deferred.resolve(objects);
 
                             });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
+            .when('/group/:groupId', {
+                templateUrl: 'views/group-detail.html',
+                controller: 'GroupDetailCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'GroupService',
+                        function($q, $route, GroupService) {
+                            var deferred = $q.defer();
+                            var groupId = $route.current.params.groupId;
+                            var objects = {};
+                            objects.groupId = groupId;
+
+                            // 
+
+                            if (groupId === 'new') {
+                                GroupService.createNew(function(group) {
+                                    objects.group = group;
+                                    deferred.resolve(objects);
+                                });
+                            } else {
+                                GroupService.getById(groupId, function(group) {
+                                    objects.group = group;
+                                    deferred.resolve(objects);
+                                });
+                            }
 
                             return deferred.promise;
                         }

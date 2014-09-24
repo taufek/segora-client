@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('UserService', function($resource, $http, Settings, DigestHttp, md5) {
+    .factory('UserService', function($resource, $http, Settings) {
         // Service logic
         // ...
 
@@ -38,22 +38,7 @@ angular.module('segoraClientApp')
 
 
                 });
-                // var dh = new DigestHttp($http, md5);
-
-                // dh.setUserName('james');
-                // dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');
-                // dh.sendRequest('GET',
-                //     Settings.backendHost,
-                //     '/collections/user',
-                //     null, 
-                //     {
-                //         'Content-Type': 'application/json;charset=UTF-8'
-                //     },
-                //     function(data, status, headers, config) {
-                //         console.log(data);
-                //         fn(data);
-                //     }
-                // );
+               
             },
             getById: function(id, fn) {
                 User.get({
