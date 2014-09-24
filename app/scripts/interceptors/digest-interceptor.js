@@ -4,7 +4,7 @@ angular.module("segoraClientApp")
 .config(function($httpProvider, $provide) {
 
         // register the interceptor as a service
-        $provide.factory('digestInterceptor', 
+        $provide.factory('digestInterceptor', ['$q', '$injector', 'md5', 'DigestHttp', 'Settings', 'UserSessionService',
             function($q, $injector, md5, DigestHttp, Settings, UserSessionService) {
             return {
                 // optional method
@@ -52,10 +52,10 @@ angular.module("segoraClientApp")
                     
                 }
             };
-        });
+        }]);
 
         
-         $httpProvider.interceptors.push('digestInterceptor');
+        $httpProvider.interceptors.push('digestInterceptor');
 
 
     }

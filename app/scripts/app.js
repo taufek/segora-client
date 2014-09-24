@@ -52,8 +52,8 @@ angular
                 templateUrl: 'views/user-detail.html',
                 controller: 'UserDetailCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'UserService', 'AddressService',
-                        function($q, $route, UserService, AddressService) {
+                    data: ['$q', '$route', 'UserService', 'AddressService', 'GroupService',
+                        function($q, $route, UserService, AddressService, GroupService) {
                             var deferred = $q.defer();
                             var userId = $route.current.params.userId;
                             var objects = {};
@@ -350,8 +350,28 @@ angular
                 }
             })
             .when('/login', {
-              templateUrl: 'views/login.html',
-              controller: 'LoginCtrl'
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl'
+            })
+            .when('/group', {
+                templateUrl: 'views/group.html',
+                controller: 'GroupCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'UserService',
+                        function($q, $route, UserService) {
+                            var deferred = $q.defer();
+                            var objects = {};
+
+                            GroupService.list(function(groups) {
+                                objects.groups = groups;
+                                deferred.resolve(objects);
+
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
             })
             .otherwise({
                 redirectTo: '/home'
