@@ -41,7 +41,8 @@ angular.module("segoraClientApp")
                             Settings.backendHost,
                             path,
                             rejection.config.data,                                 
-                            rejection.headers
+                            rejection.headers,
+                            rejection.config.params
                         );
                         
                         return promise;          

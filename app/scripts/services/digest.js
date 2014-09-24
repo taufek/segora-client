@@ -19,23 +19,40 @@ var DigestHttpClass = function($http, md5) {
         this.password = password;
     };
 
-    this.call = function(method, host, uri, payload, headers) {
+    this.call = function(method, host, uri, payload, headers, params) {
+
+        var finalUri = uri;
+
+        if(params){
+            finalUri += "?" + this.object2Params(params);
+        }
+
         this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));        
         var nonce = this.getAuthenticateHeaderParam("nonce");
         var realm = this.getAuthenticateHeaderParam("realm");
         var qop = this.getAuthenticateHeaderParam("qop");
-        var response = this.calculateResponse(method, uri, nonce, realm, qop);
-        var authorizationHeaderValue = this.generateAuthorizationHeader(response, uri);
+        var response = this.calculateResponse(method, finalUri, nonce, realm, qop);
+        var authorizationHeaderValue = this.generateAuthorizationHeader(response, finalUri);
         headers[this.authorizationHeader] = authorizationHeaderValue;
 
         return this.$http({
             method: method,
-            url: host + uri,
+            url: host + finalUri,
             data: payload,
             headers: headers
         });
       
     };
+
+    this.object2Params = function(obj, prefix){
+      var str = [];
+      for (var p in obj) {
+        var k = prefix ? prefix + "[" + p + "]" : p, 
+            v = obj[k];
+        str.push(angular.isObject(v) ? qs(v, k) : (k) + "=" + encodeURIComponent(v));
+      }
+      return str.join("&");
+    }
 
     this.setAuthenticateHeader = function(headerValue) {
         this.authenticateHeaderValue = headerValue;
