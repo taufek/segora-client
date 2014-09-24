@@ -20,28 +20,20 @@ var DigestHttpClass = function($http, md5) {
         this.password = password;
     };
 
-    this.sendRequest = function(method, host, uri, payload, headers, successFn, errorFn) {
-        this.successFn = successFn;
-        this.errorFn = errorFn;
-        this.call(method, host, uri, payload, headers);
+    this.respondRequest = function(method, host, uri, payload, headers) {        
+        this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));
+        return this.callWhenError(method, host, uri, payload, headers);
     };
 
     this.call = function(method, host, uri, payload, headers) {
         var that = this;
-        that.headers = headers;
-        this.$http({
+        return this.$http({
             method: method,
             url: host + uri,
             data: payload,
             headers: headers
-        }).
-        success(function(data, status, headers, config) {
-            that.successFn(data, status, headers, config);
-        }).
-        error(function(data, status, headers, config) {
-            that.setAuthenticateHeader(headers(that.wwwAuthenticationHeader));
-            that.callWhenError(method, host, uri, payload, that.headers);
         });
+      
     };
 
     this.setAuthenticateHeader = function(headerValue) {
@@ -70,7 +62,7 @@ var DigestHttpClass = function($http, md5) {
             var response = this.calculateResponse(method, uri, nonce, realm, qop);
             var authorizationHeaderValue = this.generateAuthorizationHeader(response, uri);
             headers[this.authorizationHeader] = authorizationHeaderValue;
-            this.call(method, host, uri, payload, headers);
+            return this.call(method, host, uri, payload, headers);
         } else {
             console.log('calling errorFn');
             if (this.errorFn) {

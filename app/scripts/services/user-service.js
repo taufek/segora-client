@@ -28,31 +28,32 @@ angular.module('segoraClientApp')
                 return meaningOfLife;
             },
             list: function(fn) {
-                // var users = User.query(function() {
-                //     // 
-                //     fn(users);
-                // },
-                // function(err){
-                //     console.log(err);
+                var users = User.query(function() {
+                    // 
+                    console.log('getting');
+                    fn(users);
+                },
+                function(){
+                    console.log('Error');
 
 
-                // });
-                var dh = new DigestHttp($http, md5);
+                });
+                // var dh = new DigestHttp($http, md5);
 
-                dh.setUserName('james');
-                dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');
-                dh.sendRequest('GET',
-                    Settings.backendHost,
-                    '/collections/user',
-                    null, 
-                    {
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    },
-                    function(data, status, headers, config) {
-                        console.log(data);
-                        fn(data);
-                    }
-                );
+                // dh.setUserName('james');
+                // dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');
+                // dh.sendRequest('GET',
+                //     Settings.backendHost,
+                //     '/collections/user',
+                //     null, 
+                //     {
+                //         'Content-Type': 'application/json;charset=UTF-8'
+                //     },
+                //     function(data, status, headers, config) {
+                //         console.log(data);
+                //         fn(data);
+                //     }
+                // );
             },
             getById: function(id, fn) {
                 User.get({
