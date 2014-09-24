@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('UserService', function($resource, Settings, DigestHttp, $http) {
+    .factory('UserService', function($resource, $http, Settings, DigestHttp, md5) {
         // Service logic
         // ...
 
@@ -37,7 +37,7 @@ angular.module('segoraClientApp')
 
 
                 // });
-                var dh = new DigestHttp($http);
+                var dh = new DigestHttp($http, md5);
 
                 dh.setUserName('james');
                 dh.setPassword('5f4dcc3b5aa765d61d8327deb882cf99');

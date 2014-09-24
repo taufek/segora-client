@@ -1,4 +1,4 @@
-var DigestHttpClass = function($http) {
+var DigestHttpClass = function($http, md5) {
     this.userName = null;
     this.password = null;
     this.response = null;
@@ -10,6 +10,7 @@ var DigestHttpClass = function($http) {
     this.successFn = null;
     this.errorFn = null;
     this.$http = $http;
+    this.md5 = md5;
 
     this.setUserName = function(userName) {
         this.userName = userName;
@@ -38,14 +39,12 @@ var DigestHttpClass = function($http) {
             that.successFn(data, status, headers, config);
         }).
         error(function(data, status, headers, config) {
-            console.log(headers);
             that.setAuthenticateHeader(headers(that.wwwAuthenticationHeader));
             that.callWhenError(method, host, uri, payload, that.headers);
         });
     };
 
     this.setAuthenticateHeader = function(headerValue) {
-        console.log(headerValue);
         this.authenticateHeaderValue = headerValue;
         this.authenticateHeaderParams = this.authenticateHeaderValue.split(",");
     }
@@ -89,17 +88,15 @@ var DigestHttpClass = function($http) {
 
     this.calculateResponse = function(method, uri, nonce, realm, qop) {
         var a2 = method + ":" + uri;
-        var a2Md5 = hex_md5(a2);
-        var a1Md5 = hex_md5(this.userName + ":" + realm + ":" + this.password);
+        var a2Md5 = md5.createHash(a2);
+        var a1Md5 = md5.createHash(this.userName + ":" + realm + ":" + this.password);
         var digest = a1Md5 + ":" + nonce + ":" + this.nc + ":" + this.cnonce + ":" + qop + ":" + a2Md5;
-        return hex_md5(digest);
+        return md5.createHash(digest);
     };
 };
 
 angular.module('segoraClientApp')
-    .service("DigestHttp", [
-
-    function() {
+    .service("DigestHttp", [function(md5) {
         return DigestHttpClass;
     }
 ]);
