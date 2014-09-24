@@ -80,7 +80,9 @@ angular.module("segoraClientApp")
                         // window.counter++;
 
                         // console.log(window.counter);     
-                        console.log('resending request with authorization');
+                        // console.log('resending request with authorization');
+
+                        // console.log(rejection);
 
                         var path = rejection.config.url.substring(Settings.backendHost.length, rejection.config.url.length);
                         var dh = new DigestHttp($injector.get('$http'), md5);
@@ -89,7 +91,7 @@ angular.module("segoraClientApp")
                         var promise =  dh.respondRequest(rejection.config.method,
                             Settings.backendHost,
                             path,
-                            null,                                 
+                            rejection.config.data,                                 
                             rejection.headers,
                             function(data) {
                                 console.log(data);
@@ -101,7 +103,7 @@ angular.module("segoraClientApp")
                                 $q.reject(rejection);
                             }
                         );
-                        console.log(promise);
+                        // console.log(promise);
                         return promise;
                         
 

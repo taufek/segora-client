@@ -30,8 +30,11 @@ angular.module('segoraClientApp')
                         console.log('no counter. recalling...');
                         that.next(counterName, fn);
                     }
+                    else{
+                        fn(counter);
+                    }
 
-                    fn(counter);
+                    
                 });
             }
         }

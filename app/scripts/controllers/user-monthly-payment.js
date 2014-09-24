@@ -55,6 +55,7 @@ angular.module('segoraClientApp')
           payment.amount = 80;
 
           CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
+            console.log(counter);
             payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
             PaymentService.save(payment, function(){
               index++;
