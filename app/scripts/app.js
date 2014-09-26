@@ -377,8 +377,8 @@ angular
                 templateUrl: 'views/group-detail.html',
                 controller: 'GroupDetailCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'GroupService',
-                        function($q, $route, GroupService) {
+                    data: ['$q', '$route', 'GroupService', 'UserService',
+                        function($q, $route, GroupService, UserService) {
                             var deferred = $q.defer();
                             var groupId = $route.current.params.groupId;
                             var objects = {};
@@ -389,12 +389,18 @@ angular
                             if (groupId === 'new') {
                                 GroupService.createNew(function(group) {
                                     objects.group = group;
-                                    deferred.resolve(objects);
+                                    UserService.list(function(users){
+                                        objects.users = users;
+                                        deferred.resolve(objects);
+                                    });
                                 });
                             } else {
                                 GroupService.getById(groupId, function(group) {
                                     objects.group = group;
-                                    deferred.resolve(objects);
+                                    UserService.list(function(users){
+                                        objects.users = users;
+                                        deferred.resolve(objects);
+                                    });
                                 });
                             }
 

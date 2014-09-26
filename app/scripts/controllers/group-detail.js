@@ -17,6 +17,8 @@ angular.module('segoraClientApp')
 
         $scope.groupId = data.groupId;
         $scope.group = data.group;
+        $scope.users = data.users;
+        $scope.selectedUsers = [];
 
         if ($scope.groupId == 'new') {
             $scope.editMode = true;
@@ -69,5 +71,27 @@ angular.module('segoraClientApp')
                 FlashService.setMessage('Removed.', 'success');
             });
         };
+
+        $scope.chooseUser = function(userId){
+
+            for(var i = $scope.users.length - 1; i >= 0; i--) {
+
+                if($scope.users[i]._id === userId){
+                    $scope.selectedUsers.push($scope.users[i]);
+                    $scope.users.splice(i, 1);
+                }
+            }
+        }
+
+        $scope.removeUser = function(userId){
+
+            for(var i = $scope.selectedUsers.length - 1; i >= 0; i--) {
+
+                if($scope.selectedUsers[i]._id === userId){
+                    $scope.users.push($scope.selectedUsers[i]);
+                    $scope.selectedUsers.splice(i, 1);
+                }
+            }
+        }
 
     });

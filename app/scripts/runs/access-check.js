@@ -2,7 +2,7 @@
 
 angular.module("segoraClientApp")
 .run(function($rootScope, $location, UserSessionService, StatusService, FlashService) {
-        var routesThatDoesNotRequireAuth = ['/home'];
+        var routesThatDoesNotRequireAuth = ['/home', '/login'];
 
         $rootScope.$on('$routeChangeStart', function(event, next, current) {
 

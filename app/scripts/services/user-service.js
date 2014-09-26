@@ -29,8 +29,6 @@ angular.module('segoraClientApp')
             },
             list: function(fn) {
                 var users = User.query(function() {
-                    // 
-                    console.log('getting');
                     fn(users);
                 },
                 function(){

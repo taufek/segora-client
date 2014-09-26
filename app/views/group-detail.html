@@ -12,6 +12,21 @@
         <label>Name</label>
         <div>{{group.name}}</div>
     </div>
+
+
+    
+    <div class="form-group">
+        <label>Members</label>
+        <ul class="list-group" ng-show="selectedUsers.length > 0">
+          <li class="list-group-item" ng-repeat="user in selectedUsers">{{user.full_name}}</li>
+        </ul>
+        <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
+            <div class="panel-body">
+                <i>No members</i>
+            </div>
+        </div>
+    </div>
+   
 </div>
 
 <div ng-show="editMode">
@@ -36,6 +51,78 @@
                 Too short!
             </span>
         </div>
+
+
+    
+        <div class="form-group">
+            <label>Members</label>
+            <ul class="list-group" ng-show="selectedUsers.length > 0">
+                <li class="list-group-item" ng-repeat="user in selectedUsers">
+                    {{user.full_name}}
+                    <span style="color:#F73640" class="glyphicon glyphicon-remove pull-right" ng-click="removeUser(user._id)"></span>
+                </li>
+            </ul>
+            <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
+                <div class="panel-body">
+                    <i>No members</i>
+                </div>
+            </div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Add Members
+            </button>
+        </div>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Residents</h4>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group" ng-show="users.length > 0">
+                  <li class="list-group-item" ng-repeat="user in users">
+                    {{user.full_name}}
+                    <span class="glyphicon glyphicon-plus pull-right" ng-click="chooseUser(user._id)"></span>
+                  </li>
+                </ul>
+                <div class="panel panel-default" ng-show="!users.length > 0">
+                    <div class="panel-body">
+                        <i>No Residents</i>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+   
+
+        <!-- <div class="row">
+            <div class="col-md-5">
+                <label>Non-members</label>
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="user in users">
+                    {{user.full_name}}
+                    <span class="glyphicon glyphicon-plus pull-right" ng-click="chooseUser(user._id)"></span>
+                  </li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-5">
+                <label>Members</label>
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="user in selectedUsers">{{user.full_name}}</li>
+                </ul>
+            </div>
+        </div> -->
+
 
     </form>
 </div>
