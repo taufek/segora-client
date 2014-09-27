@@ -21,7 +21,9 @@ angular.module('segoraClientApp')
         $scope.groupId = data.groupId;
         $scope.group = data.group;
         $scope.users = data.users;
+        $scope.admins = data.admins;
         $scope.selectedUsers = data.selectedUsers;
+        $scope.selectedAdmins = data.selectedAdmins;
 
         if ($scope.groupId == 'new') {
             $scope.editMode = true;
@@ -43,6 +45,24 @@ angular.module('segoraClientApp')
             }
         };
 
+        var updateUsersAndAdmins = function(){            
+
+            var selectedUserIds = [];
+            var selectedAdminIds = [];
+
+            $scope.selectedUsers.forEach(function(selectedUser){
+                selectedUserIds.push(selectedUser._id);
+            });
+
+            $scope.group.selectedUsers = selectedUserIds;                
+
+            $scope.selectedAdmins.forEach(function(selectedAdmin){
+                selectedAdminIds.push(selectedAdmin._id);
+            });
+
+            $scope.group.selectedAdmins = selectedAdminIds;
+        }
+
         $scope.save = function() {
             if(!$scope.groupForm.$valid){
                 FlashService.setMessage('Not valid', 'danger', true);
@@ -52,12 +72,7 @@ angular.module('segoraClientApp')
             StatusService.start();
             if ($scope.group._id) {
 
-                var selectedUserIds = []
-                $scope.selectedUsers.forEach(function(selectedUser){
-                    selectedUserIds.push(selectedUser._id);
-                });
-
-                $scope.group.selectedUsers = selectedUserIds;
+                updateUsersAndAdmins();
 
                 GroupService.update($scope.group, function(o){
                     $scope.editMode = false;
@@ -65,6 +80,8 @@ angular.module('segoraClientApp')
                     FlashService.setMessage('Updated.', 'success', true);
                 });
             } else {
+                updateUsersAndAdmins();
+                
                 GroupService.save($scope.group, function(o) {
                     $location.path('/group/'+o[0]._id);
                     FlashService.setMessage('Saved.', 'success');
@@ -92,6 +109,17 @@ angular.module('segoraClientApp')
                     $scope.users.splice(i, 1);
                 }
             }
+        }        
+
+        $scope.chooseAdmin = function(adminId){
+
+            for(var i = $scope.admins.length - 1; i >= 0; i--) {
+
+                if($scope.admins[i]._id === adminId){
+                    $scope.selectedAdmins.push(angular.copy($scope.admins[i]));
+                    $scope.admins.splice(i, 1);
+                }
+            }
         }
 
         $scope.removeUser = function(userId){
@@ -101,6 +129,17 @@ angular.module('segoraClientApp')
                 if($scope.selectedUsers[i]._id === userId){
                     $scope.users.push(angular.copy($scope.selectedUsers[i]));
                     $scope.selectedUsers.splice(i, 1);
+                }
+            }
+        }
+
+        $scope.removeAdmin = function(adminId){
+
+            for(var i = $scope.selectedAdmins.length - 1; i >= 0; i--) {
+
+                if($scope.selectedAdmins[i]._id === adminId){
+                    $scope.admins.push(angular.copy($scope.selectedAdmins[i]));
+                    $scope.selectedAdmins.splice(i, 1);
                 }
             }
         }

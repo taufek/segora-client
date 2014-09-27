@@ -384,10 +384,12 @@ angular
                             var objects = {};
                             objects.groupId = groupId;
                             objects.selectedUsers = [];
+                            objects.selectedAdmins = [];
 
                             var createUsers = function(){
                                 UserService.list(function(users){
                                     objects.users = users;
+                                    objects.admins = angular.copy(users);
 
                                     if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
                                         objects.group.selectedUsers.forEach(function(selectedUserId){
@@ -401,6 +403,18 @@ angular
                                         });
                                     }
 
+                                    if(objects.group.selectedAdmins && objects.group.selectedAdmins.length > 0){
+                                        objects.group.selectedAdmins.forEach(function(selectedAdminId){
+
+                                            for(var i = objects.admins.length - 1; i >= 0; i--) {
+                                                if(selectedAdminId === objects.admins[i]._id){
+                                                    objects.selectedAdmins.push(objects.admins[i]);
+                                                    objects.admins.splice(i, 1);
+                                                }
+                                            }
+                                        });
+                                    }
+
                                     deferred.resolve(objects);
                                 });
                             }
@@ -408,24 +422,7 @@ angular
 
                             if (groupId === 'new') {
                                 GroupService.createNew(function(group) {
-                                    objects.group = group;
-                                    // UserService.list(function(users){
-                                    //     objects.users = users;
-
-                                    //     if(objects.group.selectedUser && objects.group.selectedUser.length > 0){
-                                    //         objects.group.selectedUser.forEach(function(selectedUserId){
-
-                                    //             for(var i = objects.users.length - 1; i >= 0; i--) {
-                                    //                 if(selectedUserId === objects.users[i]._id){
-                                    //                     objects.selectedUsers.push(objects.users[i]);
-                                    //                     objects.users.splice(i, 1);
-                                    //                 }
-                                    //             }
-                                    //         });
-                                    //     }
-
-                                    //     deferred.resolve(objects);
-                                    // });
+                                    objects.group = group;                                    
                                     createUsers();
                                 });
                             } else {
