@@ -111,8 +111,11 @@
                 <h4 class="modal-title">Residents</h4>
               </div>
               <div class="modal-body">
+
+                <input class="form-control" name="search_user" ng-model="userSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px">
+
                 <ul class="list-group" ng-show="users.length > 0">
-                  <li class="list-group-item" ng-repeat="user in users">
+                  <li class="list-group-item" ng-repeat="user in users | filter:userSearch.keyword">
                     {{user.full_name}}
                     <span class="glyphicon glyphicon-plus pull-right" ng-click="chooseUser(user._id)"></span>
                   </li>
@@ -140,8 +143,11 @@
                 <h4 class="modal-title">Admins</h4>
               </div>
               <div class="modal-body">
+
+                <input class="form-control" name="search_admin" ng-model="adminSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px">
+
                 <ul class="list-group" ng-show="admins.length > 0">
-                  <li class="list-group-item" ng-repeat="admin in admins">
+                  <li class="list-group-item" ng-repeat="admin in admins | filter:adminSearch.keyword">
                     {{admin.full_name}}
                     <span class="glyphicon glyphicon-plus pull-right" ng-click="chooseAdmin(admin._id)"></span>
                   </li>
