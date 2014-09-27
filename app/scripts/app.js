@@ -385,51 +385,53 @@ angular
                             objects.groupId = groupId;
                             objects.selectedUsers = [];
 
-                            // 
+                            var createUsers = function(){
+                                UserService.list(function(users){
+                                    objects.users = users;
+
+                                    if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
+                                        objects.group.selectedUsers.forEach(function(selectedUserId){
+
+                                            for(var i = objects.users.length - 1; i >= 0; i--) {
+                                                if(selectedUserId === objects.users[i]._id){
+                                                    objects.selectedUsers.push(objects.users[i]);
+                                                    objects.users.splice(i, 1);
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    deferred.resolve(objects);
+                                });
+                            }
+
 
                             if (groupId === 'new') {
                                 GroupService.createNew(function(group) {
                                     objects.group = group;
-                                    UserService.list(function(users){
-                                        objects.users = users;
+                                    // UserService.list(function(users){
+                                    //     objects.users = users;
 
-                                        if(objects.group.selectedUser && objects.group.selectedUser.length > 0){
-                                            objects.group.selectedUser.forEach(function(selectedUserId){
+                                    //     if(objects.group.selectedUser && objects.group.selectedUser.length > 0){
+                                    //         objects.group.selectedUser.forEach(function(selectedUserId){
 
-                                                for(var i = objects.users.length - 1; i >= 0; i--) {
-                                                    if(selectedUserId === objects.users[i]._id){
-                                                        objects.selectedUsers.push(objects.users[i]);
-                                                        objects.users.splice(i, 1);
-                                                    }
-                                                }
-                                                // objects.users.forEach(function(user){
+                                    //             for(var i = objects.users.length - 1; i >= 0; i--) {
+                                    //                 if(selectedUserId === objects.users[i]._id){
+                                    //                     objects.selectedUsers.push(objects.users[i]);
+                                    //                     objects.users.splice(i, 1);
+                                    //                 }
+                                    //             }
+                                    //         });
+                                    //     }
 
-                                                // });
-                                            });
-                                        }
-
-                                        deferred.resolve(objects);
-                                    });
+                                    //     deferred.resolve(objects);
+                                    // });
+                                    createUsers();
                                 });
                             } else {
                                 GroupService.getById(groupId, function(group) {
                                     objects.group = group;
-                                    UserService.list(function(users){
-                                        objects.users = users;
-
-                                        if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
-                                            objects.group.selectedUsers.forEach(function(selectedUserId){
-                                                for(var i = objects.users.length - 1; i >= 0; i--) {
-                                                    if(selectedUserId === objects.users[i]._id){
-                                                        objects.selectedUsers.push(objects.users[i]);
-                                                        objects.users.splice(i, 1);
-                                                    }
-                                                }
-                                            });
-                                        }
-
-                                        deferred.resolve(objects);
-                                    });
+                                    createUsers();
                                 });
                             }
 
