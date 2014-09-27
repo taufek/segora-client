@@ -88,7 +88,7 @@ angular.module('segoraClientApp')
             for(var i = $scope.users.length - 1; i >= 0; i--) {
 
                 if($scope.users[i]._id === userId){
-                    $scope.selectedUsers.push($scope.users[i]);
+                    $scope.selectedUsers.push(angular.copy($scope.users[i]));
                     $scope.users.splice(i, 1);
                 }
             }
@@ -99,7 +99,7 @@ angular.module('segoraClientApp')
             for(var i = $scope.selectedUsers.length - 1; i >= 0; i--) {
 
                 if($scope.selectedUsers[i]._id === userId){
-                    $scope.users.push($scope.selectedUsers[i]);
+                    $scope.users.push(angular.copy($scope.selectedUsers[i]));
                     $scope.selectedUsers.splice(i, 1);
                 }
             }

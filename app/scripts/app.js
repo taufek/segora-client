@@ -395,12 +395,16 @@ angular
 
                                         if(objects.group.selectedUser && objects.group.selectedUser.length > 0){
                                             objects.group.selectedUser.forEach(function(selectedUserId){
-                                                objects.users.forEach(function(user){
 
-                                                    if(selectedUserId === user._id){
-                                                        objects.selectedUsers.push(user);
+                                                for(var i = objects.users.length - 1; i >= 0; i--) {
+                                                    if(selectedUserId === objects.users[i]._id){
+                                                        objects.selectedUsers.push(objects.users[i]);
+                                                        objects.users.splice(i, 1);
                                                     }
-                                                });
+                                                }
+                                                // objects.users.forEach(function(user){
+
+                                                // });
                                             });
                                         }
 
@@ -415,11 +419,12 @@ angular
 
                                         if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
                                             objects.group.selectedUsers.forEach(function(selectedUserId){
-                                                objects.users.forEach(function(user){
-                                                    if(selectedUserId == user._id){
-                                                        objects.selectedUsers.push(user);
+                                                for(var i = objects.users.length - 1; i >= 0; i--) {
+                                                    if(selectedUserId === objects.users[i]._id){
+                                                        objects.selectedUsers.push(objects.users[i]);
+                                                        objects.users.splice(i, 1);
                                                     }
-                                                });
+                                                }
                                             });
                                         }
 
