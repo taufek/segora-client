@@ -8,7 +8,10 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('GroupDetailCtrl', function($scope, $route, $location, $http, GroupService, StatusService, FlashService, data) {
+    .controller('GroupDetailCtrl', 
+        function($scope, $route, $location, $http, 
+            GroupService, StatusService, FlashService,
+            data) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -18,7 +21,7 @@ angular.module('segoraClientApp')
         $scope.groupId = data.groupId;
         $scope.group = data.group;
         $scope.users = data.users;
-        $scope.selectedUsers = [];
+        $scope.selectedUsers = data.selectedUsers;
 
         if ($scope.groupId == 'new') {
             $scope.editMode = true;
@@ -48,6 +51,14 @@ angular.module('segoraClientApp')
 
             StatusService.start();
             if ($scope.group._id) {
+
+                var selectedUserIds = []
+                $scope.selectedUsers.forEach(function(selectedUser){
+                    selectedUserIds.push(selectedUser._id);
+                });
+
+                $scope.group.selectedUsers = selectedUserIds;
+
                 GroupService.update($scope.group, function(o){
                     $scope.editMode = false;
                     StatusService.stop();

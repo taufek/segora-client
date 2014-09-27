@@ -383,6 +383,7 @@ angular
                             var groupId = $route.current.params.groupId;
                             var objects = {};
                             objects.groupId = groupId;
+                            objects.selectedUsers = [];
 
                             // 
 
@@ -391,6 +392,18 @@ angular
                                     objects.group = group;
                                     UserService.list(function(users){
                                         objects.users = users;
+
+                                        if(objects.group.selectedUser && objects.group.selectedUser.length > 0){
+                                            objects.group.selectedUser.forEach(function(selectedUserId){
+                                                objects.users.forEach(function(user){
+
+                                                    if(selectedUserId === user._id){
+                                                        objects.selectedUsers.push(user);
+                                                    }
+                                                });
+                                            });
+                                        }
+
                                         deferred.resolve(objects);
                                     });
                                 });
@@ -399,6 +412,17 @@ angular
                                     objects.group = group;
                                     UserService.list(function(users){
                                         objects.users = users;
+
+                                        if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
+                                            objects.group.selectedUsers.forEach(function(selectedUserId){
+                                                objects.users.forEach(function(user){
+                                                    if(selectedUserId == user._id){
+                                                        objects.selectedUsers.push(user);
+                                                    }
+                                                });
+                                            });
+                                        }
+
                                         deferred.resolve(objects);
                                     });
                                 });
