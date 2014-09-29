@@ -9,12 +9,7 @@
  */
 angular.module('segoraClientApp')
     .controller('UserAddressDetailCtrl', function($scope, $location, AddressService, StatusService, FlashService, data) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
+        
         $scope.user = data.user;
         $scope.address = data.address;
         $scope.addressId = data.addressId;

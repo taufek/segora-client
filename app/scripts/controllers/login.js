@@ -9,12 +9,7 @@
  */
 angular.module('segoraClientApp')
   .controller('LoginCtrl', function ($scope, $http, $location, Settings, StatusService, FlashService, UserSessionService) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
+    
     $scope.login = function(){
 
     	StatusService.start();

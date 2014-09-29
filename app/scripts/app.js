@@ -437,6 +437,55 @@ angular
                     ]
                 }
             })
+            .when('/role', {
+                templateUrl: 'views/role.html',
+                controller: 'RoleCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'RoleService',
+                        function($q, $route, RoleService) {
+                            var deferred = $q.defer();
+                            var objects = {};
+
+                            RoleService.list(function(roles) {
+                                objects.roles = roles;
+                                deferred.resolve(objects);
+
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
+            .when('/role/:roleId', {
+                templateUrl: 'views/role-detail.html',
+                controller: 'RoleDetailCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'RoleService', 'UserService',
+                        function($q, $route, RoleService, UserService) {
+                            var deferred = $q.defer();
+                            var roleId = $route.current.params.roleId;
+                            var objects = {};
+                            objects.roleId = roleId;
+
+
+                            if (roleId === 'new') {
+                                RoleService.createNew(function(role) {
+                                    objects.role = role;  
+                                    deferred.resolve(objects); 
+                                });
+                            } else {
+                                RoleService.getById(roleId, function(role) {
+                                    objects.role = role;
+                                    deferred.resolve(objects);
+                                });
+                            }
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
             .otherwise({
                 redirectTo: '/home'
             });

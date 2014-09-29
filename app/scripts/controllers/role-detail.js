@@ -2,32 +2,26 @@
 
 /**
  * @ngdoc function
- * @name segoraClientApp.controller:UserDetailCtrl
+ * @name segoraClientApp.controller:RoleDetailCtrl
  * @description
- * # UserDetailCtrl
+ * # RoleDetailCtrl
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserDetailCtrl', function($scope, $route, $location, $http, UserService, AddressService, StatusService, FlashService, data) {
+    .controller('RoleDetailCtrl', 
+        function($scope, $route, $location, $http, 
+            RoleService, StatusService, FlashService,
+            data) {
         
-        $scope.userId = data.userId;
-        $scope.user = data.user;
-        $scope.address = data.address;
-        $scope.addressId = data.addressId;
-        $scope.currentYear = new Date().getFullYear();
+        $scope.roleId = data.roleId;
+        $scope.role = data.role;
 
-        if ($scope.userId == 'new') {
+        if ($scope.roleId == 'new') {
             $scope.editMode = true;
         } else {
             $scope.editMode = false;
         }
 
-        $scope.getAddressId = function() {
-            if ($scope.address !== null && $scope.address) {
-                return $scope.address._id;
-            }
-            return 'null';
-        }
 
         $scope.edit = function() {
             $scope.editMode = true;
@@ -38,26 +32,28 @@ angular.module('segoraClientApp')
                 $scope.editMode = false;
             }
             else{
-                $location.path('/user');
+                $location.path('/role');
             }
         };
 
         $scope.save = function() {
-            if(!$scope.userForm.$valid){
+            if(!$scope.roleForm.$valid){
                 FlashService.setMessage('Not valid', 'danger', true);
                 return false;
             }
 
             StatusService.start();
-            if ($scope.user._id) {
-                UserService.update($scope.user, function(o){
+            if ($scope.role._id) {
+
+                RoleService.update($scope.role, function(o){
                     $scope.editMode = false;
                     StatusService.stop();
                     FlashService.setMessage('Updated.', 'success', true);
                 });
             } else {
-                UserService.save($scope.user, function(o) {
-                    $location.path('/user/'+o[0]._id);
+                
+                RoleService.save($scope.role, function(o) {
+                    $location.path('/role/'+o[0]._id);
                     FlashService.setMessage('Saved.', 'success');
                 });
             }
@@ -68,8 +64,8 @@ angular.module('segoraClientApp')
         $scope.remove = function() {
 
             StatusService.start();
-            UserService.remove($scope.user, function(){
-                $location.path('/user');
+            RoleService.remove($scope.role, function(){
+                $location.path('/role');
                 FlashService.setMessage('Removed.', 'success');
             });
         };

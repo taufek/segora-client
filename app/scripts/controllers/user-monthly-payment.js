@@ -9,11 +9,7 @@
  */
 angular.module('segoraClientApp')
   .controller('UserMonthlyPaymentCtrl', function ($scope, $location, CounterService, PaymentService, StatusService, FlashService, data) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    
 
     $scope.months = data.months;
     $scope.years = data.years;

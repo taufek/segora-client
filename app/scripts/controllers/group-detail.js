@@ -12,12 +12,7 @@ angular.module('segoraClientApp')
         function($scope, $route, $location, $http, 
             GroupService, StatusService, FlashService,
             data) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
+        
         $scope.groupId = data.groupId;
         $scope.group = data.group;
         $scope.users = data.users;

@@ -9,11 +9,7 @@
  */
 angular.module('segoraClientApp')
     .controller('UserCredentialDetailCtrl', function($scope, $location, CredentialService, StatusService, FlashService, data) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+        
 
         $scope.user = data.user;
         $scope.credential = data.credential;

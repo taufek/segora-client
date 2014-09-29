@@ -1,0 +1,65 @@
+<h4>Role</h4>
+
+<div ng-show="!editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="edit()">Edit</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+        <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
+    </div>
+
+	<div class="form-role component">
+        <label>Code</label>
+        <div>{{role.code}}</div>
+    </div>
+
+    <div class="form-role component">
+        <label>Name</label>
+        <div>{{role.name}}</div>
+    </div>
+   
+</div>
+
+<div ng-show="editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="save()">Save</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+    </div>
+
+	<form role="form" name="roleForm">
+
+        <div class="form-role">
+            <label for="code">Code</label>
+            <input class="form-control" id="code" name="code"
+                   ng-model="role.code" placeholder="Enter a first code"
+                   required
+                   ng-minlength="2"
+                   ng-maxlength="20">
+            <span class="error text-danger" ng-show="roleForm.code.$error.required">
+                Required!
+            </span>
+            <span class="error text-danger" ng-show="roleForm.code.$error.minlength">
+                Too short!
+            </span>
+            <span class="error text-danger" ng-show="roleForm.code.$error.maxlength">
+                Too long!
+            </span>
+        </div>
+
+        <div class="form-role">
+            <label for="name">Name</label>
+            <input class="form-control" id="name" name="name"
+                   ng-model="role.name" placeholder="Enter a first name"
+                   required
+                   ng-minlength="2">
+            <span class="error text-danger" ng-show="roleForm.name.$error.required">
+                Required!
+            </span>
+            <span class="error text-danger" ng-show="roleForm.name.$error.minlength">
+                Too short!
+            </span>
+        </div>
+
+    </form>
+</div>
