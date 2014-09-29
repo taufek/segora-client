@@ -69,6 +69,16 @@ angular.module('segoraClientApp')
           }
         }
 
+        scope.getRolesLink = function(){
+
+          if(scope.user._id !== undefined){
+            return "#/user/"+scope.user._id+"/roles";
+          }
+          else{
+            return '#' + $location.path();
+          }
+        }
+
         scope.getCredentialLink = function(){
 
           if(scope.user._id !== undefined){

@@ -134,6 +134,27 @@ angular
                     ]
                 }
             })
+            .when('/user/:userId/roles', {
+                templateUrl: 'views/user-roles.html',
+                controller: 'UserCredentialDetailCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'UserService',
+                        function($q, $route, UserService) {
+                            var deferred = $q.defer();
+                            var userId = $route.current.params.userId;
+                            var credentialId = $route.current.params.credentialId;
+                            var objects = {};
+
+                            UserService.getById(userId, function(user) {
+                                objects.user = user;
+                                deferred.resolve(objects);
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
             .when('/user/:userId/payment', {
                 templateUrl: 'views/user-payments.html',
                 controller: 'UserPaymentsCtrl',
