@@ -405,13 +405,32 @@ angular
                 templateUrl: 'views/group.html',
                 controller: 'GroupCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'GroupService',
-                        function($q, $route, GroupService) {
+                    data: ['$q', '$route', 'GroupService', 'UserSessionService',
+                        function($q, $route, GroupService, UserSessionService) {
                             var deferred = $q.defer();
                             var objects = {};
 
+
+                            var currentUser = UserSessionService.getUser();
+
                             GroupService.list(function(groups) {
-                                objects.groups = groups;
+                                objects.groups = [];
+                                if(UserSessionService.hasAnyRoles(['admin'])){
+                                    objects.groups = groups;
+                                }
+                                else{
+                                    groups.forEach(function(group){
+                           
+                                        if(group.selectedAdmins && group.selectedAdmins.length > 0){
+                                            group.selectedAdmins.forEach(function(selectedAdminId){
+                                                if(currentUser._id == selectedAdminId){
+                                                    objects.groups.push(group);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                                
                                 deferred.resolve(objects);
 
                             });

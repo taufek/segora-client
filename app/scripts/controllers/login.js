@@ -29,6 +29,7 @@ angular.module('segoraClientApp')
 
             UserService.getByUsername($scope.credential.username, function(user){
                 UserSessionService.addRoles(user.userRoles);
+                UserSessionService.addUser(user);
                 $location.path('/');      
             });    
 
