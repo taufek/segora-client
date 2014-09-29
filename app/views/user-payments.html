@@ -1,7 +1,7 @@
 <h4>Payments</h4>
 
 <div style="margin-bottom:10px">
-    <a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}" class="btn btn-primary">New Monthly Payments</a>
+    <a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}" class="btn btn-primary" ng-show="hasAnyRoles(['admin'])">New Monthly Payments</a>
 </div>
 
 <table class="table" ng-show="payments.length">

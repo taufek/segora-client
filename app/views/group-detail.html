@@ -3,9 +3,9 @@
 <div ng-show="!editMode">
 
     <div style="margin-bottom:10px">
-        <button class="btn btn-primary" ng-click="edit()">Edit</button>
+        <button class="btn btn-primary" ng-click="edit()" ng-show="hasAnyRoles(['admin'])">Edit</button>
         <button class="btn btn-default" ng-click="done()">Done</button>
-        <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
+        <button class="btn btn-danger pull-right" ng-click="remove()" ng-show="hasAnyRoles(['admin'])">Remove</button>
     </div>
 
 	<div class="form-group component">
@@ -16,7 +16,9 @@
     <div class="form-group">
         <label>Members</label>
         <ul class="list-group" ng-show="selectedUsers.length > 0">
-          <li class="list-group-item" ng-repeat="user in selectedUsers">{{user.full_name}}</li>
+            <li class="list-group-item" ng-repeat="user in selectedUsers">
+                <a href="#/user/{{user._id}}">{{user.full_name}}</a>
+            </li>
         </ul>
         <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
             <div class="panel-body">

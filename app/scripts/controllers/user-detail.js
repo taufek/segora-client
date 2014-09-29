@@ -38,7 +38,7 @@ angular.module('segoraClientApp')
                 $scope.editMode = false;
             }
             else{
-                $location.path('/user');
+                $location.path('/home');
             }
         };
 
