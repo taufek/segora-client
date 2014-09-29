@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserRoleDetailCtrl', function($scope, $location, RoleService, StatusService, FlashService, data) {
+    .controller('UserRoleDetailCtrl', function($scope, $location, UserService, RoleService, StatusService, FlashService, data) {
         
 
         $scope.user = data.user;
@@ -33,19 +33,42 @@ angular.module('segoraClientApp')
 
         $scope.save = function() {
 
-            if(!$scope.userRoleForm.$valid){
+            if(!$scope.userRolesForm.$valid){
                 FlashService.setMessage('Not valid', 'danger', true);
                 return false;
             }
             
             StatusService.start();
+            $scope.user.userRoles = [];
+            $scope.userRoles = []
+
+            $scope.roles.forEach(function(role){
+                if(role.selected){
+                    $scope.user.userRoles.push(role.code);
+                    $scope.userRoles.push(role);
+                }
+            });
 
             UserService.update($scope.user, function(o) {
                 $scope.editMode = false;
                 StatusService.stop();
                 FlashService.setMessage('Updated.', 'success', true);
             });
+// StatusService.stop();
         };
 
+        $scope.chooseRole = function(code){
+
+            $scope.roles.forEach(function(role){
+                if(code == role.code){
+                    if(!role.selected){
+                        role.selected = true;                        
+                    }
+                    else{
+                        delete role.selected;
+                    }
+                }
+            })
+        }
         
     });

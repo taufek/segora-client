@@ -34,7 +34,9 @@
         <div class="form-group">
         <label>Roles</label>
         <ul class="list-group" ng-show="roles.length > 0">
-          <li class="list-group-item" ng-repeat="role in roles">{{role.name}}</li>
+          <li class="list-group-item" ng-repeat="role in roles" ng-click="chooseRole(role.code)">   {{role.name}}
+            <span ng-show="role.selected" class="glyphicon glyphicon-ok pull-right"></span>
+          </li>
         </ul>
     </div>
 

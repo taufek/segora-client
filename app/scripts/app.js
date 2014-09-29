@@ -151,15 +151,20 @@ angular
                                 RoleService.list(function(roles){
                                     objects.roles = roles;
 
-                                    if(objects.user.roles != undefined){
-
-
-
-                                        objects.user.roles.forEach(function(roleId){
+                                    if(objects.user.userRoles != undefined){
+                                        var count = objects.user.userRoles.length;
+                                        var index = 0;
+                                        objects.user.userRoles.forEach(function(roleCode){
 
                                             objects.roles.forEach(function(role){
-                                                if(role._id == roleId){
+                                                if(role.code == roleCode){
                                                     objects.userRoles.push(role);
+                                                    role.selected = true;
+                                                    index++;
+
+                                                    if(index == count){
+                                                        deferred.resolve(objects);
+                                                    }
                                                 }
                                             });
                                         });
