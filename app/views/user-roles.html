@@ -1,5 +1,44 @@
 <user-tab user="user" active-tab="roles"></user-tab>
 
-<h4>
-    Roles
-</h4>
+<div ng-show="!editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="edit()">Edit</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+        <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
+    </div>
+
+    <div class="form-group">
+        <label>Roles</label>
+        <ul class="list-group" ng-show="userRoles.length > 0">
+          <li class="list-group-item" ng-repeat="role in userRoles">{{role.name}}</li>
+        </ul>
+        <div class="panel panel-default" ng-show="!userRoles.length > 0">
+            <div class="panel-body">
+                <i>No roles</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="editMode">
+
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="save()">Save</button>
+        <button class="btn btn-default" ng-click="done()">Done</button>
+    </div>
+
+    <form role="form" name="userRolesForm">
+
+        <div class="form-group">
+        <label>Roles</label>
+        <ul class="list-group" ng-show="roles.length > 0">
+          <li class="list-group-item" ng-repeat="role in roles">{{role.name}}</li>
+        </ul>
+    </div>
+
+    </form>
+</div>
+
+

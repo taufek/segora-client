@@ -136,18 +136,40 @@ angular
             })
             .when('/user/:userId/roles', {
                 templateUrl: 'views/user-roles.html',
-                controller: 'UserCredentialDetailCtrl',
+                controller: 'UserRoleDetailCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'UserService',
-                        function($q, $route, UserService) {
+                    data: ['$q', '$route', 'UserService', 'RoleService',
+                        function($q, $route, UserService, RoleService) {
                             var deferred = $q.defer();
                             var userId = $route.current.params.userId;
                             var credentialId = $route.current.params.credentialId;
                             var objects = {};
+                            objects.userRoles = [];
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
-                                deferred.resolve(objects);
+                                RoleService.list(function(roles){
+                                    objects.roles = roles;
+
+                                    if(objects.user.roles != undefined){
+
+
+
+                                        objects.user.roles.forEach(function(roleId){
+
+                                            objects.roles.forEach(function(role){
+                                                if(role._id == roleId){
+                                                    objects.userRoles.push(role);
+                                                }
+                                            });
+                                        });
+                                    }
+                                    else{
+                                        deferred.resolve(objects);
+                                    }
+
+                                    
+                                })
                             });
 
                             return deferred.promise;

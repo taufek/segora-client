@@ -13,12 +13,9 @@ angular.module('segoraClientApp')
 
         $scope.user = data.user;
         $scope.roles = data.roles;
+        $scope.userRoles = data.userRoles;
 
-        if ($scope.user.roles == undefined) {
-            $scope.editMode = true;
-        } else {
-            $scope.editMode = false;            
-        }
+        $scope.editMode = false;  
 
         $scope.edit = function() {
             $scope.editMode = true;               
