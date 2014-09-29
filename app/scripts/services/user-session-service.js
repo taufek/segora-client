@@ -14,10 +14,14 @@ angular.module('segoraClientApp')
             SessionService.set('username', username);
             SessionService.set('hash', md5.createHash(password));
         },
+        addRoles: function(roles){
+            SessionService.set('roles', roles);
+        },
         removeSession: function(){
             SessionService.unset('login');
             SessionService.unset('username');
             SessionService.unset('hash');
+            SessionService.unset('roles');
         },
         getHash: function(){
             return SessionService.get('hash');

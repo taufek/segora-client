@@ -8,7 +8,8 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('LoginCtrl', function ($scope, $http, $location, Settings, StatusService, FlashService, UserSessionService) {
+  .controller('LoginCtrl', function ($scope, $http, $location, 
+    Settings, StatusService, FlashService, UserSessionService, UserService) {
     
     $scope.login = function(){
 
@@ -20,8 +21,18 @@ angular.module('segoraClientApp')
             url: Settings.backendHost + '/authenticate'
         }).
         success(function(data, status, headers, config) {
-            UserSessionService.createSession($scope.credential.username, $scope.credential.password);
-            $location.path('/');
+
+            UserSessionService.createSession(
+                $scope.credential.username, 
+                $scope.credential.password
+                );
+
+            UserService.getByUsername($scope.credential.username, function(user){
+                UserSessionService.addRoles(user.userRoles);
+                $location.path('/');      
+            });    
+
+
         }).
         error(function(data, status, headers, config) {
             StatusService.stop();

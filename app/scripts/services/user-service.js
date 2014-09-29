@@ -15,6 +15,10 @@ angular.module('segoraClientApp')
                     method: 'POST',
                     isArray: true
                 },
+                'getByUsername': {
+                    method: 'GET',
+                    isArray: true
+                },
                 'update': {
                     method: 'PUT'
                 }
@@ -43,6 +47,13 @@ angular.module('segoraClientApp')
                     userId: id
                 }, function(user) {
                     fn(user);
+                });
+            },
+            getByUsername: function(userName, fn) {
+                User.getByUsername({
+                    user_name: userName
+                }, function(result) {
+                    fn(result[0]);
                 });
             },
             createNew: function(fn) {
