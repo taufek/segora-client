@@ -8,12 +8,12 @@
         <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
     </div>
 
-	<div class="form-role component">
+	<div class="form-group">
         <label>Code</label>
         <div>{{role.code}}</div>
     </div>
 
-    <div class="form-role component">
+    <div class="form-group">
         <label>Name</label>
         <div>{{role.name}}</div>
     </div>
@@ -29,7 +29,7 @@
 
 	<form role="form" name="roleForm">
 
-        <div class="form-role">
+        <div class="form-group">
             <label for="code">Code</label>
             <input class="form-control" id="code" name="code"
                    ng-model="role.code" placeholder="Enter a first code"
@@ -47,7 +47,7 @@
             </span>
         </div>
 
-        <div class="form-role">
+        <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control" id="name" name="name"
                    ng-model="role.name" placeholder="Enter a first name"
