@@ -3,7 +3,7 @@
 <div ng-show="!editMode">
 
     <div style="margin-bottom:10px">
-        <button class="btn btn-primary" ng-click="edit()">Edit</button>
+        <button class="btn btn-primary" ng-click="edit()" ng-show="hasAnyRoles(['admin'])">Edit</button>
         <button class="btn btn-default" ng-click="done()">Done</button>
         <button class="btn btn-danger pull-right" ng-click="remove()">Remove</button>
     </div>
