@@ -2,7 +2,7 @@
 <ul class="nav nav-pills pull-right">
   <li ng-show="isLogin()"><a ng-href="#/home">Home</a></li>
   <li ng-show="isLogin()"><a ng-href="#/user">Users</a></li>
-  <li ng-show="isLogin()"><a ng-href="#/role">Roles</a></li>
+  <li ng-show="isLogin() && hasAnyRoles(['admin'])"><a ng-href="#/role">Roles</a></li>
   <li ng-show="isLogin()"><a ng-href="#/group">Groups</a></li>
   <li ng-hide="isLogin()"><a ng-href="#/login">Sign In</a></li>
   <li ng-show="isLogin()"><a href="" ng-click="logout()">Sign Out</a></li>

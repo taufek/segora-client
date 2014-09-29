@@ -15,7 +15,7 @@ angular.module('segoraClientApp')
             SessionService.set('hash', md5.createHash(password));
         },
         addRoles: function(roles){
-            SessionService.set('roles', roles);
+            SessionService.set('roles', JSON.stringify(roles));
         },
         removeSession: function(){
             SessionService.unset('login');
@@ -28,6 +28,24 @@ angular.module('segoraClientApp')
         },
         getUsername: function(){
             return SessionService.get('username');
+        },
+        hasAnyRoles: function(arrayRoles) {
+            var flag = false;
+            var stringifyRoles = SessionService.get('roles');
+            if (stringifyRoles != 'undefined') {
+                var roles = JSON.parse(SessionService.get('roles'));
+                if (roles) {
+                    roles.forEach(function(role) {
+                        for (var i = 0; i < arrayRoles.length; i++) {
+                            if (arrayRoles[i] == role) {
+                                flag = true;
+                            }
+                        }
+                    });
+                }
+            }
+
+            return flag;
         }
     }
 });

@@ -25,5 +25,7 @@ angular.module("segoraClientApp")
 
 
         });
+
+        $rootScope.hasAnyRoles = UserSessionService.hasAnyRoles;
     }
 );

@@ -23,6 +23,8 @@ angular.module('segoraClientApp')
         	$location.search('logout_time', new Date().getTime());
         	$location.path('/home');
         }
+
+        
       }
     };
   });
