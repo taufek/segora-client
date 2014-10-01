@@ -1,1 +1,18 @@
-<h4>Groups</h4> <div style="margin-bottom:10px"> <a href="#/group/new" class="btn btn-primary" ng-show="hasAnyRoles(['admin'])">New</a> </div> <table class="table"> <tr> <th> Name   <tbody> <tr ng-repeat="group in groups"> <td> <a href="#/group/{{group._id}}">{{group.name}}</a>    </table>
+<h4>Groups</h4>
+<div style="margin-bottom:10px">
+    <a href="#/group/new" class="btn btn-primary" ng-show="hasAnyRoles(['admin'])">New</a>
+</div>
+<table class="table ">
+	<tr>
+		<th>
+			Name
+		</th>	
+	</tr>
+	<tbody>
+		<tr ng-repeat="group in groups">
+			<td>
+				<a href="#/group/{{group._id}}">{{group.name}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

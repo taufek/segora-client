@@ -1,1 +1,21 @@
-<h4>Users</h4> <div style="margin-bottom:10px"> <a href="#/user/new" class="btn btn-primary">New</a> </div> <input class="form-control pull-right" name="search_user" ng-model="userSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px"> <table class="table"> <tr> <th> Full Name   <tbody> <tr ng-repeat="user in users | filter:userSearch.keyword"> <td> <a href="#/user/{{user._id}}">{{user.full_name}}</a>    </table>
+<h4>Users</h4>
+<div style="margin-bottom:10px">
+    <a href="#/user/new" class="btn btn-primary">New</a>
+</div>
+
+<input class="form-control pull-right" name="search_user" ng-model="userSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px">
+
+<table class="table ">
+	<tr>
+		<th>
+			Full Name
+		</th>	
+	</tr>
+	<tbody>
+		<tr ng-repeat="user in users | filter:userSearch.keyword">
+			<td>
+				<a href="#/user/{{user._id}}">{{user.full_name}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
