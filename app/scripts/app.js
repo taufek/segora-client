@@ -112,20 +112,32 @@ angular
                 templateUrl: 'views/user-address.html',
                 controller: 'UserAddressDetailCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'UserService',
-                        function($q, $route, UserService) {
+                    data: ['$q', '$route', 'UserService', 'AddressService',
+                        function($q, $route, UserService, AddressService) {
                             var deferred = $q.defer();
                             var userId = $route.current.params.userId;
                             var addressId = $route.current.params.addressId;
                             var objects = {};
 
-                            // 
 
                             UserService.getById(userId, function(user) {
                                 objects.user = user;
                                 objects.addressId = addressId;
-                                objects.address = null;
-                                deferred.resolve(objects);
+
+                                if(objects.addressId == 'null'){
+                                    AddressService.createNew(userId, function(address) {
+                                        objects.address = address;
+                                        deferred.resolve(objects);
+                                    });
+                                }
+                                else{
+                                    AddressService.getById(objects.addressId, function(address){
+                                        objects.address = address;
+                                        deferred.resolve(objects);
+                                    });
+                                }
+                                
+                                
                             });
 
                             return deferred.promise;

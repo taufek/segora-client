@@ -16,15 +16,10 @@ angular.module('segoraClientApp')
 
         if ($scope.addressId == 'null') {
             $scope.editMode = true;
-            AddressService.createNew($scope.user._id, function(address) {
-                $scope.address = address;
-            });
+            
         } else {
             $scope.editMode = false;
-
-            AddressService.getById($scope.addressId, function(address) {
-                $scope.address = address;
-            });
+           
         }
 
         $scope.edit = function() {
