@@ -11,7 +11,7 @@
 	<tbody>
 		<tr ng-repeat="address in addresses | filter:addressSearch.keyword">
 			<td>
-				<a href="#/address/{{address._id}}">{{address.number}}, {{address.street}}</a>
+				<a href="#/user/{{address.userId}}/address/{{address._id}}">{{address.number}}, {{address.street}}</a>
 			</td>
 		</tr>
 	</tbody>
