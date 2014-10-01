@@ -10,6 +10,11 @@
         <button class="btn btn-primary" ng-click="save()" ng-show="hasAnyRoles(['admin','group_admin'])">Save</button>
         <button class="btn btn-default" ng-click="done()">Done</button>
     </div>
+    
+    <div class="form-group component">
+        <label>Resident</label>
+        <div>{{user.full_name}}</div>
+    </div>
 
 	<form role="form" name="addressForm">
 

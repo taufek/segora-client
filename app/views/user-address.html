@@ -8,6 +8,11 @@
         <button class="btn btn-danger pull-right" ng-show="hasAnyRoles(['admin'])" confirmed-click="remove()" ng-confirm-click="Are you sure?">Remove</button>
     </div>
 
+    <div class="form-group component">
+        <label>Resident</label>
+        <div>{{user.full_name}}</div>
+    </div>
+
 	<div class="form-group component">
         <label>No.</label>
         <div>{{address.number}}</div>
@@ -26,6 +31,11 @@
     </div>
 
 	<form role="form" name="addressForm">
+
+        <div class="form-group component">
+            <label>Resident</label>
+            <div>{{user.full_name}}</div>
+        </div>
 
         <div class="form-group">
             <label for="number">No.</label>

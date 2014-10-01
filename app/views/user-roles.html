@@ -9,6 +9,11 @@
     </div>
 
     <div class="form-group">
+        <div class="form-group component">
+            <label>Resident</label>
+            <div>{{user.full_name}}</div>
+        </div>
+
         <label>Roles</label>
         <ul class="list-group" ng-show="userRoles.length > 0">
           <li class="list-group-item" ng-repeat="role in userRoles">{{role.name}}</li>
@@ -31,6 +36,11 @@
 
     <form role="form" name="userRolesForm">
 
+        <div class="form-group component">
+            <label>Resident</label>
+            <div>{{user.full_name}}</div>
+        </div>
+    
         <div class="form-group">
         <label>Roles</label>
         <ul class="list-group" ng-show="roles.length > 0">
