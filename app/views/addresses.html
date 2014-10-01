@@ -12,6 +12,7 @@
 		<tr ng-repeat="address in addresses | filter:addressSearch.keyword">
 			<td>
 				<a href="#/user/{{address.userId}}/address/{{address._id}}">{{address.number}}, {{address.street}}</a>
+				<a href="#/user/{{address.userId}}/monthly_payment/{{currentYear}}"><span class="glyphicon glyphicon-usd pull-right"></span></a>
 			</td>
 		</tr>
 	</tbody>

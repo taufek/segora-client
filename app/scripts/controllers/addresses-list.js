@@ -6,5 +6,7 @@ angular.module('segoraClientApp')
 
         $scope.addresses = data.addresses;
 
+        $scope.currentYear = new Date().getFullYear();
+
         
     });
