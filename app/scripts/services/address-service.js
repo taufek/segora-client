@@ -28,6 +28,17 @@ angular.module('segoraClientApp')
         );
 
         return {
+            list: function(fn) {
+                var addresses = Address.query(function() {
+                    fn(addresses);
+                },
+                function(){
+                    console.log('Error');
+
+
+                });
+               
+            },
             getById: function(id, fn) {
                 Address.get({
                     addressId: id

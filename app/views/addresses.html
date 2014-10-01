@@ -1,0 +1,18 @@
+<h4>Addresses</h4>
+
+<input class="form-control pull-right" name="search_address" ng-model="addressSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px">
+
+<table class="table ">
+	<tr>
+		<th>
+			Address
+		</th>	
+	</tr>
+	<tbody>
+		<tr ng-repeat="address in addresses | filter:addressSearch.keyword">
+			<td>
+				<a href="#/address/{{address._id}}">{{address.number}}, {{address.street}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

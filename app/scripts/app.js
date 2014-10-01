@@ -48,6 +48,30 @@ angular
                     ]
                 }
             })
+            .when('/address', {
+                templateUrl: 'views/addresses.html',
+                controller: 'AddressesListCtrl',
+                resolve: {
+                    data: ['$q', '$route', 'AddressService',
+                        function($q, $route, AddressService) {
+                            var deferred = $q.defer();
+                            var objects = {};
+
+                            AddressService.list(function(addresses) {
+                                objects.addresses = addresses;
+
+                                objects.addresses.forEach(function(address){
+                                    address.fullAddress = address.number + ', ' + address.street;
+                                });
+                                deferred.resolve(objects);
+
+                            });
+
+                            return deferred.promise;
+                        }
+                    ]
+                }
+            })
             .when('/user/:userId', {
                 templateUrl: 'views/user-detail.html',
                 controller: 'UserDetailCtrl',
