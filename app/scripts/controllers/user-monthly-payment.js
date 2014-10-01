@@ -10,7 +10,7 @@
 angular.module('segoraClientApp')
   .controller('UserMonthlyPaymentCtrl', 
     function ($scope, $location, 
-      CounterService, PaymentService, StatusService, FlashService, UserSessionService, UserService,
+      CounterService, PaymentService, StatusService, FlashService, UserSessionService, UserService, AddressService,
       data) {
     
 
@@ -97,5 +97,9 @@ angular.module('segoraClientApp')
       UserService.getById(month.payment.creator_id, function(user){
         $scope.currentPayment.payment.creator = user;
       });
+
+      AddressService.getByUserId($scope.user._id, function(address){
+        $scope.address = address;
+      })
     }
   });
