@@ -8,7 +8,10 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserMonthlyPaymentCtrl', function ($scope, $location, CounterService, PaymentService, StatusService, FlashService, data) {
+  .controller('UserMonthlyPaymentCtrl', 
+    function ($scope, $location, 
+      CounterService, PaymentService, StatusService, FlashService, UserSessionService, UserService,
+      data) {
     
 
     $scope.months = data.months;
@@ -18,7 +21,7 @@ angular.module('segoraClientApp')
     $scope.selectedYear = data.selectedYear;
     $scope.payments = data.payments;
     $scope.paymentsToProcess = [];
-
+    $scope.currentUser = UserSessionService.getUser();
     
 
     $scope.changeYear = function(){
@@ -51,8 +54,11 @@ angular.module('segoraClientApp')
           payment.amount = 80;
 
           CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
-            console.log(counter);
+            
+            payment.creator_id = $scope.currentUser._id;
+            payment.created_date = new Date().getTime();
             payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
+            
             PaymentService.save(payment, function(){
               index++;
               if(count == index){
@@ -82,6 +88,14 @@ angular.module('segoraClientApp')
         $location.search('refresh', new Date().getTime());
         $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
         FlashService.setMessage('Removed.', 'success');
+      });
+    }
+
+    $scope.showPayment = function(month){
+      $scope.currentPayment = month;
+
+      UserService.getById(month.payment.creator_id, function(user){
+        $scope.currentPayment.payment.creator = user;
       });
     }
   });
