@@ -5,7 +5,7 @@
     <div style="margin-bottom:10px">
         <button class="btn btn-primary" ng-click="edit()" ng-show="hasAnyRoles(['admin'])">Edit</button>
         <button class="btn btn-default" ng-click="done()">Done</button>
-        <button class="btn btn-danger pull-right" ng-click="remove()" ng-show="hasAnyRoles(['admin'])">Remove</button>
+        <button class="btn btn-danger pull-right" ng-click="remove()" ng-show="hasAnyRoles(['admin'])" confirmed-click="remove()" ng-confirm-click="Are you sure?">Remove</button>
     </div>
 
 	<div class="form-group component">
