@@ -16,7 +16,8 @@ angular
         'ngRoute',
         'ngSanitize',
         'ngTouch',
-        'angular-md5'
+        'angular-md5',
+        'angularFileUpload'
     ])
     .config(function($routeProvider) {
         $routeProvider
@@ -588,6 +589,10 @@ angular
                         }
                     ]
                 }
+            })
+            .when('/user_upload', {
+              templateUrl: 'views/user_upload.html',
+              controller: 'UserUploadCtrl'
             })
             .otherwise({
                 redirectTo: '/home'
