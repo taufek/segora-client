@@ -61,7 +61,7 @@ angular
                                 objects.addresses = addresses;
 
                                 objects.addresses.forEach(function(address){
-                                    address.fullAddress = address.number + ', ' + address.street;
+                                    address.fullAddress = address.number + ' ' + address.street;
                                 });
                                 deferred.resolve(objects);
 
