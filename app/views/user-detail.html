@@ -66,12 +66,8 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input class="form-control" id="email" name="email"
-                   ng-model="user.email" placeholder="Enter a user name"
-                   required
+                   ng-model="user.email" placeholder="Enter an email"
                    ng-pattern="/^[a-zA-Z0-9._]*@[a-zA-Z0-9_]*\.[a-zA-Z0-9._]{2,}$/">
-            <span class="error text-danger" ng-show="userForm.email.$error.required">
-                Required!
-            </span>
             <span class="error text-danger" ng-show="userForm.email.$error.pattern">
                 Invalid!
             </span>
@@ -80,12 +76,8 @@
         <div class="form-group">
             <label for="phone">Phone</label>
             <input class="form-control" id="phone" name="phone"
-                   ng-model="user.phone" placeholder="Enter a user name"
-                   required
+                   ng-model="user.phone" placeholder="Enter a phone number"
                    ng-pattern="/^\++[0-9-]{7,15}$/">
-            <span class="error text-danger" ng-show="userForm.phone.$error.required">
-                Required!
-            </span>
             <span class="error text-danger" ng-show="userForm.phone.$error.pattern">
                 Invalid!
             </span>
