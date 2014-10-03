@@ -29,7 +29,7 @@ angular.module('segoraClientApp')
 
         return {
             list: function(fn) {
-                var addresses = Address.query(function() {
+                var addresses = Address.query({'limit': 0}, function() {
                     fn(addresses);
                 },
                 function(){

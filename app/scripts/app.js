@@ -481,8 +481,8 @@ angular
                 templateUrl: 'views/group-detail.html',
                 controller: 'GroupDetailCtrl',
                 resolve: {
-                    data: ['$q', '$route', 'GroupService', 'UserService',
-                        function($q, $route, GroupService, UserService) {
+                    data: ['$q', '$route', 'GroupService', 'UserService', 'AddressService',
+                        function($q, $route, GroupService, UserService, AddressService) {
                             var deferred = $q.defer();
                             var groupId = $route.current.params.groupId;
                             var objects = {};
@@ -493,6 +493,20 @@ angular
                             var createUsers = function(){
                                 UserService.list(function(users){
                                     objects.users = users;
+
+                                    if(objects.addresses){
+                                        objects.addresses.forEach(function(address){
+                                            if(objects.users){
+                                                objects.users.forEach(function(user){
+                                                    if(address.userId == user._id.toString()){
+                                                        user.address = address;
+                                                        user.address.fullAddress = address.number + ' ' + address.street;
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
                                     objects.admins = angular.copy(users);
 
                                     if(objects.group.selectedUsers && objects.group.selectedUsers.length > 0){
@@ -523,18 +537,22 @@ angular
                                 });
                             }
 
+                            AddressService.list(function(addresses){
+                                objects.addresses = addresses;
+                                if (groupId === 'new') {
+                                    GroupService.createNew(function(group) {
+                                        objects.group = group;                                    
+                                        createUsers();
+                                    });
+                                } else {
+                                    GroupService.getById(groupId, function(group) {
+                                        objects.group = group;
+                                        createUsers();
+                                    });
+                                }
+                            });
 
-                            if (groupId === 'new') {
-                                GroupService.createNew(function(group) {
-                                    objects.group = group;                                    
-                                    createUsers();
-                                });
-                            } else {
-                                GroupService.getById(groupId, function(group) {
-                                    objects.group = group;
-                                    createUsers();
-                                });
-                            }
+
 
                             return deferred.promise;
                         }

@@ -17,7 +17,11 @@
         <label>Residents</label>
         <ul class="list-group" ng-show="selectedUsers.length > 0">
             <li class="list-group-item" ng-repeat="user in selectedUsers">
-                <a href="#/user/{{user._id}}">{{user.full_name}}</a>
+                <a href="#/user/{{user._id}}">
+                    {{user.full_name}}
+                </a>
+
+                ({{user.address.fullAddress}})
             </li>
         </ul>
         <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
@@ -30,7 +34,9 @@
     <div class="form-group">
         <label>Group Admins</label>
         <ul class="list-group" ng-show="selectedAdmins.length > 0">
-          <li class="list-group-item" ng-repeat="admin in selectedAdmins">{{admin.full_name}}</li>
+          <li class="list-group-item" ng-repeat="admin in selectedAdmins">
+            {{admin.full_name}}
+          </li>
         </ul>
         <div class="panel panel-default" ng-show="!selectedAdmins.length > 0">
             <div class="panel-body">
@@ -70,7 +76,7 @@
             <label>Residents</label>
             <ul class="list-group" ng-show="selectedUsers.length > 0">
                 <li class="list-group-item" ng-repeat="user in selectedUsers">
-                    {{user.full_name}}
+                    {{user.full_name}} ({{user.address.fullAddress}})
                     <span style="color:#F73640" class="glyphicon glyphicon-remove pull-right" ng-click="removeUser(user._id)"></span>
                 </li>
             </ul>
@@ -118,7 +124,7 @@
 
                 <ul class="list-group" ng-show="users.length > 0">
                   <li class="list-group-item" ng-repeat="user in users | filter:userSearch.keyword">
-                    {{user.full_name}}
+                    {{user.full_name}} ({{user.address.fullAddress}})
                     <span class="glyphicon glyphicon-plus pull-right" ng-click="chooseUser(user._id)"></span>
                   </li>
                 </ul>
