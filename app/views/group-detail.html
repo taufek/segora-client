@@ -12,11 +12,13 @@
         <label>Name</label>
         <div>{{group.name}}</div>
     </div>
+
+    <input class="form-control pull-right" name="search_user" ng-model="userSearch.keyword" placeholder="Type here to filter" style="margin-bottom:10px">
     
     <div class="form-group">
         <label>Residents</label>
         <ul class="list-group" ng-show="selectedUsers.length > 0">
-            <li class="list-group-item" ng-repeat="user in selectedUsers">
+            <li class="list-group-item" ng-repeat="user in selectedUsers | filter:userSearch.keyword">
                 <a href="#/user/{{user._id}}">
                     {{user.full_name}}
                 </a>
