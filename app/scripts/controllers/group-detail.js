@@ -19,6 +19,7 @@ angular.module('segoraClientApp')
         $scope.admins = data.admins;
         $scope.selectedUsers = data.selectedUsers;
         $scope.selectedAdmins = data.selectedAdmins;
+        $scope.currentYear = new Date().getFullYear();
 
         if ($scope.groupId == 'new') {
             $scope.editMode = true;

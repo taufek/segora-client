@@ -22,6 +22,8 @@
                 </a>
 
                 ({{user.address.fullAddress}})
+
+                <a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}"><span class="glyphicon glyphicon-usd pull-right"></span></a>
             </li>
         </ul>
         <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
