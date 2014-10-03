@@ -77,7 +77,7 @@
             <label for="phone">Phone</label>
             <input class="form-control" id="phone" name="phone"
                    ng-model="user.phone" placeholder="Enter a phone number"
-                   ng-pattern="/^\++[0-9-]{7,15}$/">
+                   ng-pattern="/^\+?[0-9-]{7,15}$/">
             <span class="error text-danger" ng-show="userForm.phone.$error.pattern">
                 Invalid!
             </span>

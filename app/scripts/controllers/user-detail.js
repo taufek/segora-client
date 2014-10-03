@@ -16,6 +16,8 @@ angular.module('segoraClientApp')
         $scope.addressId = data.addressId;
         $scope.currentYear = new Date().getFullYear();
 
+        var originalUsername = angular.copy($scope.user.user_name);
+
         if ($scope.userId == 'new') {
             $scope.editMode = true;
         } else {
@@ -42,6 +44,27 @@ angular.module('segoraClientApp')
             }
         };
 
+
+        var informUsernameNotAvailable = function(username){
+            FlashService.setMessage('Username '+username+' is not available.', 'danger', true);
+            StatusService.stop();
+        };
+
+
+        var checkUsername = function(okFn, notOkFn){
+
+            if(originalUsername !== $scope.user.user_name){
+                UserService.getByUsername($scope.user.user_name, function(user){
+                    if(user == null){
+                        okFn();
+                    }
+                    else{
+                        notOkFn($scope.user.user_name);
+                    }
+                })
+            }
+        }
+
         $scope.save = function() {
             if(!$scope.userForm.$valid){
                 FlashService.setMessage('Not valid', 'danger', true);
@@ -50,16 +73,27 @@ angular.module('segoraClientApp')
 
             StatusService.start();
             if ($scope.user._id) {
-                UserService.update($scope.user, function(o){
-                    $scope.editMode = false;
-                    StatusService.stop();
-                    FlashService.setMessage('Updated.', 'success', true);
-                });
+                checkUsername(
+                    function(){
+                        UserService.update($scope.user, function(o){
+                            $scope.editMode = false;
+                            StatusService.stop();
+                            FlashService.setMessage('Updated.', 'success', true);
+                        });
+                    },
+                    informUsernameNotAvailable
+                );
             } else {
-                UserService.save($scope.user, function(o) {
-                    $location.path('/user/'+o[0]._id);
-                    FlashService.setMessage('Saved.', 'success');
-                });
+                
+                checkUsername(
+                    function(){
+                        UserService.save($scope.user, function(o) {
+                            $location.path('/user/'+o[0]._id);
+                            FlashService.setMessage('Saved.', 'success');
+                        });
+                    },
+                    informUsernameNotAvailable
+                );
             }
         };
 

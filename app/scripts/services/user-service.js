@@ -54,7 +54,13 @@ angular.module('segoraClientApp')
                 User.getByUsername({
                     user_name: userName
                 }, function(result) {
-                    fn(result[0]);
+                    if(result){
+                        fn(result[0]);
+                    }
+                    else{
+                        fn(null);
+                    }
+                    
                 });
             },
             createNew: function(fn) {
