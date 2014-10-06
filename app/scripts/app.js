@@ -38,7 +38,7 @@ angular
                             var deferred = $q.defer();
                             var objects = {};
 
-                            UserService.list(function(users) {
+                            UserService.getUsersWithAddress(function(users) {
                                 objects.users = users;
                                 deferred.resolve(objects);
 
@@ -491,21 +491,8 @@ angular
                             objects.selectedAdmins = [];
 
                             var createUsers = function(){
-                                UserService.list(function(users){
-                                    objects.users = users;
-
-                                    if(objects.addresses){
-                                        objects.addresses.forEach(function(address){
-                                            if(objects.users){
-                                                objects.users.forEach(function(user){
-                                                    if(address.userId == user._id.toString()){
-                                                        user.address = address;
-                                                        user.address.fullAddress = address.number + ' ' + address.street;
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
+                                UserService.getUsersWithAddress(function(users){
+                                    objects.users = users;                                    
 
                                     objects.admins = angular.copy(users);
 
@@ -537,20 +524,17 @@ angular
                                 });
                             }
 
-                            AddressService.list(function(addresses){
-                                objects.addresses = addresses;
-                                if (groupId === 'new') {
-                                    GroupService.createNew(function(group) {
-                                        objects.group = group;                                    
-                                        createUsers();
-                                    });
-                                } else {
-                                    GroupService.getById(groupId, function(group) {
-                                        objects.group = group;
-                                        createUsers();
-                                    });
-                                }
-                            });
+                            if (groupId === 'new') {
+                                GroupService.createNew(function(group) {
+                                    objects.group = group;                                    
+                                    createUsers();
+                                });
+                            } else {
+                                GroupService.getById(groupId, function(group) {
+                                    objects.group = group;
+                                    createUsers();
+                                });
+                            }
 
 
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('segoraClientApp')
-    .factory('UserService', function($resource, $http, Settings) {
+    .factory('UserService', function($resource, $http, Settings, AddressService) {
         // Service logic
         // ...
 
@@ -95,6 +95,33 @@ angular.module('segoraClientApp')
                     .then(function(o, res) {
                         fn();
                     });
+            },
+            getUsersWithAddress: function(fn){
+                this.list(function(users){
+
+                    if(users && users.length > 0){
+                        AddressService.list(function(addresses){
+                            if(addresses && addresses.length > 0){
+                                addresses.forEach(function(address){                                    
+                                    users.forEach(function(user){
+                                        if(address.userId == user._id.toString()){
+                                            user.address = address;
+                                            user.address.fullAddress = address.number + ' ' + address.street;
+                                        }
+                                    });                                    
+                                });
+                                fn(users);
+                            }
+                            else{
+                                fn(users);
+                            }
+                        });                        
+                    }
+                    else{
+                        fn(null);
+                    }
+
+                });
             }
         };
     });
