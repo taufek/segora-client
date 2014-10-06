@@ -15,7 +15,9 @@
 		<tr ng-repeat="user in users | filter:userSearch.keyword">
 			<td>
 				<a href="#/user/{{user._id}}">{{user.full_name}}</a>
-				({{user.address.fullAddress}})
+
+				<a href="#/user/{{user._id}}/address/{{user.address._id}}">({{user.address.fullAddress}})</a>
+				
 				<a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}"><span class="glyphicon glyphicon-usd pull-right"></span></a>
 			</td>
 		</tr>
