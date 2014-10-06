@@ -596,6 +596,20 @@ angular
               templateUrl: 'views/user_upload.html',
               controller: 'UserUploadCtrl'
             })
+            .when('/my_details', {
+              templateUrl: 'views/my_details.html',
+              controller: 'MyDetailsCtrl',
+              resolve: {
+                    data: ['$location', 'UserSessionService',
+                        function($location, UserSessionService) {
+                            
+                            var user = UserSessionService.getUser();
+
+                            $location.path('/user/'+user._id);
+                        }
+                    ]
+              }
+            })
             .otherwise({
                 redirectTo: '/home'
             });
