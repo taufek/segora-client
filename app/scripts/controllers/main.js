@@ -8,10 +8,14 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('MainCtrl', function($scope) {
+    .controller('MainCtrl', function($scope, UserSessionService) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
+
+        $scope.hasSession = function(){
+        	return UserSessionService.hasSession();
+        }
     });
