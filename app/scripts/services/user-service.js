@@ -32,7 +32,7 @@ angular.module('segoraClientApp')
                 return meaningOfLife;
             },
             list: function(fn) {
-                var users = User.query({limit: 0},
+                var users = User.query({sort: "['full_name',1]", limit: 0},
                 function() {
                     fn(users);
                 },
