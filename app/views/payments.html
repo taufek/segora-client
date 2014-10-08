@@ -1,0 +1,36 @@
+<h3>Payments Search</h3>
+	<div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="search()">Search</button>
+        <button class="btn btn-default" ng-click="clear()">Clear</button>
+    </div>
+
+    <form role="form" name="searchForm" ng-init="months = [
+    {'code':'1', 'name':'January'},
+    {'code':'2', 'name':'February'},
+    {'code':'3', 'name':'March'},
+    {'code':'4', 'name':'April'},
+    {'code':'5', 'name':'May'},
+    {'code':'6', 'name':'June'},
+    {'code':'7', 'name':'July'},
+    {'code':'8', 'name':'August'},
+    {'code':'9', 'name':'September'},
+    {'code':'10', 'name':'October'},
+    {'code':'11', 'name':'November'},
+    {'code':'12', 'name':'December'},
+    ]">
+
+	    <div class="form-group">
+	        <label for="year">Year</label>
+	        <input class="form-control" id="year" name="year"
+	               ng-model="search.year" placeholder="Enter a year"
+	               ng-pattern="/^[0-9]{4,4}$/">
+	        <span class="error text-danger" ng-show="searchForm.year.$error.pattern">
+                Invalid!
+            </span>
+	    </div>
+
+	    <div class="form-group" >
+	        <label for="year">Month</label>
+	        <select ng-model="search.month" ng-options="month.name for month in months">
+	    </div>
+    </form>

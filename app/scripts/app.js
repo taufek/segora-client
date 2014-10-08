@@ -610,6 +610,10 @@ angular
                     ]
               }
             })
+            .when('/payments', {
+              templateUrl: 'views/payments.html',
+              controller: 'PaymentsCtrl'
+            })
             .otherwise({
                 redirectTo: '/home'
             });
