@@ -8,7 +8,7 @@
  * Service in the segoraClientApp.
  */
 angular.module('segoraClientApp')
-    .service('PaymentService', function($resource, Settings) {
+    .service('PaymentService', function($resource, Settings, UserService) {
         var Payment = $resource(
             Settings.backendHost+'/collections/payment/:paymentId', {
                 paymentId: '@_id'
@@ -21,6 +21,10 @@ angular.module('segoraClientApp')
                     method: 'PUT'
                 },
                 'getByUserId': {
+                    method: 'GET',
+                    isArray: true
+                },
+                'search': {
                     method: 'GET',
                     isArray: true
                 }
@@ -42,6 +46,14 @@ angular.module('segoraClientApp')
                     userId: userId,
                     limit: paramLimit,
                     skip: ((paramPage*paramLimit)-(paramLimit))
+                }, function(payments) {
+                    fn(payments);
+                });
+            },
+            search: function(year, month, fn) {
+                Payment.getByUserId({
+                    'year': year,
+                    'month': month
                 }, function(payments) {
                     fn(payments);
                 });
@@ -88,6 +100,32 @@ angular.module('segoraClientApp')
                         });                    
                 });
 
+            },
+            searchWithUser: function(year, month, fn){
+                this.search(year, month, function(payments){
+
+                    if(payments && payments.length > 0){
+                        UserService.getUsersWithAddress(function(users){
+                            if(users && users.length > 0){
+                                users.forEach(function(user){                                    
+                                    payments.forEach(function(payment){
+                                        if(payment.userId == user._id.toString()){
+                                            payment.user = user;
+                                        }
+                                    });                                    
+                                });
+                                fn(payments);
+                            }
+                            else{
+                                fn(payments);
+                            }
+                        });                        
+                    }
+                    else{
+                        fn(null);
+                    }
+
+                });
             }
         }
     });

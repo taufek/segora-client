@@ -4,7 +4,8 @@
         <button class="btn btn-default" ng-click="clear()">Clear</button>
     </div>
 
-    <form role="form" name="searchForm" ng-init="months = [
+    <form role="form" name="searchForm" 
+    ng-init="months = [
     {'code':'1', 'name':'January'},
     {'code':'2', 'name':'February'},
     {'code':'3', 'name':'March'},
@@ -31,6 +32,27 @@
 
 	    <div class="form-group" >
 	        <label for="year">Month</label>
-	        <select ng-model="search.month" ng-options="month.name for month in months">
+	        <select class="form-control" ng-model="search.month" ng-options="month.name for month in months">
+	        </select>
 	    </div>
     </form>
+
+    <ul class="list-group" ng-show="payments">
+        <li class="list-group-item" ng-repeat="payment in payments">
+            
+                {{payment.referenceNumber}}
+
+
+                {{payment.user.full_name}}
+
+                
+                {{payment.user.address.fullAddress}}
+            
+        </li>
+    </ul>
+
+        <div class="panel panel-default" ng-show="!payments.length > 0">
+            <div class="panel-body">
+                <i>No result</i>
+            </div>
+        </div>
