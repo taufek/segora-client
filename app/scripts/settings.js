@@ -3,7 +3,7 @@
 angular.module("segoraClientApp")
 .constant('Settings', {
     appName: "SEGORA",
-    backendHost: "http://segora-services.herokuapp.com",
-    // backendHost: "http://localhost:3000",	
+    // backendHost: "http://segora-services.herokuapp.com",
+    backendHost: "http://localhost:3000",	
     rowCount: 10
 });

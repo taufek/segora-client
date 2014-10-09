@@ -94,7 +94,7 @@ angular.module('segoraClientApp')
     $scope.showPayment = function(month){
       $scope.currentPayment = month;
 
-      UserService.getById(month.payment.creator_id, function(user){
+      UserService.getById(month.payment.audit.created_by, function(user){
         $scope.currentPayment.payment.creator = user;
       });
 
