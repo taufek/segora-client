@@ -32,6 +32,7 @@ angular.module('segoraClientApp')
     $('.datepicker').datepicker({format:'dd-mm-yyyy'});
 
     $scope.months = [
+    {'code':'0', 'name':''},
     {'code':'1', 'name':'January'},
     {'code':'2', 'name':'February'},
     {'code':'3', 'name':'March'},
