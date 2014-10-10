@@ -29,7 +29,8 @@ angular.module('segoraClientApp')
     	});
     }
 
-    $('.datepicker').datepicker({format:'dd-mm-yyyy'});
+    var datepicker = $('.datepicker').datepicker({format:'dd-mm-yyyy'});
+    datepicker.datepicker('.datepicker');
 
     $scope.months = [
     {'code':'0', 'name':''},
