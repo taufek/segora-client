@@ -8,7 +8,7 @@
  * Service in the segoraClientApp.
  */
 angular.module('segoraClientApp')
-    .service('PaymentService', function($resource, Settings, UserService) {
+    .service('PaymentService', function($resource, Settings, UserService, $http) {
         var Payment = $resource(
             Settings.backendHost+'/collections/payment/:paymentId', {
                 paymentId: '@_id'
@@ -50,13 +50,14 @@ angular.module('segoraClientApp')
                     fn(payments);
                 });
             },
-            search: function(year, month, fn) {
-                Payment.getByUserId({
-                    'year': year,
-                    'month': month
-                }, function(payments) {
-                    fn(payments);
-                });
+            search: function(dateFrom, dateTo, fn) {
+                $http.get(Settings.backendHost+'/search/payment?created_from='+ dateFrom.toString() + '&created_to=' + dateTo.toString()).
+                  success(function(data, status, headers, config) {
+                    fn(data);
+                  }).
+                  error(function(data, status, headers, config) {
+                    fn(null);
+                  });
             },
             getByUserIdAndYear: function(userId, year, fn) {
                 Payment.getByUserId({
@@ -101,8 +102,8 @@ angular.module('segoraClientApp')
                 });
 
             },
-            searchWithUser: function(year, month, fn){
-                this.search(year, month, function(payments){
+            searchWithUser: function(dateFrom, dateTo, fn){
+                this.search(dateFrom, dateTo, function(payments){
 
                     if(payments && payments.length > 0){
                         UserService.getUsersWithAddress(function(users){

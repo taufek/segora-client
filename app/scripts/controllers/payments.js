@@ -16,12 +16,18 @@ angular.module('segoraClientApp')
     ];
 
     $scope.payments = [];
+    $scope.createdFrom = Date.parse(new Date()).toString('dd-MM-yyyy');
+    $scope.createdTo = Date.parse(new Date()).toString('dd-MM-yyyy');
 
     $scope.search = function(){
 
-    	PaymentService.searchWithUser($scope.search.year, $scope.search.month.code, function(payments){
+    	PaymentService.searchWithUser(Date.parseExact($scope.createdFrom, 'dd-MM-yyyy'), Date.parseExact($scope.createdTo, 'dd-MM-yyyy'), function(payments){
 
     		$scope.payments = payments;
     	});
     }
+
+    $('.datepicker').datepicker({format:'dd-mm-yyyy'});
+
+
   });
