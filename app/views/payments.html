@@ -1,12 +1,8 @@
 <h3>Payments Search</h3>
-	<div style="margin-bottom:10px">
-        <button class="btn btn-primary" ng-click="search()">Search</button>
-        <button class="btn btn-default" ng-click="clear()">Clear</button>
-    </div>
 
     <form role="form" name="searchForm" >
     
-
+        <h4>Issued Date:</h4>
 	    <div class="form-group">
 	        <label for="from">From</label>
             <input class="datepicker form-control" name="from" ng-model="createdFrom" data-date-format="dd-mm-yyyy">
@@ -19,6 +15,11 @@
 
 	    
     </form>
+    
+    <div style="margin-bottom:10px">
+        <button class="btn btn-primary" ng-click="search()">Search</button>
+        <button class="btn btn-default" ng-click="clear()">Clear</button>
+    </div>
 
     <table class="table" ng-show="payments">
         <tr>
@@ -26,6 +27,8 @@
             <th>Month</th>
             <th>Address</th>
             <th>Resident</th>
+            <th>Issued Date</th>
+            <th>Issued By</th>
         </tr>
         <tbody>
             <tr ng-repeat="payment in payments">
@@ -40,6 +43,12 @@
             </td>
             <td>                
                 {{payment.user.full_name}}
+            </td>
+            <td>                
+                {{payment.audit.created_date | date:'medium'}}
+            </td>
+            <td>                
+                {{payment.audit.created_by_user.full_name}}
             </td>
             </tr>
         </tbody>

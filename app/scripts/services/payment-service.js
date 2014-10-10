@@ -113,8 +113,13 @@ angular.module('segoraClientApp')
                                         if(payment.userId == user._id.toString()){
                                             payment.user = user;
                                         }
+
+                                        if(payment.audit.created_by == user._id.toString()){
+                                            payment.audit.created_by_user = user;
+                                        }
                                     });                                    
                                 });
+
                                 fn(payments);
                             }
                             else{
