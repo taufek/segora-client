@@ -42,19 +42,49 @@
 	    
     </form>
 
-    <ul class="list-group" ng-show="payments">
+    <table class="table" ng-show="payments">
+        <tr>
+            <th>Ref</th>
+            <th>Month</th>
+            <th>Address</th>
+            <th>Resident</th>
+        </tr>
+        <tbody>
+            <tr ng-repeat="payment in payments">
+            <td>
+                {{payment.referenceNumber}}
+            </td>
+            <td>
+                {{months[payment.month].name}}
+            </td>
+            <td>
+                {{payment.user.address.fullAddress}}
+            </td>
+            <td>                
+                {{payment.user.full_name}}
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <ul class="list-group" ng-show="payments">
         <li class="list-group-item" ng-repeat="payment in payments">
             
                 {{payment.referenceNumber}}
+
+
+                {{months[payment.month].name}}
 
 
                 {{payment.user.full_name}}
 
                 
                 {{payment.user.address.fullAddress}}
+
+
             
         </li>
-    </ul>
+    </ul> -->
 
         <div class="panel panel-default" ng-show="!payments.length > 0">
             <div class="panel-body">
