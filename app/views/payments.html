@@ -15,7 +15,7 @@
 
 	    
     </form>
-    
+
     <div style="margin-bottom:10px">
         <button class="btn btn-primary" ng-click="search()">Search</button>
         <button class="btn btn-default" ng-click="clear()">Clear</button>
@@ -27,8 +27,7 @@
             <th>Month</th>
             <th>Address</th>
             <th>Resident</th>
-            <th>Issued Date</th>
-            <th>Issued By</th>
+            <th>Details</th>
         </tr>
         <tbody>
             <tr ng-repeat="payment in payments">
@@ -40,16 +39,16 @@
             </td>
             <td>
                 {{payment.user.address.fullAddress}}
-            </td>
-            <td>                
+            </td>   
+            <td>
                 {{payment.user.full_name}}
+            </td>   
+            <td> 
+                <a href="">               
+                <span style="margin-right:10px" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#paymentInfoModal" ng-click="showPayment(payment)"></span>
+                </a>
             </td>
-            <td>                
-                {{payment.audit.created_date | date:'medium'}}
-            </td>
-            <td>                
-                {{payment.audit.created_by_user.full_name}}
-            </td>
+
             </tr>
         </tbody>
     </table>
@@ -60,3 +59,54 @@
                 <i>No result</i>
             </div>
         </div>
+
+
+
+
+<div class="modal fade" id="paymentInfoModal" tabindex="-1" role="dialog" aria-labelledby="paymentInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+        <h4 class="modal-title" id="paymentInfoModalLabel"><span class="glyphicon glyphicon-info-sign"></span> Payment Info</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+            <label>Resident</label>
+            <div>{{payment.user.full_name}}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <div>{{payment.user.address.fullAddress}}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Month</label>
+            <div>{{months[payment.month].name}}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Reference Number</label>
+            <div>{{payment.referenceNumber}}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Issued By</label>
+            <div>{{payment.audit.created_by_user.full_name}}</div>
+        </div>
+        <div class="form-group">
+            <label>Issued On</label>
+            <div>{{payment.audit.created_date | date:'medium'}}</div>
+        </div>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

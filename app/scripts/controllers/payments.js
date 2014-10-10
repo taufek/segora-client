@@ -44,5 +44,9 @@ angular.module('segoraClientApp')
     {'code':'12', 'name':'December'},
     ];
 
+    $scope.showPayment = function(payment){
+        $scope.payment = angular.copy(payment);
+    }
+
 
   });
