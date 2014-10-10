@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('PaymentsCtrl', function ($scope, PaymentService) {
+  .controller('PaymentsCtrl', function ($scope, PaymentService, StatusService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -20,10 +20,12 @@ angular.module('segoraClientApp')
     $scope.createdTo = Date.parse(new Date()).toString('dd-MM-yyyy');
 
     $scope.search = function(){
+        StatusService.start();
 
     	PaymentService.searchWithUser(Date.parseExact($scope.createdFrom, 'dd-MM-yyyy'), Date.parseExact($scope.createdTo, 'dd-MM-yyyy'), function(payments){
 
     		$scope.payments = payments;
+            StatusService.stop();
     	});
     }
 
