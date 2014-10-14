@@ -1,0 +1,22 @@
+'use strict';
+
+describe('Controller: PaymentReceiptCtrl', function () {
+
+  // load the controller's module
+  beforeEach(module('segoraClientApp'));
+
+  var PaymentReceiptCtrl,
+    scope;
+
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    PaymentReceiptCtrl = $controller('PaymentReceiptCtrl', {
+      $scope: scope
+    });
+  }));
+
+  it('should attach a list of awesomeThings to the scope', function () {
+    expect(scope.awesomeThings.length).toBe(3);
+  });
+});

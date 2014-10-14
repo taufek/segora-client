@@ -122,6 +122,26 @@ angular.module('segoraClientApp')
                     }
 
                 });
+            },            
+            getUserWithAddress: function(id, fn){
+                this.getById(id, function(user){
+                    if(user){
+                        AddressService.getByUserId(id, function(address){
+                            if(address){
+                                user.address = address;
+                                user.address.fullAddress = address.number + ' ' + address.street;
+                                fn(user);
+                            }
+                            else{
+                                fn(user);
+                            }
+                        });                        
+                    }
+                    else{
+                        fn(null);
+                    }
+
+                });
             }
         };
     });

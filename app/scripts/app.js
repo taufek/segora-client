@@ -617,6 +617,31 @@ angular
               templateUrl: 'views/payments.html',
               controller: 'PaymentsCtrl'
             })
+            .when('/user/:userId/payment_receipt/:paymentId', {
+              templateUrl: 'views/payment_receipt.html',
+              controller: 'PaymentReceiptCtrl',
+              resolve: {
+                data: ['$q', '$route', 'UserService', 'PaymentService',
+                    function($q, $route, UserService, PaymentService){
+
+                        var deferred = $q.defer();
+                        var userId = $route.current.params.userId;
+                        var paymentId = $route.current.params.paymentId;
+                        var objects = {};
+
+                        UserService.getUserWithAddress(userId, function(user){
+                            objects.user = user;
+                            PaymentService.getById(paymentId, function(payment){
+                                objects.payment = payment;
+                                deferred.resolve(objects); 
+                            });
+                        });
+
+                        return deferred.promise;
+                    }
+                ]
+              }
+            })
             .otherwise({
                 redirectTo: '/home'
             });
