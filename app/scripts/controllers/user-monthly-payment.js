@@ -10,8 +10,10 @@
 angular.module('segoraClientApp')
   .controller('UserMonthlyPaymentCtrl', 
     function ($scope, $location, 
-      CounterService, PaymentService, StatusService, FlashService, UserSessionService, UserService, AddressService,
-      data) {
+      CounterService, PaymentService, StatusService
+      , FlashService, UserSessionService, UserService, AddressService
+      , Settings
+      , data) {
     
 
     $scope.months = data.months;
@@ -101,5 +103,10 @@ angular.module('segoraClientApp')
       AddressService.getByUserId($scope.user._id, function(address){
         $scope.address = address;
       })
+    }
+
+    $scope.getReceiptLink = function(paymentId){
+
+      return Settings.backendHost + "/pdf_generator?url=" + Settings.backendHost + "/payment_receipt/" + paymentId;
     }
   });
