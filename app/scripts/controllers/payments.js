@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('PaymentsCtrl', function ($scope, PaymentService, StatusService) {
+  .controller('PaymentsCtrl', function ($scope, PaymentService, StatusService, Settings) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -52,5 +52,9 @@ angular.module('segoraClientApp')
         $scope.payment = angular.copy(payment);
     }
 
+    $scope.getReceiptLink = function(paymentId){
+
+      return Settings.backendHost + "/pdf_generator?url=" + Settings.backendHost + "/payment_receipt/" + paymentId;
+    }
 
   });

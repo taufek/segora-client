@@ -43,7 +43,10 @@
             <td>
                 {{payment.user.full_name}}
             </td>   
-            <td> 
+            <td>                 
+                <a target="_none" href="{{getReceiptLink(payment._id)}}">
+                    <span style="margin-right:10px" class="glyphicon glyphicon-print pull-right" ></span>
+                </a>
                 <a href="">               
                 <span style="margin-right:10px" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#paymentInfoModal" ng-click="showPayment(payment)"></span>
                 </a>
