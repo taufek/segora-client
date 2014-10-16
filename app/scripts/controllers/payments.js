@@ -30,7 +30,11 @@ angular.module('segoraClientApp')
     }
 
     var datepicker = $('.datepicker').datepicker({format:'dd-mm-yyyy'});
-    datepicker.datepicker('.datepicker');
+    // datepicker.datepicker('.datepicker');
+    datepicker.on('changeDate', function(ev) {
+        console.log(ev);
+        datepicker.datepicker('hide');
+    });
 
     $scope.months = [
     {'code':'0', 'name':''},
