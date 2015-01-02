@@ -40,9 +40,17 @@
                         {{month.payment.referenceNumber}}
                     </td>
                     <td>
-                        <span ng-show="month.payment.bank_reference"><i>{{month.payment.bank_reference}}</i></span>
+                        <span ng-show="month.payment.bank_reference && !month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer">   <i>{{month.payment.bank_reference}}</i>
+                        </span>
                         <span ng-show="month.checked && !month.payment" >
                             <input type="text" placeholder="bank reference #" ng-model="month.bank_reference" class="form-control">
+                        </span>
+                         <span ng-show="month.checked && month.editBankReference" >
+                            <input type="text" placeholder="edit bank reference #" ng-model="month.temp.bank_reference" class="form-control">
+                            <span class="pull-right">
+                            <button class="btn btn-default glyphicon {{month.temp.icon}}" ng-click="saveEditingBankReference(month)"></button>
+                            <button class="btn btn-default glyphicon glyphicon-remove" ng-click="cancelEditingBankReference(month)"></button>
+                            </span>
                         </span>
                     </td>
                     <td>     

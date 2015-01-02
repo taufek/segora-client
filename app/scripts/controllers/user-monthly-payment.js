@@ -110,4 +110,30 @@ angular.module('segoraClientApp')
 
       return Settings.backendHost + "/pdf_generator?url=" + Settings.backendHost + "/payment_receipt/" + paymentId;
     }
+
+    $scope.editBankReference = function(month){
+
+      if($scope.hasAnyRoles(['admin','group_admin'])){
+        month.temp = {};
+        month.temp.icon = "glyphicon-ok";
+        month.temp.bank_reference = month.payment.bank_reference;
+        month.editBankReference = true;        
+      }
+    }
+
+    $scope.cancelEditingBankReference = function(month) {
+      delete month.payment.temp;
+      month.editBankReference = false;
+    }
+
+    $scope.saveEditingBankReference = function(month) {
+      month.temp.icon = "glyphicon-floppy-disk";
+      month.payment.bank_reference = month.temp.bank_reference;
+      PaymentService.update(month.payment, function(){
+        delete month.temp;        
+        month.editBankReference = false;
+      });
+
+      
+    }
   });
