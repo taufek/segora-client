@@ -127,7 +127,7 @@ angular.module('segoraClientApp')
     }
 
     $scope.saveEditingBankReference = function(month) {
-      month.temp.icon = "glyphicon-floppy-disk";
+      month.temp.icon = "glyphicon-refresh gly-spin";
       month.payment.bank_reference = month.temp.bank_reference;
       PaymentService.update(month.payment, function(){
         delete month.temp;        
