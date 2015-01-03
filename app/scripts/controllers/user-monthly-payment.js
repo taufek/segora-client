@@ -47,34 +47,41 @@ angular.module('segoraClientApp')
       var count = $scope.paymentsToProcess.length;
       var index = 0;
 
-      $scope.paymentsToProcess.forEach(function(month){
-        PaymentService.createNew($scope.userId, function(payment){    
+      if(count > 0){
+        $scope.paymentsToProcess.forEach(function(month){
+          PaymentService.createNew($scope.userId, function(payment){    
 
 
-          payment.year = $scope.selectedYear;        
-          payment.month = month.number;
-          payment.amount = 80;
-          payment.bank_reference = month.bank_reference;
+            payment.year = $scope.selectedYear;        
+            payment.month = month.number;
+            payment.amount = 80;
+            payment.bank_reference = month.bank_reference;
 
-          CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
-            
-            payment.creator_id = $scope.currentUser._id;
-            payment.created_date = new Date().getTime();
-            payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
-            
-            PaymentService.save(payment, function(){
-              index++;
-              if(count == index){
-                $location.search('refresh', new Date().getTime());
-                $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
-                FlashService.setMessage('Saved.', 'success');
-              }
-            });          
+            CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
+              
+              payment.creator_id = $scope.currentUser._id;
+              payment.created_date = new Date().getTime();
+              payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
+              
+              PaymentService.save(payment, function(){
+                index++;
+                if(count == index){
+                  $location.search('refresh', new Date().getTime());
+                  $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
+                  FlashService.setMessage('Saved.', 'success');
+                }
+              });          
+            });
+
           });
 
         });
 
-      });
+      }
+      else{
+        FlashService.setMessage('Please check atleast one new month.', 'danger', true);
+        StatusService.stop();
+      }
 
     }
 
