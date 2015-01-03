@@ -79,7 +79,7 @@ angular.module('segoraClientApp')
 
       }
       else{
-        FlashService.setMessage('Please check atleast one new month.', 'danger', true);
+        FlashService.setMessage('Please select atleast one new payment.', 'danger', true);
         StatusService.stop();
       }
 

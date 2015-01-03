@@ -8,7 +8,7 @@
 
     <div style="margin-bottom:10px">
         <button class="btn btn-primary" ng-click="save()">Update Payment</button>
-        <button class="btn btn-default" ng-click="done()" ng-show="hasAnyRoles(['admin', 'system_admin', 'group_admin'])">Done</button>
+        
     </div>
     
     <div class="form-group component">
@@ -42,7 +42,7 @@
                     <td>
                         <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer">   
                             {{month.payment.bank_reference}}
-                            <span ng-hide='month.payment.bank_reference!=""'><i>None</i></span>
+                            <span ng-show='month.payment && (!month.payment.bank_reference)'><i>None</i></span>
                         </span>
                         <span ng-show="month.checked && !month.payment" >
                             <input type="text" placeholder="bank reference #" ng-model="month.bank_reference" class="form-control">
