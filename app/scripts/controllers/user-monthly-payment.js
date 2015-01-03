@@ -115,7 +115,7 @@ angular.module('segoraClientApp')
 
     $scope.getReceiptLink = function(paymentId){
 
-      return Settings.backendHost + "/pdf_generator?url=" + Settings.backendHost + "/payment_receipt/" + paymentId;
+      return Settings.backendHost + "/pdf_generator?url=" + (Settings.backendHost).replace('https','http') + "/payment_receipt/" + paymentId;
     }
 
     $scope.editBankReference = function(month){
