@@ -20,12 +20,13 @@ angular.module('segoraClientApp')
         addUser: function(user){
             SessionService.set('user', JSON.stringify(user));
         },
-        removeSession: function(){
+        removeSession: function(fn){
             SessionService.unset('login');
             SessionService.unset('username');
             SessionService.unset('hash');
             SessionService.unset('roles');
             SessionService.unset('user');
+            fn();
         },
         getHash: function(){
             return SessionService.get('hash');

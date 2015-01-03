@@ -15,7 +15,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
-        	<li ng-show="isLogin()"><a ng-href="#/home">Home</a></li>
+        	<li ng-show="isLogin()"><a ng-href="{{userPaymentLink()}}">My Payments</a></li>
       <li ng-show="isLogin() && hasAnyRoles(['admin'])" data-toggle="collapse" data-target="#navbar-collapse-1"><a ng-href="#/payments">Payments</a></li>
 		  <li ng-show="isLogin() && hasAnyRoles(['admin'])" data-toggle="collapse" data-target="#navbar-collapse-1"><a ng-href="#/user">Residents</a></li>
 		 <!--  <li ng-show="isLogin() && hasAnyRoles(['admin'])" data-toggle="collapse" data-target="#navbar-collapse-1"><a ng-href="#/address">Addresses</a></li> -->

@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('MainCtrl', function($scope, UserSessionService) {
+    .controller('MainCtrl', function($scope, $location, UserSessionService) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
