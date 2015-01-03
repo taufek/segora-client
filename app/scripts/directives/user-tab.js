@@ -7,8 +7,8 @@
  * # UserTab
  */
 angular.module('segoraClientApp')
-  .directive('userTab', ['$location', 'AddressService', 'CredentialService', 
-    function ($location, AddressService, CredentialService) {
+  .directive('userTab', ['$location', 'AddressService', 'CredentialService', 'UserSessionService',
+    function ($location, AddressService, CredentialService, UserSessionService) {
     return {
       restrict: 'E',
       templateUrl: 'views/templates/user-tab.html',
@@ -119,6 +119,8 @@ angular.module('segoraClientApp')
           
 
         }
+
+        scope.hasAnyRoles = UserSessionService.hasAnyRoles;
       }
     };
   }]);

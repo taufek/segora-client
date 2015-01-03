@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-    .controller('UserCredentialDetailCtrl', function($scope, $location, CredentialService, StatusService, FlashService, data) {
+    .controller('UserCredentialDetailCtrl', function($scope, $location, CredentialService, StatusService, FlashService, UserSessionService, data) {
         
 
         $scope.user = data.user;
@@ -63,16 +63,22 @@ angular.module('segoraClientApp')
             if ($scope.credential._id) {
                 CredentialService.update($scope.credential, function(o) {
                     $scope.editMode = false;
+                    $scope.createSession($scope.user.username, $scope.credential.password);
                     StatusService.stop();
                     FlashService.setMessage('Updated.', 'success', true);
                 });
             } else {
                 CredentialService.save($scope.credential, function(o) {
+                    $scope.createSession($scope.user.username, $scope.credential.password);
                     $location.path('/user/'+$scope.user._id+'/credential/'+o[0]._id);
                     FlashService.setMessage('Saved.', 'success');
                 });
             }
         };
+
+        $scope.createSession = function(username, password){
+            UserSessionService.createSession(username, password);
+        }
 
         $scope.remove = function() {
             StatusService.start();
