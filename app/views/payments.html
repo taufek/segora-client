@@ -44,8 +44,10 @@
                 {{payment.user.full_name}}
             </td>   
             <td>                 
+                <a data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="{{getValidatedStatus(payment)}}" style="color:{{getValidatedColor(payment)}};margin-right:10px; margin-top:5px; cursor:pointer" class="glyphicon glyphicon-ok" ng-click="validate(payment)"></a>
+
                 <a target="_none" href="{{getReceiptLink(payment._id)}}">
-                    <span style="margin-right:10px" class="glyphicon glyphicon-print pull-right" ></span>
+                    <span style="margin-right:10px" class="glyphicon glyphicon-print " ></span>
                 </a>
                 <a href="">               
                 <span style="margin-right:10px" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#paymentInfoModal" ng-click="showPayment(payment)"></span>

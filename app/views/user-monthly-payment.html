@@ -40,7 +40,7 @@
                         {{month.payment.referenceNumber}}
                     </td>
                     <td>
-                        <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer">   
+                        <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Click to edit">   
                             {{month.payment.bank_reference}}
                             <span ng-show='month.payment && (!month.payment.bank_reference)'><i>None</i></span>
                         </span>
@@ -56,16 +56,21 @@
                         </span>
                     </td>
                     <td>     
-                        <span ng-show="month.payment">            
-                            <a target="_none" href="{{getReceiptLink(month.payment._id)}}">
+                        <span ng-show="month.payment">              
+                            
+                            
+                            <a data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="{{getValidatedStatus(month.payment)}}" style="color:{{getValidatedColor(month.payment)}};margin-right:10px; margin-top:5px; cursor:pointer" class="glyphicon glyphicon-ok" ng-click="validate(month.payment)"></a>
+                            
+
+                            <a target="_none" href="{{getReceiptLink(month.payment._id)}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Print receipt">
                                 <span style="margin-right:10px; margin-top:5px" class="glyphicon glyphicon-print" ></span>
                             </a>
 
-                            <a href="">
+                            <a href="" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="View details">
                             <span style="margin-right:10px; margin-top:5px" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#paymentInfoModal" ng-click="showPayment(month)"></span>
                             </a>
 
-                            <span style="color:#F73640; margin-top:5px" class="glyphicon glyphicon-remove" ng-show="hasAnyRoles(['admin'])" confirmed-click="remove(month.payment._id)" ng-confirm-click="Are you sure? This will remove this payment details."></span>
+                            <span data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Delete payment" style="color:#F73640; margin-top:5px" class="glyphicon glyphicon-remove" ng-show="hasAnyRoles(['admin'])" confirmed-click="remove(month.payment._id)" ng-confirm-click="Are you sure? This will remove this payment details."></span>
                         </span>
                     </td>
                 </tr>

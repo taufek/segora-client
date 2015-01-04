@@ -9,7 +9,7 @@
  */
 angular.module('segoraClientApp')
   .controller('UserMonthlyPaymentCtrl', 
-    function ($scope, $location, 
+    function ($scope, $location, $timeout,
       CounterService, PaymentService, StatusService
       , FlashService, UserSessionService, UserService, AddressService
       , Settings
@@ -56,6 +56,8 @@ angular.module('segoraClientApp')
             payment.month = month.number;
             payment.amount = 80;
             payment.bank_reference = month.bank_reference;
+
+
 
             CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
               
@@ -142,5 +144,48 @@ angular.module('segoraClientApp')
       });
 
       
+    }
+
+    
+    
+    $timeout(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    }, 1000);
+
+    $scope.validate = function(payment){
+
+      if(payment.validated){
+        payment.validated = false;
+        payment.validation.unvalidated_by = $scope.currentUser._id;
+        payment.audit.unvalidated_date = new Date().toISOString();
+      }
+      else{
+        payment.validated = true;    
+        payment.validation = {}; 
+        payment.validation.validated_by = $scope.currentUser._id;
+        payment.validation.validated_date = new Date().toISOString();   
+      }
+
+      PaymentService.update(payment, function(){
+        
+      });
+      $timeout(function(){
+        $('[data-toggle="tooltip"]').tooltip('destroy');
+        $('[data-toggle="tooltip"]').tooltip();
+      }, 1000);
+    }
+
+    $scope.getValidatedColor = function(payment){
+      if(payment && payment.validated){
+        return "green";
+      }
+      return "lightgrey";
+    }
+
+    $scope.getValidatedStatus = function(payment){
+      if(payment && payment.validated){
+        return "Validated";
+      }
+      return "Unvalidated";
     }
   });
