@@ -32,10 +32,10 @@
         <tbody>
             <tr ng-repeat="payment in payments">
             <td>
-                {{payment.referenceNumber}}
+                <a href="#/user/{{payment.user._id}}/monthly_payment/{{payment.year}}">{{payment.referenceNumber}}</a>
             </td>
             <td>
-                {{months[payment.month].name}}
+                {{months[payment.month].name}} {{payment.year}}
             </td>
             <td>
                 {{payment.user.address.fullAddress}}
