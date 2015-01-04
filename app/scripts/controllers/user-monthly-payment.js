@@ -110,6 +110,10 @@ angular.module('segoraClientApp')
         $scope.currentPayment.payment.creator = user;
       });
 
+      UserService.getById(month.payment.validation.validated_by, function(user){
+        $scope.currentPayment.payment.validator = user;
+      });
+
       AddressService.getByUserId($scope.user._id, function(address){
         $scope.address = address;
       })
