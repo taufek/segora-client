@@ -23,7 +23,6 @@
                 <th>Paid?</th>
                 <th>Month</th>
                 <th>Reference #</th>
-                <th>Bank Reference #</th>
                 <th>Actions</th>
             </tr>
 
@@ -35,9 +34,6 @@
                     </td>
                     <td>
                         {{month.name}}
-                    </td>
-                    <td>
-                        {{month.payment.referenceNumber}}
                     </td>
                     <td>
                         <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Click to edit">   
