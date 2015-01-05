@@ -76,6 +76,9 @@ angular.module('segoraClientApp')
             },
             save: function(paymentData, fn) {
                 var payment = angular.copy(paymentData);
+                payment.year = parseInt(payment.year);
+                payment.month = parseInt(payment.month);
+                payment.amount = parseInt(payment.amount);
                 payment.$save()
                     .then(function(o, res) {
                         
