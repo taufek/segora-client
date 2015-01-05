@@ -14,6 +14,7 @@ angular.module('segoraClientApp')
         $scope.user = data.user;
         $scope.credential = data.credential;
         $scope.credentialId = data.credentialId;
+        $scope.currentUser = UserSessionService.getUser();
 
         if ($scope.credentialId == 'null') {
             $scope.editMode = true;
@@ -63,13 +64,17 @@ angular.module('segoraClientApp')
             if ($scope.credential._id) {
                 CredentialService.update($scope.credential, function(o) {
                     $scope.editMode = false;
-                    $scope.createSession($scope.user.username, $scope.credential.password);
+                    if($scope.user._id === $scope.currentUser._id){
+                        $scope.createSession($scope.user.user_name, $scope.credential.password);                        
+                    }
                     StatusService.stop();
                     FlashService.setMessage('Updated.', 'success', true);
                 });
             } else {
                 CredentialService.save($scope.credential, function(o) {
-                    $scope.createSession($scope.user.username, $scope.credential.password);
+                    if($scope.user._id === $scope.currentUser._id){
+                        $scope.createSession($scope.user.user_name, $scope.credential.password);                        
+                    }
                     $location.path('/user/'+$scope.user._id+'/credential/'+o[0]._id);
                     FlashService.setMessage('Saved.', 'success');
                 });
