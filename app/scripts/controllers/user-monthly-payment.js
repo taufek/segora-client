@@ -63,7 +63,7 @@ angular.module('segoraClientApp')
               
               payment.creator_id = $scope.currentUser._id;
               payment.created_date = new Date().getTime();
-              payment.referenceNumber = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
+              payment.reference_number = payment.year+$scope.padding(payment.month, '0', 2)+$scope.padding(counter.seq.toString(), '0', 3);
               
               PaymentService.save(payment, function(){
                 index++;
