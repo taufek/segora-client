@@ -52,7 +52,6 @@ angular.module('segoraClientApp')
 
 
         var checkUsername = function(okFn, notOkFn){
-
             if(originalUsername !== $scope.user.user_name){
                 UserService.getByUsername($scope.user.user_name, function(user){
                     if(user == null){
@@ -62,6 +61,9 @@ angular.module('segoraClientApp')
                         notOkFn($scope.user.user_name);
                     }
                 })
+            }
+            else{
+                okFn();
             }
         }
 
