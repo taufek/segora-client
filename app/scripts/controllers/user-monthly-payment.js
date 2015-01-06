@@ -169,7 +169,7 @@ angular.module('segoraClientApp')
         if(payment.validated){
           payment.validated = false;
           payment.validation.unvalidated_by = $scope.currentUser._id;
-          payment.audit.unvalidated_date = new Date().toISOString();
+          payment.validation.unvalidated_date = new Date().toISOString();
         }
         else{
           payment.validated = true;    
