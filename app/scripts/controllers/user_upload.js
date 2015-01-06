@@ -15,7 +15,14 @@ angular.module('segoraClientApp')
       'Karma'
     ];
 
-    var uploadAction = Settings.backendHost + '/user_upload';
+    $scope.fileTypes = [
+      {id: "user_upload", value: "Users"},
+      {id: "payment_upload", value: "Payments"}
+    ];
+
+    $scope.selectedType = "payment_upload";
+
+    var uploadAction = Settings.backendHost + '/' + $scope.selectedType;
 
     $scope.onFileSelect = function($files) {
     //$files: an array of files selected, each file has name, size, and type.

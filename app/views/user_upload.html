@@ -1,5 +1,8 @@
 <p>This is the user_upload view.</p>
 
+<select ng-options="type.id as type.value for type in fileTypes" ng-model="selectedType">
+<br>
+
 <!-- <input type="text" ng-model="myModelObj"> -->
 <input type="file" ng-file-select="onFileSelect($files)">
 <!-- <input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*"> -->
