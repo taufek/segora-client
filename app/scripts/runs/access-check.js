@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module("segoraClientApp")
-.run(function($rootScope, $location, UserSessionService, StatusService, FlashService) {
+.run(function($rootScope, $location, $templateCache, 
+    UserSessionService, StatusService, FlashService) {
         var routesThatDoesNotRequireAuth = ['/home', '/login'];
 
         $rootScope.$on('$routeChangeStart', function(event, next, current) {
@@ -24,6 +25,10 @@ angular.module("segoraClientApp")
             }
 
 
+        });
+
+        $rootScope.$on('$viewContentLoaded', function() {
+            $templateCache.removeAll();
         });
 
         $rootScope.hasAnyRoles = UserSessionService.hasAnyRoles;
