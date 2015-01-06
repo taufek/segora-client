@@ -116,7 +116,7 @@ angular.module('segoraClientApp')
 
       AddressService.getByUserId($scope.user._id, function(address){
         $scope.address = address;
-      })
+      });
     }
 
     $scope.getReceiptLink = function(paymentId){

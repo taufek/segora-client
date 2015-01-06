@@ -113,6 +113,15 @@
             <div>{{payment.audit.created_date | date:'medium'}}</div>
         </div>
 
+        <div class="form-group">
+            <label>Validated By</label>
+            <div>{{payment.validator.full_name}}</div>
+        </div>
+        <div class="form-group">
+            <label>Validated On</label>
+            <div>{{payment.validation.validated_date | date:'medium'}}</div>
+        </div>
+
       </div>
 
 

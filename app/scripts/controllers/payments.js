@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('PaymentsCtrl', function ($scope, $timeout, PaymentService, StatusService, Settings, UserSessionService) {
+  .controller('PaymentsCtrl', function ($scope, $timeout, PaymentService, StatusService, Settings, UserSessionService, UserService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -58,6 +58,11 @@ angular.module('segoraClientApp')
 
     $scope.showPayment = function(payment){
         $scope.payment = angular.copy(payment);
+
+        UserService.getById($scope.payment.validation.validated_by, function(user){
+          $scope.payment.validator = user;
+          console.log($scope.payment.validator);
+      });
     }
 
     $scope.getReceiptLink = function(paymentId){
