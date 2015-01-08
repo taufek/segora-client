@@ -27,18 +27,20 @@ angular.module('segoraClientApp')
     var updateUploadData = function(uploadId){
       $timeout(function(){
         UploadService.getById(uploadId, function(upload){
-          if(JSON.stringify($scope.uploadData) !== JSON.stringify(upload)){
-            $scope.uploadData = upload;
-            updateUploadData(uploadId);
-          }            
-          else{
+          console.log(JSON.stringify($scope.uploadDataTemp) === JSON.stringify(upload));
+          if(JSON.stringify($scope.uploadDataTemp) === JSON.stringify(upload)){
 
             FlashService.setMessage('Done.', 'success', true);
             StatusService.stop();
+          }            
+          else{
+            $scope.uploadData = upload;
+            $scope.uploadDataTemp = angular.copy(upload);
+            updateUploadData(uploadId);
           }
         });
         
-      },5000);
+      },2000);
 
     }
 
@@ -65,6 +67,7 @@ angular.module('segoraClientApp')
         // file is uploaded successfully
         console.log(data);
         updateUploadData(data.upload_id);
+        
       });
       //.error(...)
       //.then(success, error, progress); 
