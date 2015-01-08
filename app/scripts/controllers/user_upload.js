@@ -8,7 +8,7 @@
  * Controller of the segoraClientApp
  */
 angular.module('segoraClientApp')
-  .controller('UserUploadCtrl', function ($scope, Settings, $upload) {
+  .controller('UserUploadCtrl', function ($scope, Settings, $upload, UploadService, $timeout, StatusService, FlashService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -23,6 +23,24 @@ angular.module('segoraClientApp')
     $scope.selectedType = "payment_upload";
 
     var uploadAction = Settings.backendHost + '/' + $scope.selectedType;
+
+    var updateUploadData = function(uploadId){
+      $timeout(function(){
+        UploadService.getById(uploadId, function(upload){
+          if(JSON.stringify($scope.uploadData) !== JSON.stringify(upload)){
+            $scope.uploadData = upload;
+            updateUploadData(uploadId);
+          }            
+          else{
+
+            FlashService.setMessage('Done.', 'success', true);
+            StatusService.stop();
+          }
+        });
+        
+      },5000);
+
+    }
 
     $scope.onFileSelect = function($files) {
     //$files: an array of files selected, each file has name, size, and type.
@@ -41,10 +59,12 @@ angular.module('segoraClientApp')
         // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
         //formDataAppender: function(formData, key, val){}
       }).progress(function(evt) {
+        StatusService.start();
         console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
       }).success(function(data, status, headers, config) {
         // file is uploaded successfully
         console.log(data);
+        updateUploadData(data.upload_id);
       });
       //.error(...)
       //.then(success, error, progress); 
