@@ -22,7 +22,9 @@ angular.module('segoraClientApp')
 
     $scope.selectedType = "payment_upload";
 
-    var uploadAction = Settings.backendHost + '/' + $scope.selectedType;
+    var getUploadAction = function() {
+      return Settings.backendHost + '/' + $scope.selectedType;
+    }
 
     var updateUploadData = function(uploadId){
       $timeout(function(){
@@ -44,12 +46,17 @@ angular.module('segoraClientApp')
 
     }
 
+    var updateUploadUsers = function(uploadId){
+      FlashService.setMessage('Done.', 'success', true);
+      StatusService.stop();
+    }
+
     $scope.onFileSelect = function($files) {
     //$files: an array of files selected, each file has name, size, and type.
     for (var i = 0; i < $files.length; i++) {
       var file = $files[i];
       $scope.upload = $upload.upload({
-        url: uploadAction, //upload.php script, node.js route, or servlet url
+        url: getUploadAction(), //upload.php script, node.js route, or servlet url
         //method: 'POST' or 'PUT',
         //headers: {'header-key': 'header-value'},
         //withCredentials: true,
@@ -66,7 +73,12 @@ angular.module('segoraClientApp')
       }).success(function(data, status, headers, config) {
         // file is uploaded successfully
         console.log(data);
-        updateUploadData(data.upload_id);
+        if($scope.selectedType == 'payment_upload'){
+          updateUploadData(data.upload_id);          
+        }
+        else{
+          updateUploadUsers(data.upload_id);   
+        }
         
       });
       //.error(...)
