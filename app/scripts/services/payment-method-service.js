@@ -19,9 +19,7 @@ angular.module('segoraClientApp')
             },
             getPaymentMethodByCode: function(code, fn) {
                 list.forEach(function(item){
-                    console.log(item.code + ' = ' + code);
                     if(item.code == code){
-                        console.log('yes');
                         fn(item);
                     }
                 });

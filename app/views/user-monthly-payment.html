@@ -107,11 +107,11 @@
 
         <div class="form-group">
             <label>Payment Method</label>
-            <div ng-show="currentPayment.paymentMethod">{{currentPayment.bank.name}}</div>
+            <div ng-show="currentPayment.paymentMethod">{{currentPayment.paymentMethod.name}}</div>
             <div ng-hide="currentPayment.paymentMethod"><i>None</i></div>
         </div>
 
-        <div class="form-group" ng-show="currentPayment.payment_method_code == 'ibg'">
+        <div class="form-group" ng-show="currentPayment.payment.payment_method_code == 'ibg'">
             <label>Bank</label>
             <div ng-show="currentPayment.bank">{{currentPayment.bank.name}}</div>
             <div ng-hide="currentPayment.bank"><i>None</i></div>

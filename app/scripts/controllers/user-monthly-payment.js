@@ -156,7 +156,6 @@ angular.module('segoraClientApp')
       })
 
       PaymentMethodService.getPaymentMethodByCode($scope.currentPayment.payment.payment_method_code, function(paymentMethod){
-        console.log(paymentMethod);
         $scope.currentPayment.paymentMethod = paymentMethod;
       })
     }
