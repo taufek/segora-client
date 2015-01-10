@@ -41,10 +41,10 @@
                             <span ng-show='month.payment && (!month.payment.bank_reference)'><i>None</i></span>
                         </span>
                         <span ng-show="month.checked && !month.payment" >
-                            <input type="text" placeholder="bank reference #" ng-model="month.bank_reference" class="form-control">
+                            <input type="text" placeholder="bank reference #" ng-model="month.bank_reference" class="form-control" ng-maxlength="20" maxlength="20" size="5">
                         </span>
                          <span ng-show="month.checked && month.editBankReference" >
-                            <input type="text" placeholder="edit bank reference #" ng-model="month.temp.bank_reference" class="form-control">
+                            <input type="text" placeholder="edit bank reference #"  ng-model="month.temp.bank_reference" class="form-control" ng-maxlength="20" maxlength="20" size="5">
                             <span class="pull-right">
                             <button ng-click="saveEditingBankReference(month)" class="btn btn-default"><span class="glyphicon {{month.temp.icon}}"></span></button>
                             <button class="btn btn-default glyphicon glyphicon-remove" ng-click="cancelEditingBankReference(month)"></button>
