@@ -43,10 +43,12 @@ angular.module('segoraClientApp')
     }
 
     $scope.updatePayments = function(){
+      $scope.totalAmount = 0;
       $scope.months.forEach(function(month){
 
         if(month.checked && !month.disabled){
           $scope.paymentsToProcess.push(month);
+          $scope.totalAmount += 80;
         }
       });
 
