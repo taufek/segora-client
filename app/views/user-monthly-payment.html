@@ -7,7 +7,7 @@
 <div >
 
     <div style="margin-bottom:10px">
-        <button class="btn btn-primary" ng-click="save()">Update Payment</button>
+        <button class="btn btn-primary" ng-click="updatePayments()">Update Payment</button>
         
     </div>
     
@@ -36,13 +36,11 @@
                         {{month.name}}
                     </td>
                     <td>
-                        <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="cursor:pointer" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Click to edit">   
+                        <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="{{getStyleForBankReference()}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="{{getTitleForBankReference()}}">   
                             {{month.payment.bank_reference}}
                             <span ng-show='month.payment && (!month.payment.bank_reference)'><i>None</i></span>
                         </span>
-                        <span ng-show="month.checked && !month.payment" >
-                            <input type="text" placeholder="bank reference #" ng-model="month.bank_reference" class="form-control" ng-maxlength="20" maxlength="20" size="5">
-                        </span>
+                       
                          <span ng-show="month.checked && month.editBankReference" >
                             <input type="text" placeholder="edit bank reference #"  ng-model="month.temp.bank_reference" class="form-control" ng-maxlength="20" maxlength="20" size="5">
                             <span class="pull-right">
@@ -108,6 +106,18 @@
         </div>
 
         <div class="form-group">
+            <label>Payment Method</label>
+            <div ng-show="currentPayment.paymentMethod">{{currentPayment.bank.name}}</div>
+            <div ng-hide="currentPayment.paymentMethod"><i>None</i></div>
+        </div>
+
+        <div class="form-group" ng-show="currentPayment.payment_method_code == 'ibg'">
+            <label>Bank</label>
+            <div ng-show="currentPayment.bank">{{currentPayment.bank.name}}</div>
+            <div ng-hide="currentPayment.bank"><i>None</i></div>
+        </div>
+
+        <div class="form-group">
             <label>Bank Reference Number</label>
             <div ng-show="currentPayment.payment.bank_reference">{{currentPayment.payment.bank_reference}}</div>
             <div ng-hide="currentPayment.payment.bank_reference"><i>None</i></div>
@@ -135,6 +145,54 @@
 
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="newPaymentModal" tabindex="-1" role="dialog" aria-labelledby="newPaymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+        <h4 class="modal-title" id="newPaymentModalLabel"><span class="glyphicon glyphicon-info-sign"></span> New Payment Details</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+            <label>Resident</label>
+            <div>{{user.full_name}}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Payment Method</label>
+            <div>
+                <select ng-options="paymentMethod.code as paymentMethod.name for paymentMethod in paymentMethods" ng-model="selectedPaymentMethodCode" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Reference Number</label>
+            <div><input class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20"></div>
+        </div>
+
+        <div class="form-group" ng-show="selectedPaymentMethodCode == 'ibg'">
+            <label>Bank</label>
+            <div>
+                <select ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control"></select>
+            </div>
+        </div>
+
+
+                
+
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

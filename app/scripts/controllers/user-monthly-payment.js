@@ -12,7 +12,7 @@ angular.module('segoraClientApp')
     function ($scope, $location, $timeout,
       CounterService, PaymentService, StatusService
       , FlashService, UserSessionService, UserService, AddressService
-      , Settings
+      , BankService, PaymentMethodService, Settings
       , data) {
     
 
@@ -24,6 +24,14 @@ angular.module('segoraClientApp')
     $scope.payments = data.payments;
     $scope.paymentsToProcess = [];
     $scope.currentUser = UserSessionService.getUser();
+
+    BankService.list(function(banks){
+      $scope.banks = banks;
+    });
+
+    PaymentMethodService.list(function(paymentMethods){
+      $scope.paymentMethods = paymentMethods;
+    });
     
 
     $scope.changeYear = function(){
@@ -32,6 +40,27 @@ angular.module('segoraClientApp')
 
     $scope.done = function(){
       return $location.path('/user/'+$scope.userId);
+    }
+
+    $scope.updatePayments = function(){
+      $scope.months.forEach(function(month){
+
+        if(month.checked && !month.disabled){
+          $scope.paymentsToProcess.push(month);
+        }
+      });
+
+      var count = $scope.paymentsToProcess.length;
+
+      if(count > 0){
+        $('#newPaymentModal').modal('show').on('shown.bs.modal', function () {
+          
+        });
+      }
+      else{
+        FlashService.setMessage('Please select atleast one new payment.', 'danger', true);
+      }
+
     }
 
     $scope.save = function(){
@@ -55,7 +84,9 @@ angular.module('segoraClientApp')
             payment.year = $scope.selectedYear;        
             payment.month = month.number;
             payment.amount = 80;
-            payment.bank_reference = month.bank_reference;
+            payment.bank_reference = $scope.bankReferenceNumber;
+            payment.payment_method_code = $scope.selectedPaymentMethodCode;
+            payment.bank_code = $scope.selectedBankCode;
 
 
 
@@ -110,13 +141,24 @@ angular.module('segoraClientApp')
         $scope.currentPayment.payment.creator = user;
       });
 
-      UserService.getById(month.payment.validation.validated_by, function(user){
-        $scope.currentPayment.payment.validator = user;
-      });
+      if(month.payment.validation && month.payment.validation.validated_by){
+        UserService.getById(month.payment.validation.validated_by, function(user){
+          $scope.currentPayment.payment.validator = user;
+        });
+      }
 
       AddressService.getByUserId($scope.user._id, function(address){
         $scope.address = address;
       });
+
+      BankService.getBankByCode($scope.currentPayment.payment.bank_code, function(bank){
+        $scope.currentPayment.bank = bank;
+      })
+
+      PaymentMethodService.getPaymentMethodByCode($scope.currentPayment.payment.payment_method_code, function(paymentMethod){
+        console.log(paymentMethod);
+        $scope.currentPayment.paymentMethod = paymentMethod;
+      })
     }
 
     $scope.getReceiptLink = function(paymentId){
@@ -145,9 +187,24 @@ angular.module('segoraClientApp')
       PaymentService.update(month.payment, function(){
         delete month.temp;        
         month.editBankReference = false;
-      });
+      });      
+    }
 
-      
+    $scope.getTitleForBankReference = function(){
+      if($scope.hasAnyRoles(['admin','group_admin'])){
+        return "Click to edit";
+      }
+      else{
+        return "Reference #";
+      }      
+    }
+
+    $scope.getStyleForBankReference = function(){if($scope.hasAnyRoles(['admin','group_admin'])){
+        return "cursor:pointer";
+      }
+      else{
+        return "";
+      }
     }
 
     
