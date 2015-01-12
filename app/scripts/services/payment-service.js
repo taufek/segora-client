@@ -50,8 +50,8 @@ angular.module('segoraClientApp')
                     fn(payments);
                 });
             },
-            search: function(dateFrom, dateTo, fn) {
-                $http.get(Settings.backendHost+'/search/payment?created_from='+ dateFrom.toString() + '&created_to=' + dateTo.toString()).
+            search: function(dateFrom, dateTo, validated, fn) {
+                $http.get(Settings.backendHost+'/search/payment?created_from='+ dateFrom.toString() + '&created_to=' + dateTo.toString() + "&validated="+validated).
                   success(function(data, status, headers, config) {
                     fn(data);
                   }).
@@ -105,8 +105,8 @@ angular.module('segoraClientApp')
                 });
 
             },
-            searchWithUser: function(dateFrom, dateTo, fn){
-                this.search(dateFrom, dateTo, function(payments){
+            searchWithUser: function(dateFrom, dateTo, validated, fn){
+                this.search(dateFrom, dateTo, validated, function(payments){
 
                     if(payments && payments.length > 0){
                         UserService.getUsersWithAddress(function(users){

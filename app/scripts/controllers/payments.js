@@ -18,14 +18,19 @@ angular.module('segoraClientApp')
     ];
 
     $scope.payments = [];
-    $scope.createdFrom = Date.parse(new Date()).toString('dd-MM-yyyy');
+    $scope.createdFrom = Date.parse(Date.today().add(-1).months()).toString('dd-MM-yyyy');
     $scope.createdTo = Date.parse(new Date()).toString('dd-MM-yyyy');
+    $scope.validated = "any";
     $scope.currentUser = UserSessionService.getUser();
 
     $scope.search = function(){
         StatusService.start();
 
-    	PaymentService.searchWithUser(Date.parseExact($scope.createdFrom, 'dd-MM-yyyy').add(-1).day(), Date.parseExact($scope.createdTo, 'dd-MM-yyyy'), function(payments){
+    	PaymentService.searchWithUser(
+        Date.parseExact($scope.createdFrom, 'dd-MM-yyyy').add(-1).day(), 
+        Date.parseExact($scope.createdTo, 'dd-MM-yyyy'),
+        $scope.validated, 
+        function(payments){
 
     		$scope.payments = payments;
             StatusService.stop();
@@ -56,6 +61,12 @@ angular.module('segoraClientApp')
     {'code':'10', 'name':'October'},
     {'code':'11', 'name':'November'},
     {'code':'12', 'name':'December'},
+    ];
+
+    $scope.validatedOptions = [
+    {'code':'any', 'name':'Any'},
+    {'code':'validated', 'name':'Validated'},
+    {'code':'unvalidated', 'name':'Unvalidated'}
     ];
 
     $scope.showPayment = function(payment){

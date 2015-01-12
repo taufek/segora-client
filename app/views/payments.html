@@ -4,13 +4,18 @@
     
         <h4>Issued Date:</h4>
 	    <div class="form-group">
-	        <label for="from">From</label>
+	        <label for="from">From (day-month-year)</label>
             <input class="datepicker form-control" name="from" ng-model="createdFrom" data-date-format="dd-mm-yyyy">
 	    </div>
 
         <div class="form-group">
-            <label for="to">To</label>
+            <label for="to">To (day-month-year)</label>
             <input class="datepicker form-control" name="to" ng-model="createdTo" data-date-format="dd-mm-yyyy">
+        </div>
+
+        <div class="form-group">
+            <label for="validated">Validated?</label>
+            <select class="form-control" name="validated" ng-model="validated" ng-options="option.code as option.name for option in validatedOptions"></select>
         </div>
 
 	    
