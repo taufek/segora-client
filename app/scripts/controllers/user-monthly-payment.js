@@ -90,8 +90,7 @@ angular.module('segoraClientApp')
             payment.bank_reference = $scope.bankReferenceNumber;
             payment.payment_method_code = $scope.selectedPaymentMethodCode;
             payment.bank_code = $scope.selectedBankCode;
-
-
+            payment.validated = false;
 
             CounterService.next('payment_' + payment.year + '_' + payment.month, function(counter){
               
@@ -156,11 +155,11 @@ angular.module('segoraClientApp')
 
       BankService.getBankByCode($scope.currentPayment.payment.bank_code, function(bank){
         $scope.currentPayment.bank = bank;
-      })
+      });
 
       PaymentMethodService.getPaymentMethodByCode($scope.currentPayment.payment.payment_method_code, function(paymentMethod){
         $scope.currentPayment.paymentMethod = paymentMethod;
-      })
+      });
     }
 
     $scope.getReceiptLink = function(paymentId){

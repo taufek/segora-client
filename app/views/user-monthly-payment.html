@@ -101,7 +101,7 @@
         </div>
 
         <div class="form-group">
-            <label>Reference Number</label>
+            <label>Serial #</label>
             <div>{{currentPayment.payment.reference_number}}</div>
         </div>
 
@@ -118,7 +118,7 @@
         </div>
 
         <div class="form-group">
-            <label>Bank Reference Number</label>
+            <label>Reference #</label>
             <div ng-show="currentPayment.payment.bank_reference">{{currentPayment.payment.bank_reference}}</div>
             <div ng-hide="currentPayment.payment.bank_reference"><i>None</i></div>
         </div>
@@ -181,16 +181,16 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Reference Number</label>
-            <div><input class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20"></div>
-        </div>
-
         <div class="form-group" ng-show="selectedPaymentMethodCode == 'ibg'">
             <label>Bank</label>
             <div>
                 <select ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control"></select>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label>Reference #</label>
+            <div><input class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20"></div>
         </div>
 
 
