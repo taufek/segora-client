@@ -69,12 +69,10 @@ angular.module('segoraClientApp')
         }
 
         BankService.getBankByCode($scope.payment.bank_code, function(bank){
-          debugger;
           $scope.payment.bank = bank;
         });
 
         PaymentMethodService.getPaymentMethodByCode($scope.payment.payment_method_code, function(paymentMethod){
-          debugger;
           $scope.payment.paymentMethod = paymentMethod;
         });
     }
