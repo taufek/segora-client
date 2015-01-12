@@ -161,37 +161,53 @@
       </div>
       <div class="modal-body">
 
-        <div class="form-group">
-            <label>Resident</label>
-            <div>{{user.full_name}}</div>
-        </div>
 
-
-        <div class="form-group">
-            <label>Total Amount</label>
-            <div>
-                <div>{{totalAmount}}</div>
+        <form role="form" name="paymentForm">
+            <div class="form-group">
+                <label>Resident</label>
+                <div>{{user.full_name}}</div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Payment Method</label>
-            <div>
-                <select ng-options="paymentMethod.code as paymentMethod.name for paymentMethod in paymentMethods" ng-model="selectedPaymentMethodCode" class="form-control"></select>
+
+            <div class="form-group">
+                <label>Total Amount</label>
+                <div>
+                    <div>{{totalAmount}}</div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group" ng-show="selectedPaymentMethodCode == 'ibg'">
-            <label>Bank</label>
-            <div>
-                <select ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control"></select>
+            <div class="form-group">
+                <label>Payment Method</label>
+                <div>
+                    <select name="payment_method" ng-options="paymentMethod.code as paymentMethod.name for paymentMethod in paymentMethods" ng-model="selectedPaymentMethodCode" class="form-control" required></select>
+                    <span class="error text-danger" ng-show="paymentForm.payment_method.$error.required">
+                        Required!
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Reference #</label>
-            <div><input class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20"></div>
-        </div>
+            <div class="form-group" ng-show="selectedPaymentMethodCode == 'ibg'">
+                <label>Bank</label>
+                <div>
+                    <select name="bank" ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control"></select >
+                    <span class="error text-danger" ng-show="paymentForm.bank.$error.required">
+                        Required!
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Reference #</label>
+                <div>
+                    <input name="reference_number" class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20" required>
+
+                    <span class="error text-danger" ng-show="paymentForm.reference_number.$error.required">
+                        Required!
+                    </span></div>
+            </div>
+
+        </form>
+
 
 
                 
@@ -200,7 +216,7 @@
 
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

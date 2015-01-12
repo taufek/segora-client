@@ -67,14 +67,12 @@ angular.module('segoraClientApp')
     }
 
     $scope.save = function(){
+
+      if(!$scope.paymentForm.$valid){          
+          return false;
+      }
+
       StatusService.start();
-
-      // $scope.months.forEach(function(month){
-
-      //   if(month.checked && !month.disabled){
-      //     $scope.paymentsToProcess.push(month);
-      //   }
-      // });
 
       var count = $scope.paymentsToProcess.length;
       var index = 0;
@@ -103,6 +101,7 @@ angular.module('segoraClientApp')
                 if(count == index){
                   $location.search('refresh', new Date().getTime());
                   $location.path('/user/'+$scope.userId+'/monthly_payment/'+$scope.selectedYear);
+                  $('#newPaymentModal').modal('hide');
                   FlashService.setMessage('Saved.', 'success');
                 }
               });          
