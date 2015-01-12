@@ -17,17 +17,24 @@
     
     <div class="form-group">
         <label>Residents</label>
-        <ul class="list-group" ng-show="selectedUsers.length > 0">
-            <li class="list-group-item" ng-repeat="user in selectedUsers | filter:userSearch.keyword">
-                <a href="#/user/{{user._id}}">
-                    {{user.full_name}}
-                </a>
-
-                <a href="#/user/{{user._id}}/address/{{user.address._id}}">({{user.address.fullAddress}})</a>
-
-                <a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}"><span class="glyphicon glyphicon-usd pull-right"></span></a>
-            </li>
-        </ul>
+        <div class="panel panel-default">
+        <table class="table" ng-show="selectedUsers.length > 0">
+            <tbody>
+            <tr ng-repeat="user in selectedUsers | filter:userSearch.keyword">
+                <td>
+                    <a href="#/user/{{user._id}}">
+                        {{user.full_name}}
+                    </a>
+                
+                    <a href="#/user/{{user._id}}/address/{{user.address._id}}">({{user.address.fullAddress}})</a>
+                </td>
+                <td>
+                    <a href="#/user/{{user._id}}/monthly_payment/{{currentYear}}"><button  class="btn btn-sm btn-primary pull-right">Payments</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
         <div class="panel panel-default" ng-show="!selectedUsers.length > 0">
             <div class="panel-body">
                 <i>No members</i>
