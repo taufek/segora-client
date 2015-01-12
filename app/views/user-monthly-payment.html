@@ -189,7 +189,7 @@
             <div class="form-group" ng-show="selectedPaymentMethodCode == 'ibg'">
                 <label>Bank</label>
                 <div>
-                    <select name="bank" ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control"></select >
+                    <select name="bank" ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control" ng-required="getRequiredForBankField()"></select >
                     <span class="error text-danger" ng-show="paymentForm.bank.$error.required">
                         Required!
                     </span>

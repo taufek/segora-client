@@ -263,4 +263,11 @@ angular.module('segoraClientApp')
       }
       return "Unvalidated";
     }
+
+    $scope.getRequiredForBankField = function(){
+      if($scope.selectedPaymentMethodCode == 'ibg'){
+        return true;
+      }
+      return false;
+    }
   });
