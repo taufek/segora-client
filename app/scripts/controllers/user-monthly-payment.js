@@ -25,13 +25,28 @@ angular.module('segoraClientApp')
     $scope.paymentsToProcess = [];
     $scope.currentUser = UserSessionService.getUser();
 
+    $scope.isAdmin = function(){
+      if($scope.hasAnyRoles(['system_admin','admin', 'group_admin'])){
+        return true;
+      }
+      return false;
+    }
+
     BankService.list(function(banks){
       $scope.banks = banks;
     });
 
-    PaymentMethodService.list(function(paymentMethods){
-      $scope.paymentMethods = paymentMethods;
-    });
+    if($scope.isAdmin()){
+      PaymentMethodService.list(function(paymentMethods){
+        $scope.paymentMethods = paymentMethods;      
+      });        
+    }
+    else{
+      PaymentMethodService.listForNonAdmin(function(paymentMethods){
+        $scope.paymentMethods = paymentMethods;      
+      }); 
+    }
+
     
 
     $scope.changeYear = function(){
@@ -212,13 +227,6 @@ angular.module('segoraClientApp')
     $timeout(function(){
       $('[data-toggle="tooltip"]').tooltip();
     }, 1000);
-
-    $scope.isAdmin = function(){
-      if($scope.hasAnyRoles(['system_admin','admin', 'group_admin'])){
-        return true;
-      }
-      return false;
-    }
 
     $scope.validate = function(payment){
 
