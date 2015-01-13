@@ -270,4 +270,13 @@ angular.module('segoraClientApp')
       }
       return false;
     }
+
+    $scope.getRequiredForReference = function(){
+      if($scope.selectedPaymentMethodCode == 'cash'){
+        return false;
+      }
+      return true;
+    }
+
+    
   });

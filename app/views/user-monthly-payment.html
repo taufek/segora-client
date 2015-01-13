@@ -196,10 +196,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-hide="selectedPaymentMethodCode == 'cash'">
                 <label>Reference #</label>
                 <div>
-                    <input name="reference_number" class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20" required>
+                    <input name="reference_number" class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20" ng-required="getRequiredForReference()">
 
                     <span class="error text-danger" ng-show="paymentForm.reference_number.$error.required">
                         Required!
