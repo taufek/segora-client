@@ -3,7 +3,7 @@
 angular.module('segoraClientApp')
 .factory("CookieService", function($cookies) {
     return {
-        get: function(key) {
+        get: function(key, fn) {
             return $cookies[key];
         },
         set: function(key, val) {

@@ -7,7 +7,9 @@ angular.module('segoraClientApp')
             if(CookieService.get('login')){
                 return true;
             }
-            return false;
+            else{
+                return false;    
+            }            
         },
         createSession: function(username, password){
             CookieService.set('login', 'true');
