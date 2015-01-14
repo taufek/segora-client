@@ -120,10 +120,6 @@ angular.module('segoraClientApp')
                                         if(payment.audit.created_by == user._id.toString()){
                                             payment.audit.created_by_user = user;
                                         }
-
-                                        if(payment.validated && payment.validation.validated_by == user._id.toString()){
-                                            payment.validation.validated_by_user = user;
-                                        }
                                     });                                    
                                 });
 
