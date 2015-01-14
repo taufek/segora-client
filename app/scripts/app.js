@@ -20,7 +20,8 @@ angular
         'ngSanitize',
         'ngTouch',
         'angular-md5',
-        'angularFileUpload'
+        'angularFileUpload',
+        'ngCookies'
     ])
     .config(function($routeProvider) {
         $routeProvider

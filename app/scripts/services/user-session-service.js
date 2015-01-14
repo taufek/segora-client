@@ -1,47 +1,47 @@
 'use strict';
 
 angular.module('segoraClientApp')
-.factory("UserSessionService", function(SessionService, md5) {
+.factory("UserSessionService", function(CookieService, md5) {
     return {        
         hasSession: function(){
-            if(SessionService.get('login')){
+            if(CookieService.get('login')){
                 return true;
             }
             return false;
         },
         createSession: function(username, password){
-            SessionService.set('login', 'true');
-            SessionService.set('username', username);
-            SessionService.set('hash', md5.createHash(password));
+            CookieService.set('login', 'true');
+            CookieService.set('username', username);
+            CookieService.set('hash', md5.createHash(password));
         },
         addRoles: function(roles){
-            SessionService.set('roles', JSON.stringify(roles));
+            CookieService.set('roles', JSON.stringify(roles));
         },
         addUser: function(user){
-            SessionService.set('user', JSON.stringify(user));
+            CookieService.set('user', JSON.stringify(user));
         },
         removeSession: function(fn){
-            SessionService.unset('login');
-            SessionService.unset('username');
-            SessionService.unset('hash');
-            SessionService.unset('roles');
-            SessionService.unset('user');
+            CookieService.unset('login');
+            CookieService.unset('username');
+            CookieService.unset('hash');
+            CookieService.unset('roles');
+            CookieService.unset('user');
             fn();
         },
         getHash: function(){
-            return SessionService.get('hash');
+            return CookieService.get('hash');
         },
         getUsername: function(){
-            return SessionService.get('username');
+            return CookieService.get('username');
         },
         getUser: function(){
-            return JSON.parse(SessionService.get('user'));
+            return JSON.parse(CookieService.get('user'));
         },
         hasAnyRoles: function(arrayRoles) {
             var flag = false;
-            var stringifyRoles = SessionService.get('roles');
+            var stringifyRoles = CookieService.get('roles');
             if (stringifyRoles != 'undefined') {
-                var roles = JSON.parse(SessionService.get('roles'));
+                var roles = JSON.parse(CookieService.get('roles'));
                 if (roles) {
                     roles.forEach(function(role) {
                         for (var i = 0; i < arrayRoles.length; i++) {
