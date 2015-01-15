@@ -140,4 +140,12 @@ angular.module('segoraClientApp')
             }
         }
 
+        $scope.showAddResidentsForm = function(){
+            $('#userModal').modal('show');
+        }
+
+        $scope.showAddAdminsForm = function(){
+            $('#adminModal').modal('show');
+        }
+
     });
