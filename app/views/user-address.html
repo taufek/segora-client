@@ -43,10 +43,10 @@
                    ng-model="address.number" placeholder="Enter a house number"
                    required
                    ng-minlength="1">
-            <span class="error text-danger" ng-show="addressForm.number.$error.required">
+            <span class="error label label-default" ng-show="addressForm.number.$error.required">
                 Required!
             </span>
-            <span class="error text-danger" ng-show="addressForm.number.$error.minlength">
+            <span class="error label label-default" ng-show="addressForm.number.$error.minlength">
                 Too short!
             </span>
         </div>
@@ -57,10 +57,10 @@
                    ng-model="address.street" placeholder="Enter a street"
                    required
                    ng-minlength="2">
-            <span class="error text-danger" ng-show="addressForm.street.$error.required">
+            <span class="error label label-default" ng-show="addressForm.street.$error.required">
                 Required!
             </span>
-            <span class="error text-danger" ng-show="addressForm.street.$error.minlength">
+            <span class="error label label-default" ng-show="addressForm.street.$error.minlength">
                 Too short!
             </span>
         </div>

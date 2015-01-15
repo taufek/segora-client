@@ -180,7 +180,7 @@
                 <label>Payment Method</label>
                 <div>
                     <select name="payment_method" ng-options="paymentMethod.code as paymentMethod.name for paymentMethod in paymentMethods" ng-model="selectedPaymentMethodCode" class="form-control" required></select>
-                    <span class="error text-danger" ng-show="paymentForm.payment_method.$error.required">
+                    <span class="error label label-default" ng-show="paymentForm.payment_method.$error.required">
                         Required!
                     </span>
                 </div>
@@ -190,7 +190,7 @@
                 <label>Bank</label>
                 <div>
                     <select name="bank" ng-options="bank.code as bank.name for bank in banks" ng-model="selectedBankCode" class="form-control" ng-required="getRequiredForBankField()"></select >
-                    <span class="error text-danger" ng-show="paymentForm.bank.$error.required">
+                    <span class="error label label-default" ng-show="paymentForm.bank.$error.required">
                         Required!
                     </span>
                 </div>
@@ -201,7 +201,7 @@
                 <div>
                     <input name="reference_number" class="form-control" ng-model="bankReferenceNumber" ng-maxlength="20" maxlength="20" ng-required="getRequiredForReference()">
 
-                    <span class="error text-danger" ng-show="paymentForm.reference_number.$error.required">
+                    <span class="error label label-default" ng-show="paymentForm.reference_number.$error.required">
                         Required!
                     </span></div>
             </div>

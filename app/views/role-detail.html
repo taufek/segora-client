@@ -36,13 +36,13 @@
                    required
                    ng-minlength="2"
                    ng-maxlength="20">
-            <span class="error text-danger" ng-show="roleForm.code.$error.required">
+            <span class="error label label-default" ng-show="roleForm.code.$error.required">
                 Required!
             </span>
-            <span class="error text-danger" ng-show="roleForm.code.$error.minlength">
+            <span class="error label label-default" ng-show="roleForm.code.$error.minlength">
                 Too short!
             </span>
-            <span class="error text-danger" ng-show="roleForm.code.$error.maxlength">
+            <span class="error label label-default" ng-show="roleForm.code.$error.maxlength">
                 Too long!
             </span>
         </div>
@@ -53,10 +53,10 @@
                    ng-model="role.name" placeholder="Enter a first name"
                    required
                    ng-minlength="2">
-            <span class="error text-danger" ng-show="roleForm.name.$error.required">
+            <span class="error label label-default" ng-show="roleForm.name.$error.required">
                 Required!
             </span>
-            <span class="error text-danger" ng-show="roleForm.name.$error.minlength">
+            <span class="error label label-default" ng-show="roleForm.name.$error.minlength">
                 Too short!
             </span>
         </div>
