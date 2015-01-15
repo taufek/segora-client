@@ -91,6 +91,10 @@ angular.module('segoraClientApp')
         PaymentMethodService.getPaymentMethodByCode($scope.payment.payment_method_code, function(paymentMethod){
           $scope.payment.paymentMethod = paymentMethod;
         });
+
+        $('#paymentInfoModal').modal('show').on('shown.bs.modal', function () {
+          
+        });
     }
 
     $scope.getReceiptLink = function(paymentId){
