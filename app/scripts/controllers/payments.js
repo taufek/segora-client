@@ -23,6 +23,8 @@ angular.module('segoraClientApp')
     $scope.validated = "any";
     $scope.currentUser = UserSessionService.getUser();
 
+    $scope.resultsCount;
+
     $scope.search = function(){
         StatusService.start();
 
@@ -33,10 +35,12 @@ angular.module('segoraClientApp')
         function(payments){
 
     		$scope.payments = payments;
-            StatusService.stop();
-            $timeout(function(){
-              $('[data-toggle="tooltip"]').tooltip();
-            }, 1000);
+        $scope.resultsCount = payments ? payments.length: 0;
+            
+        StatusService.stop();
+        $timeout(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        }, 1000);
     	});
     }
 
