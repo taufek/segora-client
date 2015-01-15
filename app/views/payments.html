@@ -33,7 +33,6 @@
 
     <table class="table" ng-show="payments">
         <tr>
-            <th>Serial #</th>
             <th>Month</th>
             <th>Address</th>
             <th>Resident</th>
@@ -42,10 +41,9 @@
         <tbody>
             <tr ng-repeat="payment in payments">
             <td>
-                <a href="#/user/{{payment.user._id}}/monthly_payment/{{payment.year}}">{{payment.reference_number}}</a>
-            </td>
-            <td>
+                <a href="#/user/{{payment.user._id}}/monthly_payment/{{payment.year}}">
                 {{months[payment.month].name}} {{payment.year}}
+                </a>
             </td>
             <td>
                 {{payment.user.address.fullAddress}}
