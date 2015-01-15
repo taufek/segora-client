@@ -40,11 +40,10 @@ angular.module('segoraClientApp')
     	});
     }
 
-    var datepicker = $('.datepicker').datepicker({format:'dd-mm-yyyy'});
-    // datepicker.datepicker('.datepicker');
-    datepicker.on('changeDate', function(ev) {
+    var datepicker = $('.datepicker').datetimepicker();
+
+    datepicker.on('dp.change', function(ev) {
         console.log(ev);
-        datepicker.datepicker('hide');
     });
 
     $scope.months = [
