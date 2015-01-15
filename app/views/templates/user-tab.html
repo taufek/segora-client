@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs" role="tablist" style="margin-bottom:10px">
-  <li ng-class="isActive('user')"><a href="{{getUserLink()}}">Resident</a></li>
+  <li ng-class="isActive('user')"><a href="{{getUserLink()}}">Tenant</a></li>
   <li ng-class="isActive('roles')" ng-show="hasAnyRoles(['system_admin'])"><a href="{{getRolesLink()}}">Roles</a></li>
   <li ng-class="isActive('credential')"><a href="{{getCredentialLink()}}" >Password</a></li>
   <li ng-class="isActive('address')" ><a href="{{getAddressLink()}}" >Address</a></li>
