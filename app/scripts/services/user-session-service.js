@@ -42,7 +42,7 @@ angular.module('segoraClientApp')
         hasAnyRoles: function(arrayRoles) {
             var flag = false;
             var stringifyRoles = CookieService.get('roles');
-            if (stringifyRoles != 'undefined') {
+            if (stringifyRoles != undefined) {
                 var roles = JSON.parse(CookieService.get('roles'));
                 if (roles) {
                     roles.forEach(function(role) {
