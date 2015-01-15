@@ -20,6 +20,10 @@ angular.module('segoraClientApp')
         }
 
         if($scope.hasSession()){
+
+            var hash = UserSessionService.getHash();
+
+            
             var currentYear = new Date().getFullYear();
             $location.path('/user/'+UserSessionService.getUser()._id+'/monthly_payment/'+currentYear); 
         }
