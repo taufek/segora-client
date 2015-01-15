@@ -80,7 +80,6 @@ angular.module('segoraClientApp')
         if($scope.payment.validation && $scope.payment.validation.validated_by){
           UserService.getById($scope.payment.validation.validated_by, function(user){
             $scope.payment.validator = user;
-            console.log($scope.payment.validator);
           });          
         }
 

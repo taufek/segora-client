@@ -61,7 +61,7 @@
                             </a>
 
                             <a href="" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="View details">
-                            <span style="margin-right:10px; margin-top:5px" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#paymentInfoModal" ng-click="showPayment(month)"></span>
+                            <span style="margin-right:10px; margin-top:5px" class="glyphicon glyphicon-info-sign" ng-click="showPayment(month)"></span>
                             </a>
 
                             <span ng-hide="month.payment.validated" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="Delete payment" style="color:#F73640; margin-top:5px" class="glyphicon glyphicon-remove" ng-show="hasAnyRoles(['admin'])" confirmed-click="remove(month.payment._id)" ng-confirm-click="Are you sure? This will remove this payment details."></span>
