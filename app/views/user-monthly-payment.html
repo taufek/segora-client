@@ -22,7 +22,7 @@
             <tr>
                 <th>Paid?</th>
                 <th>Month</th>
-                <th>Reference #</th>
+               <!--  <th>Reference #</th> -->
                 <th>Actions</th>
             </tr>
 
@@ -35,7 +35,7 @@
                     <td>
                         {{month.name}}
                     </td>
-                    <td>
+                    <!-- <td>
                         <span ng-show="!month.editBankReference" ng-click="editBankReference(month)" style="{{getStyleForBankReference()}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover focus" title="{{getTitleForBankReference()}}">   
                             {{month.payment.bank_reference}}
                             <span ng-show='month.payment && (!month.payment.bank_reference)'><i>None</i></span>
@@ -48,7 +48,7 @@
                             <button class="btn btn-default glyphicon glyphicon-remove" ng-click="cancelEditingBankReference(month)"></button>
                             </span>
                         </span>
-                    </td>
+                    </td> -->
                     <td>     
                         <span ng-show="month.payment">              
                             
