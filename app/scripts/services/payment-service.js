@@ -59,10 +59,19 @@ angular.module('segoraClientApp')
                     fn(null);
                   });
             },
-            email: function(paymentId, fn) {
-                $http.post(Settings.backendHost+'/payment_receipt/' + paymentId + '/email').
+            email: function(payment, fn) {
+                var that = this;
+                $http.post(Settings.backendHost+'/payment_receipt/' + payment._id + '/email').
                   success(function(data, status, headers, config) {
                     fn(data);
+                    if(payment.email_sent == null || payment.email_sent == undefined){
+                        payment.email_sent = [];
+                    }
+                    payment.email_sent.push({sent_date: new Date().toISOString()});
+                    that.update(payment, function(){
+                        console.log('update payment email info');
+                    });
+
                   }).
                   error(function(data, status, headers, config) {
                     fn(null);

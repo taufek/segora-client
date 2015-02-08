@@ -184,9 +184,9 @@ angular.module('segoraClientApp')
     }
 
 
-    $scope.sendEmail = function(paymentId){
+    $scope.sendEmail = function(payment){
 
-      PaymentService.email(paymentId, function(){
+      PaymentService.email(payment, function(){
         console.log('sent email');
       });
     }
@@ -266,6 +266,13 @@ angular.module('segoraClientApp')
         FlashService.setMessage('You do not have the privilege to validate a payment.', 'danger', true);
       }
 
+    }
+
+    $scope.getEmailColor = function(payment){
+      if(payment && payment.email_sent){
+        return "#428bca";
+      }
+      return "lightgrey";
     }
 
     $scope.getValidatedColor = function(payment){

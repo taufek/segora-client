@@ -58,8 +58,8 @@
                     <span style="margin-right:10px" class="glyphicon glyphicon-print " ></span>
                 </a>
 
-                <a href="" title="Email receipt" ng-click="sendEmail(payment._id)">
-                    <span style="margin-right:10px; margin-top:5px" class="glyphicon glyphicon-envelope" ></span>
+                <a href="" title="Email receipt" ng-click="sendEmail(payment)">
+                    <span style="color:{{getEmailColor(payment)}};margin-right:10px; margin-top:5px" class="glyphicon glyphicon-envelope" ></span>
                 </a>
 
                 <a href="">               
