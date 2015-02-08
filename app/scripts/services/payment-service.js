@@ -59,6 +59,15 @@ angular.module('segoraClientApp')
                     fn(null);
                   });
             },
+            email: function(paymentId, fn) {
+                $http.post(Settings.backendHost+'/payment_receipt/' + paymentId + '/email').
+                  success(function(data, status, headers, config) {
+                    fn(data);
+                  }).
+                  error(function(data, status, headers, config) {
+                    fn(null);
+                  });
+            },
             getByUserIdAndYear: function(userId, year, fn) {
                 Payment.getByUserId({
                     userId: userId,

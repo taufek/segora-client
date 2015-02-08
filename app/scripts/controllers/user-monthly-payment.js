@@ -183,6 +183,14 @@ angular.module('segoraClientApp')
       return Settings.backendHost + "/pdf_generator?url=" + (Settings.backendHost).replace('https','http') + "/payment_receipt/" + paymentId;
     }
 
+
+    $scope.sendEmail = function(paymentId){
+
+      PaymentService.email(paymentId, function(){
+        console.log('sent email');
+      });
+    }
+
     $scope.editBankReference = function(month){
 
       if($scope.hasAnyRoles(['admin','group_admin'])){
