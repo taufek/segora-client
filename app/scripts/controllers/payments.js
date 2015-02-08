@@ -144,7 +144,7 @@ angular.module('segoraClientApp')
         $('[data-toggle="tooltip"]').tooltip();
       }, 1000);
     }
-    }
+    
 
     $scope.getEmailColor = function(payment){
       if(payment && payment.email_sent){
