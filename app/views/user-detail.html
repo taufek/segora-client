@@ -75,7 +75,7 @@
             <label for="email">Email</label>
             <input class="form-control" id="email" name="email"
                    ng-model="user.email" placeholder="Enter an email"
-                   ng-pattern="/^[a-zA-Z0-9._]*@[a-zA-Z0-9_]*\.[a-zA-Z0-9._]{2,}$/">
+                   ng-pattern="/^[a-zA-Z0-9._]*@[a-zA-Z0-9_-]*\.[a-zA-Z0-9._]{2,}$/">
             <span class="error label label-default" ng-show="userForm.email.$error.pattern">
                 Invalid!
             </span>
