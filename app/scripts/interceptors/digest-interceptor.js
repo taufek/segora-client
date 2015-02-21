@@ -15,7 +15,7 @@ angular.module("segoraClientApp")
                 },
 
                 // optional method
-                'requestError': function(rejection) {                 
+                'requestError': function(rejection) {
 
                     return $q.reject(rejection);
                 },
@@ -30,32 +30,39 @@ angular.module("segoraClientApp")
                 // optional method
                 'responseError': function(rejection) {
                     // do something on error
-                
+
                     if(!rejection.config.headers.Authorization){
 
-                        var path = rejection.config.url.substring(Settings.backendHost.length, rejection.config.url.length);
+                        var endOfSubstring = rejection.config.url.length
+                        var params = rejection.config.params
+                        if(rejection.config.url.indexOf("?") >= 0){
+                          endOfSubstring = rejection.config.url.indexOf("?");
+                          params = rejection.config.url.substring(endOfSubstring+1);
+                        }
+
+                        var path = rejection.config.url.substring(Settings.backendHost.length, endOfSubstring);
                         var dh = new DigestHttp($injector.get('$http'), md5);
                         dh.setUserName(UserSessionService.getUsername());
                         dh.setPassword(UserSessionService.getHash());
                         var promise =  dh.call(rejection.config.method,
                             Settings.backendHost,
                             path,
-                            rejection.config.data,                                 
+                            rejection.config.data,
                             rejection.headers,
-                            rejection.config.params
+                            params
                         );
-                        
-                        return promise;          
+
+                        return promise;
                     }
                     else{
                         return $q.reject(rejection);
                     }
-                    
+
                 }
             };
         }]);
 
-        
+
         $httpProvider.interceptors.push('digestInterceptor');
 
 

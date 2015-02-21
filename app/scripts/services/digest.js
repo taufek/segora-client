@@ -21,13 +21,16 @@ var DigestHttpClass = function($http, md5) {
 
     this.call = function(method, host, uri, payload, headers, params) {
 
-        var finalUri = uri;
-
-        if(params){
-            finalUri += "?" + this.object2Params(params);
+        if(typeof params === 'object'){
+          params = this.object2Params(params);
+        }
+        else{
+          params = encodeURI(decodeURI(params));
         }
 
-        this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));        
+        var finalUri = uri + ((typeof params !== "undefined" && params !== "undefined") ? ("?" + params) : "");
+
+        this.setAuthenticateHeader(headers(this.wwwAuthenticationHeader));
         var nonce = this.getAuthenticateHeaderParam("nonce");
         var realm = this.getAuthenticateHeaderParam("realm");
         var qop = this.getAuthenticateHeaderParam("qop");
@@ -41,17 +44,30 @@ var DigestHttpClass = function($http, md5) {
             data: payload,
             headers: headers
         });
-      
+
     };
+
+    this.params2Object = function(params){
+      var newParams = {};
+        if(params){
+          parameters = params.split("&");
+          parameters.forEach(function(parameter){
+          keyValue = parameter.split("=");
+          newParams[keyValue[0]] = keyValue[1];
+        });
+      }
+      return newParams;
+    }
 
     this.object2Params = function(obj, prefix){
       var str = [];
       for (var p in obj) {
-        var k = prefix ? prefix + "[" + p + "]" : p, 
+        var k = prefix ? prefix + "[" + p + "]" : p,
             v = obj[k];
-        str.push(angular.isObject(v) ? qs(v, k) : (k) + "=" + encodeURIComponent(v));
+        str.push(angular.isObject(v) ? qs(v, k) : (k) + "=" + encodeURI(v).replace(/'/g,"%27"));
       }
-      return str.join("&");
+      console.log(str.sort());
+      return str.sort().join("&");
     }
 
     this.setAuthenticateHeader = function(headerValue) {
