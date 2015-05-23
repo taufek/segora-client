@@ -14,14 +14,14 @@ This README would normally document whatever steps are necessary to get your app
 
 ```
 #!bash
-npm install grunt-cli
+sudo npm install -g grunt-cli
 ```
 
 * Install Bower
 
 ```
 #!bash
-npm install bower
+sudo npm install -g bower
 ```
 
 ### Contribution guidelines ###
