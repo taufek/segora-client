@@ -44,9 +44,9 @@ sudo gem install compass
 bower install
 ```
 
-** Compile js
+** build js
 ```
-npm test
+grunt build
 ```
 
 ### Contribution guidelines ###
