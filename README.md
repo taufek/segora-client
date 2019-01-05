@@ -38,6 +38,12 @@ sudo npm install -g bower
 sudo gem install compass
 ```
 
+** Bower setup
+
+```
+bower install
+```
+
 ** Compile js
 ```
 npm test
