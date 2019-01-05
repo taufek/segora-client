@@ -32,6 +32,17 @@ sudo npm install -g grunt-cli
 sudo npm install -g bower
 ```
 
+** Install compass
+
+```
+sudo gem install compass
+```
+
+** Compile js
+```
+npm test
+```
+
 ### Contribution guidelines ###
 
 * Writing tests
