@@ -44,9 +44,20 @@ sudo gem install compass
 bower install
 ```
 
-** build js
+** Modify settings
+
+```
+Edit app/scripts/settings.js
+```
+
+** Build js
 ```
 grunt build
+```
+
+** Run app
+```
+grunt serve
 ```
 
 ### Contribution guidelines ###
