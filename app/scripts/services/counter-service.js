@@ -25,6 +25,7 @@ angular.module('segoraClientApp')
                 Counter.next({
                     name : counterName
                 }, function(counter) {
+                    console.log(counter);
 
                     if(counter.seq == undefined){
                         console.log('no counter. recalling...');
