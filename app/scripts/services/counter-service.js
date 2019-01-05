@@ -35,10 +35,7 @@ angular.module('segoraClientApp')
                     else{
                         fn(counter);
                     }
-
-                    
                 });
             }
         }
-
     });
