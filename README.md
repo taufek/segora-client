@@ -70,3 +70,7 @@ grunt serve
 
 * Repo owner or admin
 * Other community or team contact
+
+### Push to staging (segora-dev)
+git remote add heroku-staging https://git.heroku.com/segora-dev.git
+git push heroku-staging staging:master
